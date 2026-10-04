@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT SINCLAIR</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #050505;
+      color: #9a9a9a;
+      font-family: "Courier New", Courier, monospace;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Screen 1: Raw plain text timer */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .project-name {
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      letter-spacing: 0.08em;
+      color: #c2c2c2;
+      font-weight: normal;
+    }
+
+    /* Extended descent into darkness */
+    .spacer {
+      height: 250vh;
+    }
+
+    /* Screen 2: SCP-style statement */
+    .statement-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem 14rem;
+    }
+
+    .statement-box {
+      border: 1px solid #181818;
+      background-color: #080808;
+      padding: 2.5rem;
+      font-size: 0.9rem;
+      color: #7d7d7d;
+    }
+
+    .redacted {
+      background-color: #1f1f1f;
+      color: #1f1f1f;
+      user-select: none;
+      padding: 0 0.15rem;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="project-name">Project Sinclair</div>
+    <div class="countdown" id="timer">--d --h --m --s</div>
+  </section>
+
+  <div class="spacer"></div>
+
+  <section class="statement-wrap">
+    <div class="statement-box">
+      <p>
+        After the change in management on <span class="redacted">██</span>/<span class="redacted">██</span>/19<span class="redacted">██</span>, and the removal of blacksite F-53, <span class="redacted">█████████████</span> was created as an archive source. If you are here as an investigator or have access tier III, please <span class="redacted">████████</span> <span class="redacted">██████</span> <span class="redacted">████████████</span> <span class="redacted">████</span> <span class="redacted">████████</span> <span class="redacted">███████</span> <span class="redacted">██████████</span> <span class="redacted">██████</span> <span class="redacted">██████████████</span> <span class="redacted">███████</span> <span class="redacted">████████</span> <span class="redacted">█████</span> <span class="redacted">████████████</span> <span class="redacted">██████</span> <span class="redacted">████████████</span> <span class="redacted">████</span> <span class="redacted">██████████</span>.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    function getNextHalloween() {
+      const now = new Date();
+      let year = now.getFullYear();
+      let target = new Date(year, 9, 31, 0, 0, 0); // October 31, 00:00:00
+
+      if (now >= target) {
+        target = new Date(year + 1, 9, 31, 0, 0, 0);
+      }
+      return target;
+    }
+
+    const targetDate = getNextHalloween();
+
+    function update() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('timer').textContent = "00d 00h 00m 00s";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('timer').textContent =
+        `${String(d).padStart(2, '0')}d ` +
+        `${String(h).padStart(2, '0')}h ` +
+        `${String(m).padStart(2, '0')}m ` +
+        `${String(s).padStart(2, '0')}s`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>
