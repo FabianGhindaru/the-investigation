@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 &mdash; Inexistance.</title>
+<style>
+  :root{
+    --bg:#000;
+    --ink:#fff;
+    --dim:rgba(255,255,255,.38);
+  }
+
+  *{box-sizing:border-box}
+
+  html,body{height:100%}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Courier New",monospace;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  main{
+    text-align:center;
+    max-width:34ch;
+  }
+
+  .code{
+    display:block;
+    margin-bottom:clamp(18px,3vw,26px);
+    font-size:10px;
+    letter-spacing:.42em;
+    text-indent:.42em;
+    color:var(--dim);
+  }
+
+  p{
+    margin:0;
+    font-size:clamp(17px,2.6vw,23px);
+    line-height:1.45;
+    letter-spacing:.01em;
+    text-wrap:balance;
+  }
+</style>
+</head>
+<body>
+
+  <main>
+    <span class="code">404</span>
+    <p>Nice try. Go back. Nothing here. (💎)</p>
+  </main>
+
+</body>
+</html>
