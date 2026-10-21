@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archive 91-OCT-08 // O-01-991</title>
+<style>
+  :root{
+    --bg:#000;
+    --ink:#fff;
+    --dim:rgba(255,255,255,.52);
+    --line:rgba(255,255,255,.30);
+    --line-soft:rgba(255,255,255,.16);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Courier New",monospace;
+  }
+
+  *{box-sizing:border-box}
+  html,body{min-height:100%}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--mono);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(18px,3.5vw,34px);
+    padding:clamp(22px,5vw,70px) clamp(14px,4vw,36px);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* faint microfilm scan lines over the whole page */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9;
+    background:repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.030) 0 1px,
+      transparent 1px 3px
+    );
+  }
+
+  /* ── archive header ───────────────────────────────── */
+  .meta{
+    width:100%;
+    max-width:790px;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--dim);
+  }
+  .meta span:last-child{text-align:right}
+
+  /* ── the clipping ─────────────────────────────────── */
+  .clipping{
+    width:100%;
+    max-width:790px;
+    border:1px solid var(--line);
+    padding:clamp(18px,3.4vw,36px) clamp(16px,3.4vw,40px) clamp(14px,2.6vw,26px);
+    position:relative;
+    transform:rotate(-.35deg);
+    background:#000;
+  }
+  .clipping::before{
+    content:"";
+    position:absolute;
+    inset:5px;
+    border:1px solid var(--line-soft);
+    pointer-events:none;
+  }
+
+  .masthead{text-align:center}
+  .paper{
+    font-family:var(--serif);
+    font-size:clamp(20px,3.9vw,32px);
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    line-height:1.1;
+    margin:0 0 8px;
+  }
+  .rule{height:0;border-top:1px solid var(--line)}
+  .rule.double{
+    border-top:1px solid var(--line);
+    border-bottom:3px solid var(--line);
+    height:5px;
+    margin-top:9px;
+  }
+  .dateline{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+    font-size:9.5px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--dim);
+  }
+
+  /* ── headline block ───────────────────────────────── */
+  .head{
+    margin:clamp(20px,3.6vw,32px) 0 clamp(14px,2.4vw,20px);
+    text-align:center;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(27px,5.6vw,46px);
+    line-height:1.02;
+    letter-spacing:-.012em;
+    margin:0 0 .42em;
+  }
+  .dek{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(14px,2.1vw,17px);
+    line-height:1.35;
+    color:rgba(255,255,255,.80);
+    margin:0 auto;
+    max-width:34em;
+  }
+  .byline{
+    margin:clamp(14px,2.4vw,20px) 0;
+    padding:7px 0;
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+    font-size:9.5px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--dim);
+    text-align:center;
+  }
+
+  /* ── body copy ────────────────────────────────────── */
+  .cols{
+    column-count:2;
+    column-gap:34px;
+    column-rule:1px solid var(--line-soft);
+    font-family:var(--serif);
+    font-size:clamp(13.2px,1.55vw,14.6px);
+    line-height:1.58;
+  }
+  .cols p{
+    margin:0 0 .9em;
+    text-align:justify;
+    hyphens:auto;
+  }
+  .cols p:last-child{margin-bottom:0}
+
+  .dropcap{
+    float:left;
+    font-size:3.05em;
+    line-height:.82;
+    padding:.06em .09em 0 0;
+    font-weight:600;
+  }
+
+  /* ── pull quote ───────────────────────────────────── */
+  .pull{
+    margin:clamp(16px,2.6vw,22px) 0;
+    padding:clamp(12px,2vw,18px) 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .pull p{
+    font-family:var(--serif);
+    font-size:clamp(15px,2.35vw,20px);
+    line-height:1.32;
+    margin:0 auto;
+    max-width:30em;
+    text-wrap:balance;
+  }
+  .pull cite{
+    display:block;
+    margin-top:.7em;
+    font-family:var(--mono);
+    font-style:normal;
+    font-size:9px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--dim);
+  }
+
+  /* ── file note ────────────────────────────────────── */
+  .file-note{
+    margin-top:clamp(16px,2.6vw,24px);
+    padding-top:10px;
+    border-top:1px solid var(--line-soft);
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+    font-size:9px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--dim);
+  }
+
+  /* ── caption ──────────────────────────────────────── */
+  .caption{
+    width:100%;
+    max-width:790px;
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--dim);
+    line-height:1.7;
+    text-align:center;
+  }
+  .caption b{font-weight:400;color:rgba(255,255,255,.78)}
+
+  @media (max-width:620px){
+    .cols{column-count:1;column-rule:none}
+    .clipping{transform:none}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .clipping{transform:none}
+  }
+</style>
+</head>
+<body>
+
+  <header class="meta">
+    <span>The Company &mdash; Digitalization Section</span>
+  </header>
+
+  <article class="clipping">
+
+    <div class="masthead">
+      <p class="paper">The Manchester Chronicle</p>
+      <div class="rule double"></div>
+      <div class="dateline">
+        <span>Vol. CXVII &middot; No. 42</span>
+        <span>Tuesday, October 8, 1991</span>
+        <span>Five Cents</span>
+      </div>
+    </div>
+
+    <div class="head">
+      <h1>Archivist, 28, Found Dead in Bed</h1>
+      <p class="dek">Coroner rules suicide after autopsy finds no wound, no poison, and no cause</p>
+    </div>
+
+    <div class="byline">By E. Halvorsen &middot; Courier Staff</div>
+
+    <div class="cols">
+      <p><span class="dropcap">M</span>ANCHESTER, Oct. 7 &mdash; Julian Mercer, a twenty-eight-year-old archivist employed by the county records office, was found dead in his bed at his apartment on Harrow Street shortly after nine o&rsquo;clock Monday morning, the coroner&rsquo;s office said.</p>
+
+      <p>He had not reported for work. A colleague who let herself in with the building key found him in the rear bedroom, the covers drawn up to his chest and his arms folded over them.</p>
+
+      <p>On Tuesday the death was officially ruled a suicide. Forensic investigators found no defensive wounds, no chemical intoxicants in his blood, and no organic trauma of any kind.</p>
+
+      <p>Mr. Mercer had, by every available account, simply laid down, crossed his arms, and ceased breathing.</p>
+    </div>
+
+    <blockquote class="pull">
+      <p>&ldquo;An impossible, voluntary cessation of autonomic brainstem function.&rdquo;</p>
+      <cite>Medical examiner&rsquo;s report, Oct. 8, 1991</cite>
+    </blockquote>
+
+    <div class="cols">
+      <p>That phrase, which appears nowhere in the standard pathology literature, was offered by the medical examiner&rsquo;s office as the cause of death. Asked to elaborate, a spokesperson for the coroner said only that the report &ldquo;stands as written.&rdquo;</p>
+
+      <p>&ldquo;His body had simply given up the will to live,&rdquo; one examiner said, speaking on condition of anonymity.</p>
+
+      <p>No note was found. The bed was made. His shoes had been placed together on the floor beside it, toes to the wall.</p>
+
+      <p>Mr. Mercer had worked at the records office for six years, most recently in the basement holdings, cataloguing estate papers and unclaimed correspondence. Co-workers described him as quiet and punctual. &ldquo;He was the kind of person who put things back exactly where he found them,&rdquo; said Marguerite Doyle, a supervisor.</p>
+
+      <p>Funeral arrangements were not announced. &ldquo;We don&rsquo;t have a box for this,&rdquo; the coroner said.</p>
+    </div>
+
+    <div class="file-note">
+      <span>Autopsy photographs withheld from public record</span>
+      <span>Page A1 &middot; End</span>
+    </div>
+
+  </article>
+
+  <footer class="caption">
+    <b>Fig. 1</b> &mdash; Clipping, page A1. Microfilm scan, inverted. Box 14, folder 104.
+  </footer>
+
+</body>
+</html>
