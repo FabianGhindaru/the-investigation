@@ -194,6 +194,44 @@
     color:var(--dim);
   }
 
+  .glitch{
+    position:relative;
+    display:inline-block;
+    text-shadow:-1px 0 rgba(255,60,60,.55),1px 0 rgba(90,220,255,.55);
+    animation:glitch-jitter 2.6s infinite;
+  }
+  .glitch::before,
+  .glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    overflow:hidden;
+    pointer-events:none;
+    opacity:0;
+  }
+  .glitch::before{color:rgba(255,70,70,.9);animation:glitch-a 1.9s infinite steps(1)}
+  .glitch::after{color:rgba(90,220,255,.9);animation:glitch-b 1.4s infinite steps(1)}
+  @keyframes glitch-jitter{
+    0%,70%,100%{transform:translate(0)}
+    72%{transform:translate(-1px,1px)}
+    74%{transform:translate(2px,-1px)}
+    76%{transform:translate(0)}
+  }
+  @keyframes glitch-a{
+    0%,55%,100%{clip-path:inset(0);opacity:0}
+    56%{clip-path:inset(15% 0 60% 0);opacity:.85;transform:translateX(-3px)}
+    58%{clip-path:inset(55% 0 20% 0);opacity:.7;transform:translateX(3px)}
+    60%{clip-path:inset(0);opacity:0}
+  }
+  @keyframes glitch-b{
+    0%,30%,100%{clip-path:inset(0);opacity:0}
+    31%{clip-path:inset(40% 0 35% 0);opacity:.8;transform:translateX(3px)}
+    33%{clip-path:inset(5% 0 75% 0);opacity:.65;transform:translateX(-3px)}
+    35%{clip-path:inset(0);opacity:0}
+  }
+
   /* ── file note ────────────────────────────────────── */
   .file-note{
     margin-top:clamp(16px,2.6vw,24px);
@@ -229,13 +267,14 @@
 
   @media (prefers-reduced-motion:reduce){
     .clipping{transform:none}
+    .glitch,.glitch::before,.glitch::after{animation:none}
   }
 </style>
 </head>
 <body>
 
   <header class="meta">
-    <span>The Company &mdash; Digitalization Section</span>
+    <span>The Company / Digitalization Section</span>
   </header>
 
   <article class="clipping">
@@ -255,25 +294,25 @@
       <p class="dek">Coroner rules suicide after autopsy finds no wound, no poison, and no cause</p>
     </div>
 
-    <div class="byline">By E. Halvorsen &middot; Courier Staff</div>
+    <div class="byline">By E. Halvorsen &middot; Chronicle Staff</div>
 
     <div class="cols">
       <p><span class="dropcap">M</span>ANCHESTER, Oct. 7 &mdash; Julian Mercer, a twenty-eight-year-old archivist employed by the county records office, was found dead in his bed at his apartment on Harrow Street shortly after nine o&rsquo;clock Monday morning, the coroner&rsquo;s office said.</p>
 
       <p>He had not reported for work. A colleague who let herself in with the building key found him in the rear bedroom, the covers drawn up to his chest and his arms folded over them.</p>
 
-      <p>On Tuesday the death was officially ruled a suicide. Forensic investigators found no defensive wounds, no chemical intoxicants in his blood, and no organic trauma of any kind.</p>
+      <p>On Tuesday the death was officially ruled a suicide. Forensic investigators found no defensive wounds, no intoxicants in his blood, and no organic trauma.</p>
 
-      <p>Mr. Mercer had, by every available account, simply laid down, crossed his arms, and ceased breathing.</p>
+      <p>By all accounts, Mr. Mercer had lain down, crossed his arms, and stopped breathing.</p>
     </div>
 
     <blockquote class="pull">
-      <p>&ldquo;An impossible, voluntary cessation of autonomic brainstem function.&rdquo;</p>
+      <p>&ldquo;An impossible, voluntary <span class="glitch" data-text="cessation">cessation</span> of autonomic brainstem function.&rdquo;</p>
       <cite>Medical examiner&rsquo;s report, Oct. 8, 1991</cite>
     </blockquote>
 
     <div class="cols">
-      <p>That phrase, which appears nowhere in the standard pathology literature, was offered by the medical examiner&rsquo;s office as the cause of death. Asked to elaborate, a spokesperson for the coroner said only that the report &ldquo;stands as written.&rdquo;</p>
+      <p>The medical examiner&rsquo;s office gave that phrase, which appears nowhere in the standard pathology literature, as the cause of death. Asked to elaborate, a spokesperson for the coroner said only that the report &ldquo;stands as written.&rdquo;</p>
 
       <p>&ldquo;His body had simply given up the will to live,&rdquo; one examiner said, speaking on condition of anonymity.</p>
 
@@ -294,6 +333,37 @@
   <footer class="caption">
     <b>Fig. 1</b> &mdash; Clipping, page A1. Microfilm scan, inverted. Box 14, folder 104.
   </footer>
+
+  <script>
+  (() => {
+    const el = document.querySelector('.glitch');
+    if (!el) return;
+    const text = 'cessation';
+    const chars = 'cessation0123456789';
+    const reset = () => {
+      el.style.transform = '';
+      el.style.textShadow = '';
+      el.textContent = text;
+    };
+    const glitch = () => {
+      const jx = (Math.random() * 4 - 2).toFixed(1);
+      const r = (Math.random() * 4 - 2).toFixed(1);
+      const c = (Math.random() * 4 - 2).toFixed(1);
+      el.style.transform = `translateX(${jx}px)`;
+      el.style.textShadow = `${r}px 0 rgba(255,60,60,.9), ${c}px 0 rgba(90,220,255,.9)`;
+      if (Math.random() < 0.6) {
+        const i = 1 + Math.floor(Math.random() * (text.length - 2));
+        el.textContent = text.slice(0, i) + chars[Math.floor(Math.random() * chars.length)] + text.slice(i + 1);
+      }
+      setTimeout(reset, 90 + Math.random() * 140);
+    };
+    const loop = () => {
+      glitch();
+      setTimeout(loop, 1800 + Math.random() * 1600);
+    };
+    setTimeout(loop, 900);
+  })();
+  </script>
 
 </body>
 </html>
