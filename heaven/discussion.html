@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAL-16-0434 — Internal Line Log</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --dim: #7d7d7d;
+    --accent: #6ea8ff;
+    --bracket: #ff4d7d;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  body {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 20px 96px;
+  }
+
+  .sheet {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header block ---------- */
+
+  .header {
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 22px;
+    margin-bottom: 34px;
+  }
+
+  .header h1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin: 0 0 18px;
+  }
+
+  .header h1 .tag {
+    color: var(--dim);
+    font-weight: 400;
+    letter-spacing: .12em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 2px 14px;
+    font-size: 13px;
+  }
+
+  .meta dt {
+    color: var(--dim);
+    letter-spacing: .08em;
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .meta dd .arrow { color: var(--accent); }
+
+  .clearance {
+    color: var(--bracket);
+  }
+
+  .note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ---------- transcript ---------- */
+
+  .log {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .line {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .ts {
+    color: var(--dim);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .said { margin: 0; }
+
+  .speaker {
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
+  .speaker::after { content: ":"; color: var(--dim); margin-right: .5ch; }
+
+  .text { color: var(--fg); }
+
+  /* system / bracketed events */
+
+  .event {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .event .val {
+    color: var(--bracket);
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .call-end {
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid #1e1e1e;
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--bracket);
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 14px; padding: 36px 16px 72px; }
+    .line, .event { grid-template-columns: 1fr; gap: 2px; }
+    .meta { grid-template-columns: 1fr; gap: 0 0; }
+    .meta dt { margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="header">
+    <h1>WCT / HQ Internal Line Log <span class="tag">— transcript</span></h1>
+
+    <dl class="meta">
+      <dt>CALL ID</dt><dd>CAL-16-0434</dd>
+      <dt>ROUTE</dt><dd>B06 <span class="arrow">&#8594;</span> B00</dd>
+      <dt>DATE</dt><dd>24.10.2016</dd>
+      <dt>START</dt><dd>23:09:07 CET</dd>
+      <dt>LINE</dt><dd>STABLE</dd>
+      <dt>TRANSCRIPT</dt><dd>Auto-generated. Not reviewed.</dd>
+      <dt>CLEARANCE</dt><dd class="clearance">[III]</dd>
+    </dl>
+
+    <p class="note">Unverified automatic record</p>
+  </header>
+
+  <section class="log">
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Line dropout 48.7s]</span>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:09:56</span>
+      <p class="said">
+        <span class="speaker">J. Montgomery</span>
+        <span class="text">Alright, makes sense. Why Berlin though? I thought we were doing this in Warsaw. Did the bastard take a first-class flight or something?</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:10:05</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">I sure wish he did. It would've been much easier that way. Nah, we lost him on foot yesterday, then got reports thirty minutes later of two youngsters getting stabbed by a boogeyman.</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:10:18</span>
+      <p class="said">
+        <span class="speaker">J. Montgomery</span>
+        <span class="text">Bastard targets anyone, huh? Any motive or specifics? Is he racist or something?</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:10:24</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">Nah, I think he does it for the love of the game. The eggheads at HQ tried to figure out his M.O., but got nothin'.</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:10:32</span>
+      <p class="said">
+        <span class="speaker">J. Montgomery</span>
+        <span class="text">Figures.</span>
+      </p>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Line dropout 24.5s]</span>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:10:59</span>
+      <p class="said">
+        <span class="speaker">J. Montgomery</span>
+        <span class="text">Alright, I've sent them now. Should arrive at Zero in eight to nine hours.</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">23:11:04</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">Thanks, Monty. Tell Sarah happy birthday from me.</span>
+      </p>
+    </div>
+
+  </section>
+
+  <p class="call-end">[Call ended. Duration 02:01.]</p>
+
+</main>
+</body>
+</html>
