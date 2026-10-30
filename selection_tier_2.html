@@ -16,14 +16,53 @@
     }
 
     body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: #000;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* Centered first screen */
+    .stage {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* Long empty scroll area below the fold */
+    .deep {
+      position: relative;
+      z-index: 2;
+      height: 350vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 48px;
+    }
+
+    .hidden-link {
+      color: transparent;
+      text-decoration: none;
+      user-select: text;
+      -webkit-user-select: text;
+      font-size: 14px;
+      letter-spacing: 2px;
+      pointer-events: none;
+    }
+
+    body.unlocked .hidden-link {
+      pointer-events: auto;
+    }
+
+    .hidden-link::selection {
+      background: #2a5bd7;
+      color: transparent;
     }
 
     /* Fullscreen WebGL Moving Shader */
@@ -224,6 +263,8 @@
   <!-- WebGL Shader Canvas -->
   <canvas id="shader-canvas"></canvas>
 
+  <div class="stage">
+
   <!-- Password Entry Gate -->
   <div class="gate-container" id="gate">
     <textarea class="gate-input" id="passInput" placeholder="ENTER CLEARANCE PHRASE..." spellcheck="false"></textarea>
@@ -238,29 +279,29 @@
 
     <div class="box">
       <div>
-        <div class="id">P-00-150</div>
-        <div class="name">Undivided Echoes</div>
+        <div class="id">P-04-623</div>
+        <div class="name">The Bitter Well of Ambovombe</div>
       </div>
-      <div class="quote">“Additionally, tests should be performed on all electrical and digital objects for malfunctions.”</div>
+      <div class="quote">“If you reach this state there is nothing we can do.”</div>
     </div>
+
+    <div class="box" aria-hidden="true" style="visibility:hidden"></div>
 
     <div class="box">
       <div>
-        <div class="id">E-01-089</div>
-        <div class="name">The Nightcrawler</div>
+        <div class="id">P-00-137</div>
+        <div class="name">A Place Formally Known As Home</div>
       </div>
-      <div class="quote">“Classic scissors, the handle was blue. So yeah. I see her and she screams in pain.”</div>
-    </div>
-
-    <div class="box">
-      <div>
-        <div class="id">O-02-991</div>
-        <div class="name">Desire For Regression</div>
-      </div>
-      <div class="quote">“That will be all. LANCET personnel will arrive here shortly”</div>
+      <div class="quote">“People were not merely faint; they were shrieking that the walls had folded open and that the corners were 'drilling into their foreheads.'”</div>
     </div>
 
   </main>
+
+  </div>
+
+  <div class="deep">
+    <a class="hidden-link" href="#" aria-hidden="true" tabindex="-1">placeholder</a>
+  </div>
 
   <script>
     // -----------------------------------------------------------
@@ -421,6 +462,8 @@
       ) {
         // Unlock Success: Fade gate out, fade options in
         gate.classList.add('hidden');
+        document.body.classList.add('unlocked');
+        document.querySelector('.hidden-link').tabIndex = 0;
         setTimeout(() => {
           gate.style.display = 'none';
           cardsContainer.style.display = 'flex';
