@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Babel's Forest</title>
+<style>
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: #030510;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    font-family: "Courier New", ui-monospace, monospace;
+    color: #9fb08a;
+    touch-action: none;
+    user-select: none;
+  }
+  #game { position: relative; line-height: 0; }
+  canvas {
+    display: block;
+    background: #0b0d10;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  .crt {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.28) 0 1px, rgba(0,0,0,0) 1px 3px);
+  }
+  #sector {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    text-align: center;
+    font-size: clamp(15px, 2vw, 22px);
+    letter-spacing: 0.34em;
+    padding-left: 0.34em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+  }
+  #intro {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.9s ease;
+    background: radial-gradient(circle at 50% 50%, rgba(12, 3, 8, 0.4), rgba(4, 2, 8, 0.92));
+  }
+  #intro.gone { opacity: 0; }
+  .ttl {
+    font-size: clamp(22px, 5vw, 52px);
+    letter-spacing: 0.36em;
+    padding-left: 0.36em;
+    color: #e6c4bd;
+    text-shadow: 0 0 22px rgba(200, 50, 45, 0.4);
+  }
+</style>
+</head>
+<body>
+<div id="game">
+  <canvas id="screen" width="160" height="144"></canvas>
+  <div class="crt"></div>
+</div>
+<div id="sector">SECTOR 0,0</div>
+<div id="intro">
+  <div class="ttl">Babel's Forest</div>
+</div>
+
+<script>
+(function () {
+  var W = 160, H = 144, COLS = 20, ROWS = 18, TS = 8;
+  var GRASS = 0, PATH = 1, TREE = 2, BUSH = 3, ROCK = 4, FLOWER = 5, TUFT = 6, STUMP = 7;
+  var TREE2 = 8, MUSH = 9, PEBBLE = 10, POND = 11;
+  var SOLID = new Set([TREE, TREE2, BUSH, ROCK, STUMP, POND]);
+  var SPEED = 96;
+  var EVIL_SPEED = SPEED * 0.75;
+
+  var C = {
+    grass: "#1a372a",
+    grass2: "#152e20",
+    grassDark: "#0f2318",
+    grassLite: "#2a5033",
+    grassHi: "#48703c",
+    treeDark: "#0a1a13",
+    treeMid: "#11281b",
+    treeLite: "#1c3b26",
+    trunk: "#3a2c1c",
+    dirt: "#4a3b26",
+    dirtLite: "#64522f",
+    dirtDark: "#302618",
+    rock: "#444b57",
+    rockLite: "#6a7383",
+    rockDark: "#282d37",
+    flowerP: "#9c4566",
+    flowerY: "#c0a648",
+    skin: "#b0855f",
+    body: "#93372e",
+    bodyDark: "#571d1a",
+    hat: "#38603a",
+    hatDark: "#1b3321",
+    eye: "#150c09",
+    signFace: "#8f6f40",
+    signEdge: "#523d24",
+    signShadow: "#241a10",
+    signInk: "#150e07",
+    grass3: "#20402c",
+    water: "#16324a",
+    waterDark: "#0d1f2d",
+    waterLite: "#234f6e",
+    waterHi: "#3d7a92",
+    stem: "#b3ac93",
+    flowerW: "#c9cfda"
+  };
+
+  var E = {
+    hat: "#1b0a0c",
+    hatDark: "#050101",
+    skin: "#241013",
+    eye: "#ff2f2f",
+    body: "#2a0a0b",
+    bodyDark: "#0d0304"
+  };
+
+  var canvas = document.getElementById("screen");
+  var ctx = canvas.getContext("2d", { alpha: false });
+  ctx.imageSmoothingEnabled = false;
+  var sectorEl = document.getElementById("sector");
+  var introEl = document.getElementById("intro");
+
+  var sx = 0, sy = 0;
+  var map = null, screenCanvas = null;
+  var extraSolids = [];
+  var cache = new Map();
+
+  var player = { x: 80, y: 72, dir: "down", frame: 0 };
+  var walkDist = 0;
+  var flash = 0;
+  var tGlobal = 0;
+
+  var roomsPassed = 0;
+  var evil = null;
+  var shake = 0;
+  var hurt = 0;
+  var spawnGlow = 0;
+
+  var keys = {};
+  var touchVec = { x: 0, y: 0 };
+  var touchOrigin = null;
+
+  // The enemy used to appear every 1-4 rooms. Its chance per room is now
+  // doubled, so the gap between encounters is 1-2 rooms instead.
+  function evilGap() {
+    return 1 + Math.floor(Math.random() * 2);
+  }
+
+  var nextEvilAt = evilGap();
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0;
+      a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function drawTile(g, c, r, type, rnd) {
+    var x = c * TS, y = r * TS;
+    var put = function (dx, dy, w, h, col) {
+      g.fillStyle = col;
+      g.fillRect(x + dx, y + dy, w, h);
+    };
+
+    var gv = rnd();
+    put(0, 0, 8, 8, gv < 0.34 ? C.grass : gv < 0.68 ? C.grass2 : C.grass3);
+    for (var i = 0; i < 5; i++) {
+      put((rnd() * 8) | 0, (rnd() * 8) | 0, 1, 1, rnd() < 0.5 ? C.grassLite : C.grassDark);
+    }
+    if (rnd() < 0.2) put((rnd() * 6) | 0, (rnd() * 6) | 0, 2, 1, C.grassLite);
+
+    if (type === PATH) {
+      put(0, 0, 8, 8, rnd() < 0.35 ? C.dirtDark : C.dirt);
+      for (var p = 0; p < 6; p++) {
+        put((rnd() * 8) | 0, (rnd() * 8) | 0, 1, 1, rnd() < 0.5 ? C.dirtLite : C.dirtDark);
+      }
+      if (rnd() < 0.3) put((rnd() * 6) | 0, (rnd() * 6) | 0, 2, 2, C.dirtLite);
+      if (rnd() < 0.22) put((rnd() * 5) | 0, (rnd() * 5) | 0, 3, 1, C.dirtDark);
+      if (rnd() < 0.18) put((rnd() * 6) | 0, (rnd() * 6) | 0, 1, 3, C.dirtLite);
+    } else if (type === TREE) {
+      put(3, 6, 2, 2, C.trunk);
+      put(1, 2, 6, 4, C.treeDark);
+      put(2, 1, 4, 5, C.treeMid);
+      put(0, 3, 8, 2, C.treeMid);
+      put(3, 0, 2, 1, C.treeMid);
+      put(2, 1, 4, 2, C.treeLite);
+      put(1, 3, 2, 2, C.treeLite);
+      put(5, 4, 2, 2, C.treeDark);
+    } else if (type === BUSH) {
+      put(1, 3, 6, 4, C.treeDark);
+      put(1, 3, 5, 3, C.treeMid);
+      put(2, 2, 4, 2, C.treeMid);
+      put(2, 2, 2, 1, C.treeLite);
+      put(3, 4, 1, 1, C.grassHi);
+    } else if (type === ROCK) {
+      put(1, 3, 6, 4, C.rockDark);
+      put(2, 2, 4, 3, C.rock);
+      put(2, 2, 2, 2, C.rockLite);
+      put(4, 4, 2, 2, C.rockDark);
+    } else if (type === FLOWER) {
+      var fc = rnd() < 0.4 ? C.flowerP : rnd() < 0.6 ? C.flowerY : C.flowerW;
+      var fc2 = rnd() < 0.5 ? C.flowerY : C.flowerP;
+      put(2, 2, 1, 1, C.grassHi);
+      put(6, 5, 1, 1, C.grassHi);
+      put(3, 3, 1, 1, fc);
+      put(4, 4, 1, 1, fc2);
+      put(5, 2, 1, 1, fc);
+      if (rnd() < 0.5) put(1, 6, 1, 1, fc2);
+    } else if (type === TUFT) {
+      put(2, 5, 1, 2, C.grassHi);
+      put(4, 4, 1, 3, C.grassLite);
+      put(6, 5, 1, 2, C.grassHi);
+    } else if (type === STUMP) {
+      put(1, 3, 6, 4, C.dirtDark);
+      put(2, 3, 4, 3, C.dirt);
+      put(3, 3, 2, 2, C.dirtLite);
+    } else if (type === TREE2) {
+      put(3, 0, 2, 1, C.treeDark);
+      put(2, 1, 4, 1, C.treeMid);
+      put(1, 2, 6, 1, C.treeMid);
+      put(2, 2, 2, 1, C.treeLite);
+      put(0, 3, 8, 1, C.treeDark);
+      put(2, 4, 4, 1, C.treeMid);
+      put(1, 5, 6, 1, C.treeDark);
+      put(2, 5, 2, 1, C.treeMid);
+      put(3, 6, 2, 2, C.trunk);
+    } else if (type === MUSH) {
+      put(3, 4, 2, 3, C.stem);
+      put(2, 3, 4, 1, C.bodyDark);
+      put(2, 2, 4, 2, C.body);
+      put(3, 3, 1, 1, C.flowerW);
+      put(5, 3, 1, 1, C.flowerW);
+      put(2, 6, 1, 1, C.grassHi);
+    } else if (type === PEBBLE) {
+      put(2, 4, 2, 2, C.rock);
+      put(2, 4, 1, 1, C.rockLite);
+      if (rnd() < 0.5) put(5, 5, 1, 1, C.rockDark);
+      if (rnd() < 0.5) put(6, 2, 1, 1, C.rock);
+    } else if (type === POND) {
+      put(0, 0, 8, 8, C.water);
+      put(0, 0, 8, 1, C.waterLite);
+      put(1, 1, 2, 1, C.waterHi);
+      if (rnd() < 0.5) put(4, 4, 3, 1, C.waterLite);
+      if (rnd() < 0.4) put(2, 6, 2, 1, C.waterDark);
+      if (rnd() < 0.3) put(5, 2, 2, 1, C.waterHi);
+      if (rnd() < 0.35) put((rnd() * 6) | 0, (rnd() * 6) | 0, 1, 1, C.waterHi);
+    }
+    return type;
+  }
+
+  // 3x5 pixel font. Every glyph is 3 wide, 5 tall, one char per pixel.
+  var FONT = {
+    " ": ["000", "000", "000", "000", "000"],
+    "/": ["001", "001", "010", "100", "100"],
+    "-": ["000", "000", "111", "000", "000"],
+    ".": ["000", "000", "000", "000", "010"],
+    "1": ["010", "110", "010", "010", "111"],
+    "9": ["111", "101", "111", "001", "110"],
+    "B": ["110", "101", "110", "101", "110"],
+    "Y": ["101", "101", "010", "010", "010"],
+    "a": ["110", "001", "111", "101", "111"],
+    "b": ["100", "110", "101", "101", "110"],
+    "c": ["011", "100", "100", "100", "011"],
+    "e": ["111", "101", "111", "100", "011"],
+    "f": ["011", "010", "110", "010", "010"],
+    "g": ["111", "101", "111", "001", "110"],
+    "h": ["100", "110", "101", "101", "101"],
+    "i": ["010", "000", "010", "010", "010"],
+    "k": ["100", "101", "110", "101", "101"],
+    "l": ["100", "100", "100", "100", "011"],
+    "n": ["000", "110", "101", "101", "101"],
+    "o": ["000", "111", "101", "101", "111"],
+    "r": ["000", "101", "110", "100", "100"],
+    "s": ["011", "100", "010", "001", "110"],
+    "t": ["010", "111", "010", "010", "011"],
+    "u": ["000", "101", "101", "101", "111"],
+    "w": ["101", "101", "111", "111", "101"],
+    "x": ["000", "101", "010", "101", "101"],
+    "y": ["101", "101", "111", "001", "110"]
+  };
+
+  // Draws one line of pixel text. 4px per character (3 wide + 1 gap).
+  function drawTextLine(g, text, x, y, col) {
+    g.fillStyle = col;
+    var tx = x;
+    for (var i = 0; i < text.length; i++) {
+      var glyph = FONT[text.charAt(i)];
+      if (glyph) {
+        for (var ry = 0; ry < 5; ry++) {
+          for (var rx = 0; rx < 3; rx++) {
+            if (glyph[ry].charAt(rx) === "1") g.fillRect(tx + rx, y + ry, 1, 1);
+          }
+        }
+      }
+      tx += 4;
+    }
+  }
+
+  function drawSign(g, text) {
+    var bx = 104, by = 44, bw = 36, bh = 12;
+    g.fillStyle = C.signShadow;
+    g.fillRect(bx, by, bw, bh);
+    g.fillStyle = C.signEdge;
+    g.fillRect(bx + 1, by + 1, bw - 2, bh - 2);
+    g.fillStyle = C.signFace;
+    g.fillRect(bx + 2, by + 2, bw - 4, bh - 4);
+    g.fillStyle = C.signEdge;
+    g.fillRect(bx + 2, by + bh - 3, bw - 4, 1);
+
+    drawTextLine(g, text, bx + 3, by + 4, C.signInk);
+
+    g.fillStyle = C.flowerY;
+    g.fillRect(bx + 4, by + 3, 1, 1);
+    g.fillRect(bx + bw - 5, by + 3, 1, 1);
+
+    g.fillStyle = C.trunk;
+    g.fillRect(120, by + bh, 3, 8);
+    g.fillStyle = C.signShadow;
+    g.fillRect(119, by + bh + 7, 5, 2);
+  }
+
+  // Large plank sign standing in the top-left glade of the first room.
+  // Returns the solid rectangle it occupies.
+  function drawBabelSign(g) {
+    var bx = 8, by = 10, bw = 56, bh = 40;
+    var lines = [
+      "You either",
+      "get lost or",
+      "know exactly",
+      "where to go.",
+      "-Babel"
+    ];
+
+    g.fillStyle = C.signShadow;
+    g.fillRect(bx + 1, by + 1, bw, bh);
+
+    g.fillStyle = C.signEdge;
+    g.fillRect(bx, by, bw, bh);
+    g.fillStyle = C.signFace;
+    g.fillRect(bx + 2, by + 2, bw - 4, bh - 4);
+
+    // plank seams between the text lines
+    g.fillStyle = C.signEdge;
+    g.fillRect(bx + 2, by + 9, bw - 4, 1);
+    g.fillRect(bx + 2, by + 16, bw - 4, 1);
+    g.fillRect(bx + 2, by + 23, bw - 4, 1);
+    g.fillRect(bx + 2, by + 30, bw - 4, 1);
+
+    for (var i = 0; i < lines.length; i++) {
+      drawTextLine(g, lines[i], bx + 4, by + 4 + i * 7, C.signInk);
+    }
+
+    g.fillStyle = C.trunk;
+    g.fillRect(bx + 10, by + bh, 4, 9);
+    g.fillRect(bx + bw - 14, by + bh, 4, 9);
+    g.fillStyle = C.signShadow;
+    g.fillRect(bx + 9, by + bh + 8, 6, 2);
+    g.fillRect(bx + bw - 15, by + bh + 8, 6, 2);
+
+    return { x: bx, y: by, w: bw, h: bh + 10 };
+  }
+
+  function buildScreen(nx, ny) {
+    var seed = (Math.imul(nx, 0x27d4eb2d) ^ Math.imul(ny, 0x165667b1) ^ 0x9e3779b9) >>> 0;
+    var rand = mulberry32(seed);
+    var tiles = [];
+    var r, c;
+
+    for (r = 0; r < ROWS; r++) {
+      var row = [];
+      for (c = 0; c < COLS; c++) row.push(GRASS);
+      tiles.push(row);
+    }
+
+    for (r = 0; r < ROWS; r++) {
+      for (c = 0; c < COLS; c++) {
+        if (r === 8 || r === 9 || c === 9 || c === 10) tiles[r][c] = PATH;
+      }
+    }
+
+    var clusters = 5 + Math.floor(rand() * 4);
+    for (var k = 0; k < clusters; k++) {
+      var ccx = 1 + rand() * (COLS - 2);
+      var ccy = 1 + rand() * (ROWS - 2);
+      var rad = 1.1 + rand() * 1.9;
+      for (r = 1; r < ROWS - 1; r++) {
+        for (c = 1; c < COLS - 1; c++) {
+          if ((r >= 8 && r <= 9) || (c >= 9 && c <= 10)) continue;
+          var d = Math.sqrt((c - ccx) * (c - ccx) + (r - ccy) * (r - ccy) * 0.81);
+          if (d < rad && rand() < 0.85) tiles[r][c] = rand() < 0.7 ? TREE : TREE2;
+        }
+      }
+    }
+
+    for (r = 1; r < ROWS - 1; r++) {
+      for (c = 1; c < COLS - 1; c++) {
+        if (tiles[r][c] !== GRASS) continue;
+        if ((r >= 8 && r <= 9) || (c >= 9 && c <= 10)) continue;
+        var p = rand();
+        if (p < 0.055) tiles[r][c] = TREE;
+        else if (p < 0.1) tiles[r][c] = TREE2;
+        else if (p < 0.14) tiles[r][c] = BUSH;
+        else if (p < 0.17) tiles[r][c] = ROCK;
+        else if (p < 0.19) tiles[r][c] = STUMP;
+        else if (p < 0.23) tiles[r][c] = MUSH;
+        else if (p < 0.27) tiles[r][c] = PEBBLE;
+        else if (p < 0.39) tiles[r][c] = FLOWER;
+        else if (p < 0.64) tiles[r][c] = TUFT;
+      }
+    }
+
+    var ponds = Math.floor(rand() * 3);
+    for (var pd = 0; pd < ponds; pd++) {
+      var pcx = 2 + rand() * (COLS - 4);
+      var pcy = 2 + rand() * (ROWS - 4);
+      if (pcx > 7 && pcx < 13) continue;
+      if (pcy > 6 && pcy < 12) continue;
+      var pr = 0.9 + rand() * 1.3;
+      for (r = 1; r < ROWS - 1; r++) {
+        for (c = 1; c < COLS - 1; c++) {
+          if ((r >= 8 && r <= 9) || (c >= 9 && c <= 10)) continue;
+          var pdx = c - pcx;
+          var pdy = r - pcy;
+          if (Math.sqrt(pdx * pdx + pdy * pdy) < pr) tiles[r][c] = POND;
+        }
+      }
+    }
+
+    var isSignScreen = nx === -3 && ny === 4;
+    if (isSignScreen) {
+      for (r = 4; r <= 7; r++) {
+        for (c = 12; c <= 18; c++) tiles[r][c] = GRASS;
+      }
+    }
+
+    // First room gets a small clearing in the top-left corner for Babel's sign.
+    var isFirstRoom = nx === 0 && ny === 0;
+    if (isFirstRoom) {
+      for (r = 1; r <= 7; r++) {
+        for (c = 1; c <= 7; c++) tiles[r][c] = GRASS;
+      }
+    }
+
+    var cnv = document.createElement("canvas");
+    cnv.width = W;
+    cnv.height = H;
+    var g = cnv.getContext("2d");
+    g.imageSmoothingEnabled = false;
+    var trand = mulberry32((seed ^ 0xa5a5a5a5) >>> 0);
+    for (r = 0; r < ROWS; r++) {
+      for (c = 0; c < COLS; c++) drawTile(g, c, r, tiles[r][c], trand);
+    }
+
+    var solids = [];
+    if (isSignScreen) {
+      drawSign(g, "/info991");
+      solids.push({ x: 104, y: 44, w: 36, h: 20 });
+    }
+    if (isFirstRoom) {
+      solids.push(drawBabelSign(g));
+    }
+
+    return { tiles: tiles, canvas: cnv, solids: solids };
+  }
+
+  function loadScreen() {
+    var key = sx + "," + sy;
+    var entry = cache.get(key);
+    if (!entry) {
+      entry = buildScreen(sx, sy);
+      cache.set(key, entry);
+    }
+    map = entry.tiles;
+    screenCanvas = entry.canvas;
+    extraSolids = entry.solids || [];
+    sectorEl.textContent = "SECTOR " + sx + "," + sy;
+  }
+
+  function solidAt(px, py) {
+    var c0 = Math.floor((px + 1) / TS);
+    var c1 = Math.floor((px + 6) / TS);
+    var r0 = Math.floor((py + 1) / TS);
+    var r1 = Math.floor((py + 6) / TS);
+    for (var r = r0; r <= r1; r++) {
+      for (var c = c0; c <= c1; c++) {
+        if (r < 0 || r >= ROWS || c < 0 || c >= COLS) continue;
+        if (SOLID.has(map[r][c])) return true;
+      }
+    }
+    for (var s = 0; s < extraSolids.length; s++) {
+      var sr = extraSolids[s];
+      if (px + 1 < sr.x + sr.w && px + 6 > sr.x && py + 1 < sr.y + sr.h && py + 6 > sr.y) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function tileBlocked(c, r) {
+    if (c < 0 || c >= COLS || r < 0 || r >= ROWS) return true;
+    if (SOLID.has(map[r][c])) return true;
+    for (var s = 0; s < extraSolids.length; s++) {
+      var sr = extraSolids[s];
+      if (c * TS + TS > sr.x && c * TS < sr.x + sr.w && r * TS + TS > sr.y && r * TS < sr.y + sr.h) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function nearestFree(c, r) {
+    if (!tileBlocked(c, r)) return { c: c, r: r };
+    for (var rad = 1; rad < 14; rad++) {
+      for (var dr = -rad; dr <= rad; dr++) {
+        for (var dc = -rad; dc <= rad; dc++) {
+          if (Math.max(Math.abs(dc), Math.abs(dr)) !== rad) continue;
+          var nc = c + dc;
+          var nr = r + dr;
+          if (nc < 0 || nc >= COLS || nr < 0 || nr >= ROWS) continue;
+          if (!tileBlocked(nc, nr)) return { c: nc, r: nr };
+        }
+      }
+    }
+    return { c: 10, r: 9 };
+  }
+
+  function bfsNext(sc, sr, tc, tr) {
+    var start = sr * COLS + sc;
+    var goal = tr * COLS + tc;
+    if (start === goal) return null;
+
+    var prev = new Int16Array(COLS * ROWS);
+    prev.fill(-1);
+    prev[start] = start;
+    var queue = [start];
+    var head = 0;
+    var found = false;
+
+    while (head < queue.length) {
+      var cur = queue[head++];
+      if (cur === goal) {
+        found = true;
+        break;
+      }
+      var cc = cur % COLS;
+      var cr = (cur - cc) / COLS;
+      var ncs = [cc - 1, cc + 1, cc, cc];
+      var nrs = [cr, cr, cr - 1, cr + 1];
+      for (var k = 0; k < 4; k++) {
+        var nc = ncs[k];
+        var nr = nrs[k];
+        if (nc < 0 || nc >= COLS || nr < 0 || nr >= ROWS) continue;
+        var ni = nr * COLS + nc;
+        if (prev[ni] !== -1) continue;
+        if (tileBlocked(nc, nr)) continue;
+        prev[ni] = cur;
+        queue.push(ni);
+      }
+    }
+
+    if (!found) return null;
+    var node = goal;
+    var guard = 0;
+    while (prev[node] !== start && prev[node] !== -1 && guard < 400) {
+      node = prev[node];
+      guard++;
+    }
+    if (node === start) return null;
+    var outC = node % COLS;
+    return { c: outC, r: (node - outC) / COLS };
+  }
+
+  function spawnEvil() {
+    var mx = W - player.x - 8;
+    var my = H - player.y - 8;
+    var spot = nearestFree(Math.round(mx / TS), Math.round(my / TS));
+    var ex = spot.c * TS;
+    var ey = spot.r * TS;
+
+    var ddx = ex - player.x;
+    var ddy = ey - player.y;
+    if (ddx * ddx + ddy * ddy < 1600) {
+      var corners = [[1, 1], [COLS - 2, 1], [1, ROWS - 2], [COLS - 2, ROWS - 2]];
+      var best = null;
+      var bestD = -1;
+      for (var i = 0; i < 4; i++) {
+        var s2 = nearestFree(corners[i][0], corners[i][1]);
+        var cdx = s2.c * TS - player.x;
+        var cdy = s2.r * TS - player.y;
+        var cd = cdx * cdx + cdy * cdy;
+        if (cd > bestD) {
+          bestD = cd;
+          best = s2;
+        }
+      }
+      ex = best.c * TS;
+      ey = best.r * TS;
+    }
+
+    evil = { x: ex, y: ey, dir: "down", frame: 0, path: null, repath: 0, walk: 0 };
+    spawnGlow = 1;
+    shake = 0.4;
+  }
+
+  function caught() {
+    evil = null;
+    roomsPassed = 0;
+    nextEvilAt = evilGap();
+    hurt = 1;
+    shake = 0.55;
+    sx = 0;
+    sy = 0;
+    player.x = 80;
+    player.y = 72;
+    player.dir = "down";
+    loadScreen();
+    flash = 1;
+  }
+
+  function updateEvil(dt) {
+    if (!evil) return;
+
+    evil.walk += dt;
+    evil.repath -= dt;
+
+    var ec = Math.floor((evil.x + 4) / TS);
+    var er = Math.floor((evil.y + 4) / TS);
+    var pc = Math.floor((player.x + 4) / TS);
+    var pr = Math.floor((player.y + 4) / TS);
+
+    var tx = player.x;
+    var ty = player.y;
+    var nearWaypoint = false;
+    if (evil.path) {
+      tx = evil.path.c * TS;
+      ty = evil.path.r * TS;
+      var wdx = tx - evil.x;
+      var wdy = ty - evil.y;
+      nearWaypoint = wdx * wdx + wdy * wdy < 16;
+    }
+
+    if (evil.repath <= 0 || nearWaypoint) {
+      evil.repath = 0.12;
+      evil.path = bfsNext(ec, er, pc, pr);
+      if (evil.path) {
+        tx = evil.path.c * TS;
+        ty = evil.path.r * TS;
+      } else {
+        tx = player.x;
+        ty = player.y;
+      }
+    }
+
+    var dx = tx - evil.x;
+    var dy = ty - evil.y;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist > 0.2) {
+      dx /= dist;
+      dy /= dist;
+      if (Math.abs(dx) >= Math.abs(dy)) evil.dir = dx > 0 ? "right" : "left";
+      else evil.dir = dy > 0 ? "down" : "up";
+
+      var move = Math.min(dist, EVIL_SPEED * dt);
+      var nx = evil.x + dx * move;
+      if (!solidAt(nx, evil.y)) evil.x = nx;
+      var ny = evil.y + dy * move;
+      if (!solidAt(evil.x, ny)) evil.y = ny;
+      evil.frame = Math.floor(evil.walk * 7) % 2;
+    } else {
+      evil.frame = 0;
+    }
+
+    var hx = evil.x - player.x;
+    var hy = evil.y - player.y;
+    if (hx * hx + hy * hy < 64) caught();
+  }
+
+  var parts = [];
+  for (var i = 0; i < 38; i++) {
+    parts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 9,
+      vy: (Math.random() - 0.5) * 9,
+      ph: Math.random() * Math.PI * 2,
+      col: i % 3 === 0 ? "#ffe9a3" : i % 3 === 1 ? "#c8ff9a" : "#a8e0ff"
+    });
+  }
+
+  function drawPlayer(g, px, py, dir, frame, P) {
+    P = P || C;
+    g.save();
+    g.translate(px, py);
+    if (dir === "left") {
+      g.translate(8, 0);
+      g.scale(-1, 1);
+    }
+    var R = function (x, y, w, h, col) {
+      g.fillStyle = col;
+      g.fillRect(x, y, w, h);
+    };
+
+    R(2, 0, 4, 1, P.hatDark);
+    R(1, 1, 6, 2, P.hat);
+    R(0, 2, 8, 1, P.hatDark);
+
+    if (dir === "down") {
+      R(2, 3, 4, 2, P.skin);
+      R(3, 3, 1, 1, P.eye);
+      R(4, 3, 1, 1, P.eye);
+    } else if (dir === "up") {
+      R(2, 3, 4, 2, P.hatDark);
+      R(3, 3, 2, 1, P.hat);
+    } else {
+      R(3, 3, 4, 2, P.skin);
+      R(6, 4, 1, 1, P.eye);
+    }
+
+    R(1, 5, 6, 2, P.body);
+    R(0, 5, 1, 2, P.bodyDark);
+    R(7, 5, 1, 2, P.bodyDark);
+
+    if (dir === "down" || dir === "up") {
+      if (frame) {
+        R(1, 7, 3, 1, P.bodyDark);
+        R(5, 7, 2, 1, P.bodyDark);
+      } else {
+        R(2, 7, 2, 1, P.bodyDark);
+        R(5, 7, 3, 1, P.bodyDark);
+      }
+    } else {
+      if (frame) {
+        R(2, 7, 2, 1, P.bodyDark);
+        R(5, 7, 2, 1, P.eye);
+      } else {
+        R(3, 7, 2, 1, P.bodyDark);
+        R(5, 7, 2, 1, P.eye);
+      }
+    }
+
+    g.restore();
+  }
+
+  function update(dt) {
+    tGlobal += dt;
+
+    var ix = 0, iy = 0;
+    if (keys["ArrowLeft"] || keys["KeyA"]) ix -= 1;
+    if (keys["ArrowRight"] || keys["KeyD"]) ix += 1;
+    if (keys["ArrowUp"] || keys["KeyW"]) iy -= 1;
+    if (keys["ArrowDown"] || keys["KeyS"]) iy += 1;
+    if (Math.abs(touchVec.x) > 0.25 || Math.abs(touchVec.y) > 0.25) {
+      ix += touchVec.x;
+      iy += touchVec.y;
+    }
+
+    var mag = Math.sqrt(ix * ix + iy * iy);
+    var moving = mag > 0.01;
+
+    if (moving) {
+      ix /= mag;
+      iy /= mag;
+
+      if (Math.abs(ix) > Math.abs(iy)) {
+        player.dir = ix > 0 ? "right" : "left";
+      } else if (Math.abs(iy) > 0) {
+        player.dir = iy > 0 ? "down" : "up";
+      }
+
+      var nx = player.x + ix * SPEED * dt;
+      if (!solidAt(nx, player.y)) player.x = nx;
+      var ny = player.y + iy * SPEED * dt;
+      if (!solidAt(player.x, ny)) player.y = ny;
+
+      walkDist += SPEED * dt;
+      player.frame = Math.floor(walkDist / 10) % 2;
+    } else {
+      player.frame = 0;
+    }
+
+    if (player.x < -4) {
+      sx -= 1;
+      player.x += W;
+      onCross();
+    } else if (player.x > W - 4) {
+      sx += 1;
+      player.x -= W;
+      onCross();
+    } else if (player.y < -4) {
+      sy -= 1;
+      player.y += H;
+      onCross();
+    } else if (player.y > H - 4) {
+      sy += 1;
+      player.y -= H;
+      onCross();
+    }
+
+    updateEvil(dt);
+
+    for (var p = 0; p < parts.length; p++) {
+      var pt = parts[p];
+      pt.x += (pt.vx + Math.sin(tGlobal * 0.7 + pt.ph) * 6) * dt;
+      pt.y += (pt.vy + Math.cos(tGlobal * 0.5 + pt.ph) * 6) * dt;
+      if (pt.x < 0) pt.x += W;
+      if (pt.x >= W) pt.x -= W;
+      if (pt.y < 0) pt.y += H;
+      if (pt.y >= H) pt.y -= H;
+    }
+
+    if (flash > 0) flash = Math.max(0, flash - dt * 6);
+    if (shake > 0) shake = Math.max(0, shake - dt * 2.2);
+    if (hurt > 0) hurt = Math.max(0, hurt - dt * 1.5);
+    if (spawnGlow > 0) spawnGlow = Math.max(0, spawnGlow - dt * 2.4);
+  }
+
+  function onCross() {
+    loadScreen();
+    flash = 1;
+    evil = null;
+    roomsPassed += 1;
+    if (roomsPassed >= nextEvilAt) {
+      spawnEvil();
+      nextEvilAt = roomsPassed + evilGap();
+    }
+  }
+
+  function render() {
+    ctx.fillStyle = "#04060f";
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    if (shake > 0) {
+      ctx.translate(Math.round((Math.random() - 0.5) * 6 * shake), Math.round((Math.random() - 0.5) * 6 * shake));
+    }
+
+    ctx.drawImage(screenCanvas, 0, 0);
+
+    ctx.fillStyle = "rgba(8, 14, 38, 0.42)";
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = "lighter";
+    for (var p = 0; p < parts.length; p++) {
+      var pt = parts[p];
+      var tw = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(tGlobal * 2.1 + pt.ph * 3.1));
+      var fx = pt.x | 0;
+      var fy = pt.y | 0;
+      ctx.globalAlpha = tw;
+      ctx.fillStyle = pt.col;
+      ctx.fillRect(fx, fy, 1, 1);
+      ctx.globalAlpha = tw * 0.26;
+      ctx.fillRect(fx - 1, fy, 3, 1);
+      ctx.fillRect(fx, fy - 1, 1, 3);
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+
+    if (evil) {
+      var ex = Math.round(evil.x);
+      var ey = Math.round(evil.y);
+      var ag = ctx.createRadialGradient(ex + 4, ey + 4, 0, ex + 4, ey + 4, 20);
+      ag.addColorStop(0, "rgba(255, 20, 30, 0.34)");
+      ag.addColorStop(1, "rgba(255, 0, 0, 0)");
+      ctx.globalCompositeOperation = "lighter";
+      ctx.fillStyle = ag;
+      ctx.fillRect(ex - 20, ey - 20, 48, 48);
+      ctx.globalCompositeOperation = "source-over";
+      drawPlayer(ctx, ex, ey, evil.dir, evil.frame, E);
+    }
+
+    var px = Math.round(player.x);
+    var py = Math.round(player.y);
+    drawPlayer(ctx, px, py, player.dir, player.frame);
+
+    var lg = ctx.createRadialGradient(px + 4, py + 4, 1, px + 4, py + 4, 34);
+    lg.addColorStop(0, "rgba(255, 222, 140, 0.2)");
+    lg.addColorStop(0.55, "rgba(255, 210, 120, 0.07)");
+    lg.addColorStop(1, "rgba(255, 200, 100, 0)");
+    ctx.globalCompositeOperation = "lighter";
+    ctx.fillStyle = lg;
+    ctx.fillRect(px - 34, py - 34, 76, 76);
+    ctx.globalCompositeOperation = "source-over";
+
+    ctx.restore();
+
+    if (spawnGlow > 0) {
+      ctx.fillStyle = "rgba(200, 15, 25, " + (spawnGlow * 0.28).toFixed(3) + ")";
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    if (hurt > 0) {
+      ctx.fillStyle = "rgba(170, 10, 20, " + (hurt * 0.5).toFixed(3) + ")";
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    if (flash > 0) {
+      ctx.fillStyle = "rgba(4, 7, 20, " + (flash * 0.8).toFixed(3) + ")";
+      ctx.fillRect(0, 0, W, H);
+    }
+  }
+
+  var last = 0, acc = 0;
+  function loop(ts) {
+    requestAnimationFrame(loop);
+    if (!last) last = ts;
+    var dt = (ts - last) / 1000;
+    last = ts;
+    if (dt > 0.1) dt = 0.1;
+    acc += dt;
+    var step = 1 / 60;
+    var guard = 0;
+    while (acc >= step && guard < 6) {
+      update(step);
+      acc -= step;
+      guard++;
+    }
+    if (guard >= 6) acc = 0;
+    render();
+  }
+
+  var introGone = false;
+  function hideIntro() {
+    if (introGone) return;
+    introGone = true;
+    introEl.classList.add("gone");
+    setTimeout(function () {
+      introEl.style.display = "none";
+    }, 1000);
+  }
+
+  function resize() {
+    var s = Math.max(1, Math.floor(Math.min(window.innerWidth / W, window.innerHeight / H)));
+    canvas.style.width = W * s + "px";
+    canvas.style.height = H * s + "px";
+  }
+
+  window.addEventListener("keydown", function (e) {
+    if (
+      e.code === "ArrowUp" ||
+      e.code === "ArrowDown" ||
+      e.code === "ArrowLeft" ||
+      e.code === "ArrowRight" ||
+      e.code === "Space"
+    ) {
+      e.preventDefault();
+    }
+    keys[e.code] = true;
+    hideIntro();
+  });
+
+  window.addEventListener("keyup", function (e) {
+    keys[e.code] = false;
+  });
+
+  window.addEventListener("blur", function () {
+    keys = {};
+  });
+
+  document.addEventListener(
+    "touchstart",
+    function (e) {
+      if (e.touches.length) {
+        touchOrigin = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      hideIntro();
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "touchmove",
+    function (e) {
+      if (!touchOrigin || !e.touches.length) return;
+      var dx = e.touches[0].clientX - touchOrigin.x;
+      var dy = e.touches[0].clientY - touchOrigin.y;
+      var m = Math.sqrt(dx * dx + dy * dy);
+      if (m > 12) {
+        touchVec.x = dx / m;
+        touchVec.y = dy / m;
+      } else {
+        touchVec.x = 0;
+        touchVec.y = 0;
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "touchend",
+    function () {
+      touchOrigin = null;
+      touchVec.x = 0;
+      touchVec.y = 0;
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", resize);
+
+  resize();
+  loadScreen();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

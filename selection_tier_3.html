@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abnormality Extraction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Serif:ital,wght@1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* Fullscreen WebGL Moving Shader */
+    #shader-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* 3 Boxes Layout */
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 2.5rem;
+      max-width: 1300px;
+      width: 90%;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .box {
+      flex: 1;
+      max-width: 380px;
+      min-height: 400px;
+      background: rgba(8, 8, 10, 0.75);
+      border: 1px solid rgba(180, 25, 35, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      transition: all 0.35s ease;
+      cursor: pointer;
+    }
+
+    .box:hover {
+      border-color: rgba(220, 30, 45, 0.85);
+      background: rgba(14, 10, 12, 0.85);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(180, 20, 30, 0.25);
+    }
+
+    .id {
+      font-size: 2.2rem;
+      letter-spacing: 4px;
+      color: #e6e8ec;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .box:hover .id {
+      color: #ff3344;
+      text-shadow: 0 0 10px rgba(255, 51, 68, 0.4);
+    }
+
+    .name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      color: #b5883d;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .quote {
+      font-family: 'Noto Serif', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #8c93a0;
+      transition: color 0.3s;
+    }
+
+    .box:hover .quote {
+      color: #d7dbe2;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        overflow-y: auto;
+        height: auto;
+        padding: 2rem 0;
+      }
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .box {
+        width: 100%;
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WebGL Shader Canvas -->
+  <canvas id="shader-canvas"></canvas>
+
+  <!-- 3 Extraction Boxes -->
+  <main class="container">
+
+    <div class="box">
+      <div>
+        <div class="id">P-00-150</div>
+        <div class="name">Undivided Echoes</div>
+      </div>
+      <div class="quote">“Additionally, tests should be performed on all electrical and digital objects for malfunctions.”</div>
+    </div>
+
+    <div class="box">
+      <div>
+        <div class="id">E-01-089</div>
+        <div class="name">The Nightcrawler</div>
+      </div>
+      <div class="quote">“Classic scissors, the handle was blue. So yeah. I see her and she screams in pain.”</div>
+    </div>
+
+    <div class="box">
+      <div>
+        <div class="id">O-02-991</div>
+        <div class="name">Desire For Regression</div>
+      </div>
+      <div class="quote">“That will be all. LANCET personnel will arrive here shortly”</div>
+    </div>
+
+  </main>
+
+  <script>
+    // -----------------------------------------------------------
+    // WebGL Fluid Black & Red Moving Shader
+    // -----------------------------------------------------------
+    const canvas = document.getElementById('shader-canvas');
+    const gl = canvas.getContext('webgl');
+
+    const vsSource = `
+      attribute vec2 position;
+      void main() {
+        gl_Position = vec4(position, 0.0, 1.0);
+      }
+    `;
+
+    const fsSource = `
+      precision highp float;
+      uniform vec2 u_resolution;
+      uniform float u_time;
+
+      float hash(vec2 p) {
+        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+      }
+
+      float noise(vec2 p) {
+        vec2 i = floor(p);
+        vec2 f = fract(p);
+        vec2 u = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i + vec2(0.0,0.0)), hash(i + vec2(1.0,0.0)), u.x),
+                   mix(hash(i + vec2(0.0,1.0)), hash(i + vec2(1.0,1.0)), u.x), u.y);
+      }
+
+      float fbm(vec2 p) {
+        float v = 0.0;
+        float a = 0.5;
+        mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+        for (int i = 0; i < 4; ++i) {
+          v += a * noise(p);
+          p = rot * p * 2.1 + vec2(100.0);
+          a *= 0.48;
+        }
+        return v;
+      }
+
+      void main() {
+        vec2 st = gl_FragCoord.xy / u_resolution.xy;
+        st.x *= u_resolution.x / u_resolution.y;
+
+        float t = u_time * 0.18;
+
+        // Domain warping for moving smoky tendrils
+        vec2 q = vec2(fbm(st + vec2(t * 0.2, t * 0.1)),
+                      fbm(st + vec2(1.0)));
+
+        vec2 r = vec2(fbm(st + 1.2 * q + vec2(1.7, 9.2) + 0.15 * t),
+                      fbm(st + 1.2 * q + vec2(8.3, 2.8) + 0.12 * t));
+
+        float f = fbm(st + r);
+
+        // Black to deep blood crimson gradient
+        vec3 cBlack = vec3(0.0, 0.0, 0.0);
+        vec3 cDarkRed = vec3(0.18, 0.015, 0.025);
+        vec3 cRed = vec3(0.55, 0.03, 0.05);
+
+        vec3 color = mix(cBlack, cDarkRed, clamp((f * f) * 3.5, 0.0, 1.0));
+        color = mix(color, cRed, clamp(length(q) * 0.45, 0.0, 1.0));
+        color = mix(color, cBlack, clamp(length(r.x) * 0.35, 0.0, 1.0));
+
+        // Soft screen-edge vignette
+        vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+        float vig = uv.x * uv.y * (1.0 - uv.x) * (1.0 - uv.y);
+        vig = clamp(pow(16.0 * vig, 0.4), 0.0, 1.0);
+        color *= vig;
+
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `;
+
+    function createShader(gl, type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return shader;
+    }
+
+    const program = gl.createProgram();
+    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, vsSource));
+    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, fsSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1,
+       1, -1,
+      -1,  1,
+      -1,  1,
+       1, -1,
+       1,  1,
+    ]), gl.STATIC_DRAW);
+
+    const posLocation = gl.getAttribLocation(program, "position");
+    gl.enableVertexAttribArray(posLocation);
+    gl.vertexAttribPointer(posLocation, 2, gl.FLOAT, false, 0, 0);
+
+    const resLocation = gl.getUniformLocation(program, "u_resolution");
+    const timeLocation = gl.getUniformLocation(program, "u_time");
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(resLocation, canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let startTime = performance.now();
+    function render() {
+      const currentTime = (performance.now() - startTime) * 0.001;
+      gl.uniform1f(timeLocation, currentTime);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  </script>
+</body>
+</html>
