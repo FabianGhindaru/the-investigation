@@ -1,446 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LANCET // 137-B</title>
-<style>
-    :root {
-        --bg: #040c17;
-        --grid-major: rgba(0, 195, 255, 0.12);
-        --grid-minor: rgba(0, 195, 255, 0.03);
-        --cyan: #4dc5e8;
-        --cyan-bright: #d8f5ff;
-        --cyan-dim: rgba(77, 197, 232, 0.35);
-        --red: #ff3333;
-        --red-dim: rgba(255, 51, 51, 0.2);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE EASTERN POST | 'Mass Hysteria' Classification Sparks Outrage After 106 Commuters Evacuated from G-Class Express</title>
+    <style>
+        :root {
+            --primary: #c91717;
+            --dark: #121212;
+            --text: #2b2b2b;
+            --gray: #666;
+            --light-bg: #f8f8f8;
+            --border: #e2e2e2;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-        background-color: var(--bg);
-        color: var(--cyan);
-        font-family: "Courier New", Courier, monospace;
-        padding: 12px;
-        min-width: 1400px;
-        overflow-x: auto;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text);
+            background-color: #fff;
+            line-height: 1.6;
+        }
 
-    .canvas {
-        border: 2px solid var(--cyan-dim);
-        background-color: var(--bg);
-        background-image:
-            linear-gradient(var(--grid-major) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
-            linear-gradient(var(--grid-minor) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
-        background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
-        padding: 15px;
-        position: relative;
-    }
+        header {
+            border-bottom: 3px solid var(--dark);
+            padding: 15px 0 10px;
+        }
 
-    .frame-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--cyan-dim);
-        padding-bottom: 8px;
-        margin-bottom: 12px;
-        font-size: 10px;
-        letter-spacing: 3px;
-        color: var(--cyan-dim);
-        height: 26px;
-    }
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    .frame-header .lancet {
-        font-size: 13px;
-        letter-spacing: 9px;
-        color: var(--cyan);
-    }
+        .brand-container {
+            text-align: center;
+            margin: 15px 0 10px;
+        }
 
-    .mark-red {
-        width: 26px;
-        height: 10px;
-        border: 1px solid var(--red);
-        background: var(--red-dim);
-    }
+        .brand-title {
+            font-family: "Georgia", serif;
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--dark);
+            text-transform: uppercase;
+        }
 
-    .grid-container {
-        display: grid;
-        grid-template-columns: 2.8fr 1fr;
-        grid-template-rows: 680px 180px;
-        gap: 12px;
-    }
+        nav {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8px 20px;
+            display: flex;
+            gap: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
 
-    .viewport {
-        border: 1px solid var(--cyan-dim);
-        position: relative;
-        background: radial-gradient(circle at center, rgba(0, 90, 160, 0.12) 0%, transparent 80%);
-        overflow: hidden;
-    }
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+        }
 
-    svg line, svg circle, svg polygon, svg path, svg ellipse, svg rect {
-        vector-effect: non-scaling-stroke;
-    }
+        nav a:hover {
+            color: var(--primary);
+        }
 
-    .v-warp   { stroke: rgba(0, 195, 255, 0.20); stroke-width: 1; fill: none; }
-    .v-warp-2 { stroke: rgba(0, 195, 255, 0.10); stroke-width: 1; fill: none; }
-    .v-axis   { stroke: var(--red); stroke-width: 1; stroke-dasharray: 4, 3; }
-    .v-solid  { stroke: var(--cyan); stroke-width: 1.2; fill: none; }
-    .v-bold   { stroke: var(--cyan-bright); stroke-width: 2; fill: none; }
-    .v-facet  { fill: rgba(77, 197, 232, 0.05); stroke: var(--cyan); stroke-width: 0.8; }
-    .v-facet-bad { fill: rgba(255, 51, 51, 0.08); stroke: var(--red); stroke-width: 1; }
-    .v-dim    { stroke: var(--cyan-dim); stroke-width: 0.8; stroke-dasharray: 2, 2; }
-    .v-hair   { stroke: rgba(77, 197, 232, 0.20); stroke-width: 0.7; fill: none; }
+        .breaking-banner {
+            background-color: #fff2f2;
+            border-bottom: 1px solid #ffd4d4;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+        }
 
-    .title-block {
-        border: 1px solid var(--cyan-dim);
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
-        background: rgba(4, 12, 23, 0.95);
-        margin-top: 10px;
-        height: 44px;
-    }
+        .breaking-banner span {
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-right: 10px;
+            font-weight: 800;
+        }
 
-    .t-cell {
-        border: 1px solid var(--cyan-dim);
-        display: flex;
-        align-items: center;
-        padding: 0 10px;
-        font-size: 10px;
-        letter-spacing: 3px;
-        color: var(--cyan-dim);
-    }
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 40px;
+        }
 
-    .t-cell.accent { color: var(--cyan-bright); letter-spacing: 6px; }
-    .t-cell.warn   { color: var(--red); }
-</style>
+        .article-kicker {
+            color: var(--primary);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        h1.article-headline {
+            font-family: "Georgia", serif;
+            font-size: 38px;
+            line-height: 1.2;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .article-subdeck {
+            font-size: 19px;
+            line-height: 1.4;
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .article-body p {
+            font-family: "Georgia", serif;
+            font-size: 18px;
+            line-height: 1.75;
+            margin-bottom: 22px;
+            color: #222;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--primary);
+            margin: 30px 0;
+            padding: 10px 0 10px 25px;
+            font-style: italic;
+            font-size: 21px;
+            line-height: 1.5;
+            color: #111;
+        }
+
+        .info-box {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .info-box h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--dark);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-box ul {
+            padding-left: 20px;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        aside {
+            border-left: 1px solid var(--border);
+            padding-left: 30px;
+        }
+
+        .sidebar-widget {
+            margin-bottom: 35px;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--dark);
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        .related-story {
+            margin-bottom: 18px;
+        }
+
+        .related-story a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.35;
+            display: block;
+        }
+
+        .related-story a:hover {
+            color: var(--primary);
+        }
+
+        .related-story time {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .quote-box-sidebar {
+            background: #fff8eb;
+            border: 1px solid #ffe1a6;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: var(--light-bg);
+            padding: 30px 20px;
+            font-size: 12px;
+            color: var(--gray);
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            aside {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid var(--border);
+                padding-top: 30px;
+            }
+            .brand-title {
+                font-size: 38px;
+            }
+            h1.article-headline {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="canvas">
+    <header>
+        <div class="header-top">
+            <div>Edition: Asia-Pacific / Mainland Regional</div>
+            <div>Wednesday, August 1, 2018 | Updated 14:40 CST</div>
+        </div>
+        <div class="brand-container">
+            <div class="brand-title">The Eastern Post</div>
+        </div>
+        <nav>
+            <a href="#">National</a>
+            <a href="#">Transportation</a>
+            <a href="#">Public Health</a>
+            <a href="#">Technology</a>
+            <a href="#">Investigations</a>
+            <a href="#">Opinion</a>
+        </nav>
+        <div class="breaking-banner">
+            <span>DEVELOPING</span> Official regional health update classifies G-511 incident as "acute psychogenic episode." Outraged families demand independent audit.
+        </div>
+    </header>
 
-    <div class="frame-header">
-        <div class="lancet">LANCET</div>
-        <div class="mark-red"></div>
+    <div class="main-container">
+        <main>
+            <div class="article-kicker">Transit &amp; Security Investigation</div>
+            <h1 class="article-headline">106 Hospitalized After Night Express Halted Outside Zhenjiang; Ministry Blames 'Mass Hysteria' as Unidentified Private Contractor Whirrs Survivors Away</h1>
+            <div class="article-subdeck">Civilian doctors barred from the platform; families demand answers over unmarked transport vans, impounded rolling stock, and passengers found violently clawing at their own eyes.</div>
+
+            <div class="article-meta">
+                <span class="author-name">By Lin Tao &amp; Sarah Wei</span>
+                <span>•</span>
+                <time datetime="2018-08-01">Published: 01.08.2018, 12:15 CST</time>
+                <span>•</span>
+                <span>4 min read</span>
+            </div>
+
+            <div class="article-body">
+                <p><strong>ZHENJIANG</strong> — Outrage and skepticism are sweeping across social platforms and passenger rights networks this morning following the abrupt emergency stalling of the G-511 high-speed passenger service in rural Jiangsu province. While official municipal channels have issued a terse statement attributing the incident to "acute localized psychogenic distress" caused by a suspected ventilation fault, witnesses and leaked dispatch records describe a scene of unimaginable pandemonium that defies clinical common sense.</p>
+
+                <p>According to verified provincial transit logs, the eight-car train was traveling at approximately 290 km/h between Nanjing and Shanghai shortly after 01:15 CST when emergency automatic braking was triggered inside the 4.8-kilometer Baohua Mountain Tunnel corridor. The train drifted to a controlled stop on an isolated maintenance spur minutes later.</p>
+
+                <p>What followed was neither a technical recovery nor a conventional medical triage. Exactly 106 passengers—consisting entirely of the occupants of Carriage No. 4 and adjoining vestibules—were forcibly evacuated by emergency teams. Eyewitnesses on unsealed adjacent carriages report hearing continuous, synchronized screaming, violent thrashing, and frantic thumping against the internal partition doors for twenty minutes before power to the cabin lights abruptly cut out.</p>
+
+                <blockquote>
+                    "People were not merely faint; they were shrieking that the walls had folded open and that the corners were 'drilling into their foreheads.' Several were bleeding heavily from their noses and tear ducts, violently covering their eyes with their coats."
+                </blockquote>
+
+                <p>When municipal ambulances from Zhenjiang and Danyang arrived at the scene, local paramedics were reportedly ordered to stand down at the trackbed security perimeter. Instead, physical custody of all 106 afflicted individuals was surrendered directly to an unidentified private contingent operating unmarked silver transport vans equipped with tinted security paneling.</p>
+
+                <div class="info-box">
+                    <h4>Timeline of the G-511 Incident (August 1, 2018)</h4>
+                    <ul>
+                        <li><strong>01:14 CST:</strong> G-511 enters the Baohua tunnel complex at cruising velocity.</li>
+                        <li><strong>01:16 CST:</strong> Cab emergency braking engages; internal telemetry logs an unexplained 78-kilogram axle pressure differential.</li>
+                        <li><strong>01:38 CST:</strong> Municipal dispatch mobilized; nine regional ambulances reach the service spur.</li>
+                        <li><strong>02:05 CST:</strong> A convoy of private tactical response vehicles arrives; municipal medical workers turned away by regional transit liaisons.</li>
+                        <li><strong>04:20 CST:</strong> All 106 passengers from Carriage 4 removed on sealed stretcher frames. Carriage detached and impounded.</li>
+                    </ul>
+                </div>
+
+                <p>Leaked cellphone footage shot by an auxiliary track maintenance worker—and wiped from domestic video platforms within forty minutes of posting—shows private recovery personnel boarding Carriage 4 wearing heavy opaque headgear resembling enclosed optical visors. Moments later, two operatives were filmed carrying a heavy, lead-lined pneumatic security container from the car. Observers noted that the personnel carrying the case moved with erratic, staggering steps, despite the container measuring no larger than a standard briefcase.</p>
+
+                <p>By 07:00 this morning, the provincial health commission released its official findings, declaring the catastrophe an open-and-shut case of "transient shared conversion disorder," claiming that a localized carbon monoxide scare and an electrical short inside the cabin air scrubber triggered hyperventilation and mass panic among the 106 passengers.</p>
+
+                <p>Medical professionals have openly scoffed at the diagnosis. "Mass psychogenic illness does not cause acute ocular hemorrhage across an entire carriage in under three minutes," stated an emergency room physician at Nanjing Central Hospital who spoke on the condition of anonymity. "Nor does it require private security convoys, diplomatic clearance lanes, and the total confiscation of an entire passenger manifest's mobile phones."</p>
+
+                <p>The China Railway Corporation has since announced that the affected trainset has been removed from active service for "twenty-one days of routine inverter coil and bogie vibration testing." Calls to the Ministry of Transport regarding the identities of the private contractors and the current location of the 106 hospitalized passengers went unanswered as of press time.</p>
+            </div>
+        </main>
+
+        <aside>
+            <div class="sidebar-widget">
+                <div class="sidebar-title">Editor's Picks</div>
+                <div class="related-story">
+                    <a href="#">High-Speed Rail Bureau Announces 3-Week "Trackbed Subsidence" Inspections on Eastern Corridors</a>
+                    <time>01.08.2018 • Transport</time>
+                </div>
+                <div class="related-story">
+                    <a href="#">Ministry of Health Updates Guidelines on "Sudden Environmental Panic Clusters"</a>
+                    <time>30.07.2018 • Policy</time>
+                </div>
+                <div class="related-story">
+                    <a href="#">Foreign Logistics Entities Expand Technical Advisory Footprint on Domestic High-Speed Lines</a>
+                    <time>18.06.2018 • Industry</time>
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="sidebar-title">Leaked Audio Note</div>
+                <div class="quote-box-sidebar">
+                    <strong>Anonymous Dispatcher Recording:</strong><br>
+                    <em>"They told us it was bad air. But when they opened the carriage door, nobody was suffocating. They were screaming at a shadow on the floor that wouldn't point toward the wall. Every doctor who looked inside had to be led away vomiting."</em>
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="sidebar-title">Trending Topics</div>
+                <div style="font-size: 13px; color: var(--gray); line-height: 2;">
+                    #G511Express<br>
+                    #Carriage4<br>
+                    #ZhenjiangTunnel<br>
+                    #MassHysteriaExplanation<br>
+                    #WhereAreThe106
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <div class="grid-container">
-
-        <!-- ================= MAIN FIGURE ================= -->
-        <div class="viewport" style="grid-column: 1; grid-row: 1;">
-            <svg width="100%" height="100%" viewBox="0 0 950 680" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                    <marker id="m-red" viewBox="0 0 6 6" refX="3" refY="3"
-                            markerWidth="4" markerHeight="4" orient="auto">
-                        <polygon points="0 0, 6 3, 0 6" fill="#ff3333"/>
-                    </marker>
-                </defs>
-
-                <!-- ============ FIELD ============ -->
-                <g id="field">
-                    <!-- primary warp family -->
-                    <path d="M 100,50  Q 480,260 850,50"  class="v-warp"/>
-                    <path d="M 100,150 Q 480,310 850,150" class="v-warp"/>
-                    <path d="M 100,250 Q 480,360 850,250" class="v-warp"/>
-                    <path d="M 100,430 Q 480,320 850,430" class="v-warp"/>
-                    <path d="M 100,530 Q 480,370 850,530" class="v-warp"/>
-                    <path d="M 100,630 Q 480,420 850,630" class="v-warp"/>
-
-                    <path d="M 150,50 Q 320,340 150,630" class="v-warp"/>
-                    <path d="M 280,50 Q 380,340 280,630" class="v-warp"/>
-                    <path d="M 670,50 Q 570,340 670,630" class="v-warp"/>
-                    <path d="M 800,50 Q 630,340 800,630" class="v-warp"/>
-
-                    <!-- counter-phase warp family (no shared origin) -->
-                    <path d="M 60,100  Q 420,380 900,120"  class="v-warp-2"/>
-                    <path d="M 60,220  Q 520,300 900,260"  class="v-warp-2"/>
-                    <path d="M 60,440  Q 380,300 900,400"  class="v-warp-2"/>
-                    <path d="M 60,600  Q 560,340 900,560"  class="v-warp-2"/>
-
-                    <!-- hyperbolic parallels: lines that meet twice -->
-                    <path d="M 60,180 Q 480,330 900,180" class="v-hair"/>
-                    <path d="M 60,500 Q 480,350 900,500" class="v-hair"/>
-                    <path d="M 60,340 C 300,340 650,340 900,340" class="v-hair"/>
-                    <path d="M 60,260 C 380,320 570,360 900,420" class="v-hair"/>
-                    <path d="M 60,420 C 380,360 570,320 900,260" class="v-hair"/>
-
-                    <!-- three equal circles, three different centres -->
-                    <circle cx="452" cy="318" r="200" fill="none"
-                            stroke="rgba(255,51,51,0.16)" stroke-width="0.8"/>
-                    <circle cx="498" cy="362" r="200" fill="none"
-                            stroke="rgba(255,51,51,0.16)" stroke-width="0.8"/>
-                    <circle cx="470" cy="392" r="200" fill="none"
-                            stroke="rgba(255,51,51,0.16)" stroke-width="0.8"/>
-
-                    <!-- 11/4 star polygon: dense 11-fold weave -->
-                    <polygon points="475,90 663.9,503.7 227.5,375.6 610.2,129.7 545.4,579.9
-                                     247.6,236.1 702.4,236.1 404.6,579.9 339.8,129.7 722.5,375.6 286.1,503.7"
-                             fill="none" stroke="rgba(77,197,232,0.13)" stroke-width="0.8"/>
-
-                    <!-- anomalous self-intersecting facet -->
-                    <polygon points="140,60 230,130 140,130 230,60"
-                             fill="none" stroke="rgba(255,51,51,0.35)"
-                             stroke-width="0.9" stroke-dasharray="3,3"/>
-
-                    <!-- caliper-tick halos -->
-                    <circle cx="475" cy="340" r="250" fill="none"
-                            stroke="rgba(77,197,232,0.30)" stroke-width="8" stroke-dasharray="1 13"/>
-                    <circle cx="475" cy="340" r="292" fill="none"
-                            stroke="rgba(77,197,232,0.18)" stroke-width="6" stroke-dasharray="1 9"/>
-                    <circle cx="475" cy="340" r="318" fill="none"
-                            stroke="rgba(255,51,51,0.22)" stroke-width="10" stroke-dasharray="1 26"/>
-                </g>
-
-                <!-- ============ DEPTH LAYER A : PASSES BEHIND THE CORE ============ -->
-                <g id="back-arcs">
-                    <path d="M 260,180 C 480,260 480,420 700,500" class="v-solid"/>
-                    <path d="M 200,470 C 330,330 620,350 740,210" class="v-solid"/>
-                </g>
-
-                <!-- ============ CORE OCCLUSION HALO ============ -->
-                <g id="core-halo" stroke="#040c17" stroke-width="6" fill="none">
-                    <path d="M 440,290 L 510,290 L 530,370 L 420,370 Z"/>
-                    <path d="M 510,290 L 560,240 L 590,280 L 530,370 Z"/>
-                    <path d="M 440,290 L 390,240 L 420,200 L 460,250 Z"/>
-                    <path d="M 420,370 L 370,410 L 400,440 L 452,392 Z"/>
-                    <path d="M 530,370 L 580,410 L 548,442 L 500,392 Z"/>
-                </g>
-
-                <!-- ============ AXES ============ -->
-                <g id="axes">
-                    <line x1="475" y1="340" x2="475" y2="60"  class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="481" y="80"  fill="#ff3333" font-size="9">e₁</text>
-
-                    <line x1="475" y1="340" x2="680" y2="150" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="672" y="142" fill="#ff3333" font-size="9">e₂</text>
-
-                    <line x1="475" y1="340" x2="760" y2="280" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="766" y="277" fill="#ff3333" font-size="9">e₃</text>
-
-                    <line x1="475" y1="340" x2="740" y2="440" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="746" y="455" fill="#ff3333" font-size="9">e₄</text>
-
-                    <line x1="475" y1="340" x2="620" y2="570" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="616" y="590" fill="#ff3333" font-size="9">e₅</text>
-
-                    <line x1="475" y1="340" x2="475" y2="620" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="462" y="616" fill="#ff3333" font-size="9">e₆</text>
-
-                    <line x1="475" y1="340" x2="330" y2="570" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="312" y="588" fill="#ff3333" font-size="9">e₇</text>
-
-                    <line x1="475" y1="340" x2="210" y2="440" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="188" y="446" fill="#ff3333" font-size="9">e₈</text>
-
-                    <line x1="475" y1="340" x2="190" y2="280" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="174" y="277" fill="#ff3333" font-size="9">e₉</text>
-
-                    <line x1="475" y1="340" x2="270" y2="150" class="v-axis" marker-end="url(#m-red)"/>
-                    <text x="252" y="142" fill="#ff3333" font-size="9">e₁₀</text>
-
-                    <circle cx="475" cy="340" r="16" fill="none" stroke="#ff3333" stroke-width="1.2"/>
-                    <circle cx="475" cy="340" r="3"  fill="#ff3333"/>
-                </g>
-
-                <!-- ============ HULLS ============ -->
-                <g id="hulls">
-                    <polygon points="475,140 640,210 700,320 620,480 475,540 330,480 250,320 310,210"
-                             class="v-facet"/>
-                    <polygon points="475,180 660,300 580,450 370,450 290,300"
-                             class="v-facet-bad"/>
-                </g>
-
-                <!-- ============ CHORD KNOT (impossible over/under) ============ -->
-                <g id="chords">
-                    <!-- bottom of the stack -->
-                    <line x1="640" y1="210" x2="330" y2="480" class="v-bold"/>
-                    <circle cx="513.7" cy="320" r="4.5" fill="#040c17"/>
-                    <circle cx="475"   cy="353.7" r="4.5" fill="#040c17"/>
-
-                    <line x1="475" y1="140" x2="475" y2="540" class="v-solid"/>
-                    <circle cx="475" cy="320" r="4.5" fill="#040c17"/>
-
-                    <line x1="700" y1="320" x2="250" y2="320" class="v-bold"/>
-                    <circle cx="436.3" cy="320" r="4.5" fill="#040c17"/>
-
-                    <line x1="620" y1="480" x2="310" y2="210" class="v-bold"/>
-
-                    <!-- secondary weave strands -->
-                    <line x1="310" y1="210" x2="700" y2="320" class="v-hair"/>
-                    <line x1="700" y1="320" x2="330" y2="480" class="v-hair"/>
-                    <line x1="250" y1="320" x2="620" y2="480" class="v-hair"/>
-                    <line x1="475" y1="540" x2="640" y2="210" class="v-hair"/>
-                </g>
-
-                <!-- ============ LATCH CORE ============ -->
-                <g id="core">
-                    <path d="M 440,290 L 510,290 L 530,370 L 420,370 Z" class="v-bold"/>
-                    <path d="M 510,290 L 560,240 L 590,280 L 530,370 Z" class="v-solid"/>
-                    <path d="M 440,290 L 390,240 L 420,200 L 460,250 Z" class="v-solid"/>
-                    <path d="M 420,370 L 370,410 L 400,440 L 452,392 Z" class="v-hair"/>
-                    <path d="M 530,370 L 580,410 L 548,442 L 500,392 Z" class="v-hair"/>
-                </g>
-
-                <!-- ============ DEPTH LAYER B : PASSES IN FRONT OF THE CORE ============ -->
-                <g id="front-arcs">
-                    <path d="M 700,180 C 480,260 480,420 260,500" class="v-bold"/>
-                    <path d="M 740,470 C 620,330 330,350 200,210" class="v-bold"/>
-                </g>
-
-                <!-- ============ MARKERS / NODES / ARCS ============ -->
-                <g id="markers">
-                    <path d="M 465,340 L 465,330 L 475,330" stroke="#d8f5ff" stroke-width="1" fill="none"/>
-                    <path d="M 475,330 L 485,330 L 485,340" stroke="#d8f5ff" stroke-width="1" fill="none"/>
-                    <path d="M 475,350 L 485,350 L 485,340" stroke="#d8f5ff" stroke-width="1" fill="none"/>
-                    <path d="M 465,340 L 465,350 L 475,350" stroke="#d8f5ff" stroke-width="1" fill="none"/>
-                    <line x1="470" y1="335" x2="480" y2="345" stroke="#ff3333" stroke-width="1"/>
-                    <line x1="470" y1="345" x2="480" y2="335" stroke="#ff3333" stroke-width="1"/>
-
-                    <circle cx="475" cy="340" r="4"   fill="#fff"/>
-                    <circle cx="640" cy="210" r="5"   fill="#040c17" stroke="#ff3333" stroke-width="1.5"/>
-                    <circle cx="330" cy="480" r="5"   fill="#040c17" stroke="#ff3333" stroke-width="1.5"/>
-                    <circle cx="250" cy="320" r="5"   fill="#040c17" stroke="#ff3333" stroke-width="1.5"/>
-                    <circle cx="700" cy="320" r="5"   fill="#040c17" stroke="#ff3333" stroke-width="1.5"/>
-                    <circle cx="475" cy="140" r="4"   fill="#040c17" stroke="#4dc5e8" stroke-width="1.2"/>
-                    <circle cx="475" cy="540" r="4"   fill="#040c17" stroke="#4dc5e8" stroke-width="1.2"/>
-                    <circle cx="310" cy="210" r="3.5" fill="#040c17" stroke="#4dc5e8" stroke-width="1"/>
-                    <circle cx="620" cy="480" r="3.5" fill="#040c17" stroke="#4dc5e8" stroke-width="1"/>
-
-                    <ellipse cx="475" cy="340" rx="140" ry="40" class="v-dim" transform="rotate(-30 475 340)"/>
-                    <ellipse cx="475" cy="340" rx="140" ry="40" class="v-dim" transform="rotate(30 475 340)"/>
-                    <ellipse cx="475" cy="340" rx="140" ry="40" class="v-dim" transform="rotate(90 475 340)"/>
-                    <ellipse cx="475" cy="340" rx="196" ry="62" class="v-hair" transform="rotate(-64 475 340)"/>
-                    <ellipse cx="475" cy="340" rx="196" ry="62" class="v-hair" transform="rotate(12 475 340)"/>
-                    <ellipse cx="452" cy="318" rx="200" ry="200" fill="none"
-                             stroke="rgba(255,51,51,0.10)" stroke-width="0.6" transform="rotate(24 452 318)"/>
-                </g>
-
-                <!-- ============ CALIPER TICKS ============ -->
-                <g id="calipers">
-                    <line x1="250" y1="650" x2="700" y2="650" class="v-dim"/>
-                    <line x1="250" y1="645" x2="250" y2="655" stroke="#4dc5e8"/>
-                    <line x1="700" y1="645" x2="700" y2="655" stroke="#4dc5e8"/>
-                    <line x1="340" y1="647" x2="340" y2="653" stroke="rgba(77,197,232,0.5)"/>
-                    <line x1="430" y1="647" x2="430" y2="653" stroke="rgba(77,197,232,0.5)"/>
-                    <line x1="520" y1="647" x2="520" y2="653" stroke="rgba(77,197,232,0.5)"/>
-                    <line x1="610" y1="647" x2="610" y2="653" stroke="rgba(77,197,232,0.5)"/>
-
-                    <line x1="900" y1="140" x2="900" y2="540" class="v-dim"/>
-                    <line x1="895" y1="140" x2="905" y2="140" stroke="#ff3333"/>
-                    <line x1="895" y1="540" x2="905" y2="540" stroke="#ff3333"/>
-                    <line x1="897" y1="240" x2="903" y2="240" stroke="rgba(255,51,51,0.5)"/>
-                    <line x1="897" y1="340" x2="903" y2="340" stroke="rgba(255,51,51,0.5)"/>
-                    <line x1="897" y1="440" x2="903" y2="440" stroke="rgba(255,51,51,0.5)"/>
-                </g>
-            </svg>
-        </div>
-
-        <!-- ================= PANEL A : SHADOW MULTIPLICITY ================= -->
-        <div class="viewport" style="grid-column: 2; grid-row: 1;">
-            <svg width="100%" height="100%" viewBox="0 0 350 320" preserveAspectRatio="xMidYMid meet">
-                <circle cx="175" cy="140" r="4" fill="#fff"/>
-                <circle cx="175" cy="140" r="12" fill="none" stroke="rgba(216,245,255,0.25)" stroke-width="0.8"/>
-
-                <polygon points="170,155 180,155 183,165 167,165" fill="#4dc5e8"/>
-
-                <g stroke="#000" stroke-width="2.5" opacity="0.9">
-                    <line x1="175" y1="165" x2="330" y2="180"/>
-                    <line x1="175" y1="165" x2="310" y2="240"/>
-                    <line x1="175" y1="165" x2="260" y2="290"/>
-                    <line x1="175" y1="165" x2="200" y2="310"/>
-                    <line x1="175" y1="165" x2="140" y2="310"/>
-                    <line x1="175" y1="165" x2="80"  y2="280"/>
-                    <line x1="175" y1="165" x2="30"  y2="240"/>
-                    <line x1="175" y1="165" x2="20"  y2="180"/>
-                    <line x1="175" y1="165" x2="40"  y2="120"/>
-                    <line x1="175" y1="165" x2="80"  y2="60"/>
-                    <line x1="175" y1="165" x2="280" y2="70"/>
-                </g>
-
-                <circle cx="175" cy="165" r="110" fill="none"
-                        stroke="rgba(255,51,51,0.30)" stroke-width="1" stroke-dasharray="2,4"/>
-                <circle cx="175" cy="165" r="110" fill="none"
-                        stroke="rgba(255,51,51,0.55)" stroke-width="6" stroke-dasharray="1 62"/>
-            </svg>
-        </div>
-
-        <!-- ================= PANEL B : DOF OVERFLOW ================= -->
-        <div class="viewport" style="grid-column: 2; grid-row: 2;">
-            <svg width="100%" height="100%" viewBox="0 0 350 180" preserveAspectRatio="xMidYMid meet">
-                <circle cx="120" cy="90" r="60" fill="none" stroke="#4dc5e8" stroke-width="1"/>
-                <circle cx="120" cy="90" r="50" fill="none" stroke="#ff3333" stroke-width="0.8" stroke-dasharray="3,3"/>
-                <ellipse cx="120" cy="90" rx="60" ry="20" fill="none" stroke="#4dc5e8" stroke-width="0.8"/>
-                <ellipse cx="120" cy="90" rx="20" ry="60" fill="none" stroke="#4dc5e8" stroke-width="0.8"/>
-                <ellipse cx="120" cy="90" rx="60" ry="34" fill="none" stroke="rgba(77,197,232,0.3)" stroke-width="0.6" transform="rotate(45 120 90)"/>
-                <ellipse cx="120" cy="90" rx="60" ry="34" fill="none" stroke="rgba(77,197,232,0.3)" stroke-width="0.6" transform="rotate(-45 120 90)"/>
-
-                <line x1="120" y1="90" x2="170" y2="50" stroke="#ff3333" stroke-width="1.5"/>
-                <circle cx="170" cy="50" r="3" fill="#ff3333"/>
-                <circle cx="120" cy="90" r="4" fill="#fff"/>
-
-                <path d="M 170,50 A 62,62 0 0 1 182,112" fill="none"
-                      stroke="rgba(255,51,51,0.5)" stroke-width="1" stroke-dasharray="2,4"/>
-                <path d="M 182,112 A 70,70 0 0 1 96,152" fill="none"
-                      stroke="rgba(255,51,51,0.25)" stroke-width="1" stroke-dasharray="2,6"/>
-
-                <line x1="220" y1="90" x2="330" y2="90" class="v-dim"/>
-                <line x1="220" y1="30" x2="330" y2="30" class="v-dim"/>
-                <line x1="220" y1="150" x2="330" y2="150" class="v-dim"/>
-            </svg>
-        </div>
-
-        <!-- ================= PANEL C : CROSS-SECTIONS ================= -->
-        <div class="viewport" style="grid-column: 1; grid-row: 2;">
-            <svg width="100%" height="100%" viewBox="0 0 950 180" preserveAspectRatio="xMidYMid meet">
-
-                <g transform="translate(40, 25)">
-                    <rect x="0" y="0" width="140" height="120" fill="none" stroke="rgba(77,197,232,0.2)"/>
-                    <polygon points="70,30 110,90 30,90" class="v-solid"/>
-                    <circle cx="70" cy="65" r="15" fill="none" stroke="#ff3333"/>
-                </g>
-
-                <g transform="translate(220, 25)">
-                    <rect x="0" y="0" width="140" height="120" fill="none" stroke="rgba(77,197,232,0.2)"/>
-                    <polygon points="70,25 115,85 25,95" class="v-solid"/>
-                    <polygon points="75,35 105,95 35,85" class="v-facet-bad"/>
-                </g>
-
-                <g transform="translate(400, 25)">
-                    <rect x="0" y="0" width="140" height="120" fill="none" stroke="rgba(255,51,51,0.25)"/>
-                    <polygon points="70,20 120,50 100,105 40,105 20,50" class="v-solid"/>
-                    <line x1="70" y1="20" x2="100" y2="105" stroke="#ff3333"/>
-                    <line x1="120" y1="50" x2="40" y2="105" stroke="#ff3333"/>
-                </g>
-
-                <g transform="translate(580, 25)">
-                    <rect x="0" y="0" width="140" height="120" fill="none" stroke="rgba(255,51,51,0.35)"/>
-                    <circle cx="70" cy="65" r="40" class="v-bold" stroke-dasharray="2,4"/>
-                    <path d="M 40,40 L 100,90 M 100,40 L 40,90" stroke="#ff3333" stroke-width="1.5"/>
-                </g>
-
-                <g transform="translate(760, 25)">
-                    <rect x="0" y="0" width="140" height="120" fill="none" stroke="rgba(255,51,51,0.5)"/>
-                    <line x1="10" y1="30" x2="130" y2="30" stroke="rgba(255,51,51,0.4)" stroke-dasharray="1,2"/>
-                    <line x1="10" y1="55" x2="130" y2="55" stroke="rgba(255,51,51,0.4)" stroke-dasharray="2,5"/>
-                    <line x1="10" y1="75" x2="130" y2="75" stroke="rgba(255,51,51,0.8)" stroke-dasharray="5,2"/>
-                    <line x1="10" y1="95" x2="130" y2="95" stroke="rgba(255,51,51,0.3)" stroke-dasharray="1,4"/>
-                    <line x1="10" y1="45" x2="130" y2="45" stroke="rgba(255,51,51,0.25)" stroke-dasharray="3,3"/>
-                    <line x1="10" y1="85" x2="130" y2="85" stroke="rgba(255,51,51,0.25)" stroke-dasharray="4,6"/>
-                </g>
-            </svg>
-        </div>
-
-    </div>
-
-    <div class="title-block">
-        <div class="t-cell accent">137-B</div>
-        <div class="t-cell warn">D = 11</div>
-        <div class="t-cell">IV</div>
-    </div>
-
-</div>
+    <footer>
+        <p>&copy; 2018 The Eastern Post Media Network Ltd. All rights reserved. Reproduction without written authorization is strictly prohibited.</p>
+        <p style="margin-top: 5px;">Published from the Shanghai Bureau | Special Inquiries: editorial@easternpost.cn</p>
+    </footer>
 
 </body>
 </html>
