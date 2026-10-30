@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TES-04-0377 — BTD Test Recording Log</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --dim: #7d7d7d;
+    --accent: #6ea8ff;
+    --pink: #ff4d7d;
+    --turquoise: #3fe0c5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  body {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 20px 96px;
+  }
+
+  .sheet {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header ---------- */
+
+  .header {
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 22px;
+    margin-bottom: 34px;
+  }
+
+  .header h1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  .header h1 .tag {
+    color: var(--dim);
+    font-weight: 400;
+    letter-spacing: .12em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 2px 14px;
+    font-size: 13px;
+  }
+
+  .meta dt {
+    color: var(--dim);
+    letter-spacing: .08em;
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .subject { color: var(--pink); }
+  .status  { color: var(--turquoise); letter-spacing: .12em; }
+  .clearance { color: var(--pink); }
+
+  .note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ---------- transcript ---------- */
+
+  .log {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .line {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .ts {
+    color: var(--dim);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .said { margin: 0; }
+
+  .speaker {
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
+  .speaker::after { content: ":"; color: var(--dim); margin-right: .5ch; }
+
+  .text { color: var(--fg); }
+
+  /* stage directions */
+
+  .cue {
+    margin: 8px 0;
+    padding: 2px 0 2px 14px;
+    border-left: 2px solid var(--turquoise);
+    color: var(--turquoise);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .cue .lbl { letter-spacing: .1em; }
+
+  /* system events — pauses, resumes */
+
+  .event {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .event .val {
+    color: var(--pink);
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* redactions and key identifiers */
+
+  .redacted {
+    color: var(--pink);
+    font-weight: 700;
+    background: rgba(255, 77, 125, .12);
+    padding: 0 .3em;
+  }
+
+  .key { color: var(--pink); }
+
+  /* footer */
+
+  .terminated {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #1e1e1e;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+
+  .ghost {
+    margin: 14px 0 0;
+    font-size: 12px;
+    letter-spacing: .14em;
+    color: var(--dim);
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 14px; padding: 36px 16px 72px; }
+    .line, .event { grid-template-columns: 1fr; gap: 2px; }
+    .meta { grid-template-columns: 1fr; }
+    .meta dt { margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="header">
+    <h1>BTD Test Recording Log <span class="tag">— record TES-04-0377</span></h1>
+
+    <dl class="meta">
+      <dt>TEST ID</dt><dd>TES-04-0377</dd>
+      <dt>SUBJECT</dt><dd class="subject">P-00-150</dd>
+      <dt>FACILITY</dt><dd>B-01</dd>
+      <dt>DATE</dt><dd>27.06.2010</dd>
+      <dt>START</dt><dd>06:12:01 CET</dd>
+      <dt>STATUS</dt><dd class="status">ARCHIVED</dd>
+      <dt>CLEARANCE</dt><dd class="clearance">[II]</dd>
+    </dl>
+
+    <p class="note">Controlled test capture · subject session</p>
+  </header>
+
+  <section class="log">
+
+    <div class="line">
+      <span class="ts">06:12:01</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">"Alright. I'm Carter. I'm recording this voicelog about <span class="key">150</span>. I'm near the pond with some researchers and engineers. We are finally about to find out what is inside Mariana Trench: Electric Boogaloo, 'Lake Edition'."</span>
+      </p>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio paused]</span>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio resumed]</span>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:14:52</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">"Okay. So now a huge metallic crane is about to go down. Some nerd - I mean engineer - told me it should resist the pressure. I have no idea how that thing works, but I will happily report it."</span>
+      </p>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio paused]</span>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio resumed]</span>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:21:07</span>
+      <p class="said">
+        <span class="speaker">Individual A</span>
+        <span class="text">"Scanners show some sort of object. Possibly a rebar."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:21:14</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">"Exciting &hellip; Is that a marker for a Leviathan to show up?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:21:22</span>
+      <p class="said">
+        <span class="speaker">Individual A</span>
+        <span class="text">"Look, kid, I don't know what you want to see, but there are no creatures here. No life survives at that pressure."</span>
+      </p>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio paused]</span>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio resumed]</span>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:34:40</span>
+      <p class="said">
+        <span class="speaker">Individual B</span>
+        <span class="text">"<span class="redacted">[ZEROIZED]</span>, check this out! It's a sword!"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:34:46</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">"Huh. I wanted to make a joke, but that really is a sword. Can you take it out?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">06:34:53</span>
+      <p class="said">
+        <span class="speaker">Individual B</span>
+        <span class="text">"Engaging the object. <span class="redacted">[ZEROIZED]</span>, do you copy?"</span>
+      </p>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio paused]</span>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[Audio resumed]</span>
+    </div>
+
+    <p class="cue"><span class="lbl">(AUDIO:</span> People talking over each other in the background.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts">06:42:03</span>
+      <p class="said">
+        <span class="speaker">C. Carter</span>
+        <span class="text">"Alright &hellip; so &hellip; that did not work as we'd like. The sword somehow bricked the crane, along with the monitors and the walkie-talkies. Nobody has any clue as to why. <span class="redacted">[ZEROIZED]</span> said it's because of electromagnetic current or something. Point is, I'm officially naming this thing <span class="key">P-00-150-B</span>, the Sword of the Lake. Pretty cool day, all things considered."</span>
+      </p>
+    </div>
+
+  </section>
+
+  <p class="terminated">[Recording ended. Duration 30:28.]</p>
+
+  <p class="ghost">Swiming around the surface seems fun, but have you tried to go deeper? How about you go below the_water?</p>
+
+</main>
+</body>
+</html>

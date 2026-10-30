@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Geophone Basement - What did the European broadband feeds just record?</title>
+<style>
+body{margin:0;background:#eee;color:#333;font:13px/1.5 Verdana,Arial,sans-serif}
+#wrap{width:900px;margin:0 auto;background:#fff;border:1px solid #bbb}
+#header{background:#1f3547;color:#eee;padding:18px 22px}
+#header h1{margin:0;font:28px Georgia,serif}
+#header p{margin:4px 0 0;color:#a9bcc9;font-style:italic}
+#nav{background:#ddd6c7;border-top:1px solid #b8ae9b;padding:7px 18px;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+#nav a{margin-right:14px;color:#31536b;text-decoration:none}
+#main{float:left;width:620px;padding:20px 24px;border-right:1px solid #ddd}
+#side{float:left;width:210px;padding:18px 16px;background:#f6f4ef}
+.clear{clear:both}
+h2{font:bold 20px Georgia,serif;color:#1f3547;margin:0 0 6px}
+.meta{font-size:11px;color:#888;border-bottom:1px dotted #ccc;padding-bottom:8px;margin-bottom:14px}
+h3{font:bold 15px Georgia,serif;color:#1f3547;margin:20px 0 8px;border-left:4px solid #b3541e;padding-left:8px}
+p{margin:0 0 12px;text-align:justify}
+code{font-family:Consolas,monospace;background:#f3f1ea;padding:0 3px}
+.widget{margin-bottom:18px}
+.widget h4{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:1px;background:#1f3547;color:#fff;padding:5px 8px}
+.widget ul{margin:0;padding-left:18px;font-size:11px}
+.widget a{color:#31536b}
+.comment{border-bottom:1px dotted #ddd;padding:10px 0;font-size:12px}
+.comment b{color:#1f3547}
+.comment span{color:#999;font-size:10px}
+.counter{background:#111;border:2px inset #555;padding:4px 6px;text-align:center;font:bold 18px/1 "Courier New",monospace;letter-spacing:5px;color:#5ef05e;text-shadow:0 0 6px #2fbf2f;border-radius:2px}
+.counter-label{text-align:center;font-size:10px;color:#8a8a80;margin-top:5px;text-transform:uppercase;letter-spacing:1px}
+.stamp{border:2px dashed #c8b98f;color:#a08e5f;font:bold 10px Verdana,sans-serif;text-align:center;padding:8px 4px;letter-spacing:1px;text-transform:uppercase;border-radius:4px}
+#footer{clear:both;text-align:center;font-size:10px;color:#888;padding:12px}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="header"><h1>The Geophone Basement</h1><p>Just a guy, a 4.5Hz geophone, and too much free time.</p></div>
+<div id="nav"><a href="#">Home</a><a href="#">Helicorder</a><a href="#">Station list</a><a href="#">Downloads</a><a href="#">About</a></div>
+
+<div id="main">
+<h2>What did the European broadband feeds just record?</h2>
+<div class="meta">Posted by Dave_Tremor_91 - 12 March 2012, 14:15 CET - 2 comments</div>
+
+<p>I usually only post here to complain about the local freight line shaking my basement or to upload screen grabs of roadwork blasting out by the quarry.</p>
+
+<p>I’ve been sitting in front of my monitors since 5:00 AM cross-referencing GEOFON feeds, open IRIS stations, and the trace from my own geophone (an old 4.5Hz GeoSpace element hooked into a 16-bit digitizer running AmaSeis on an old XP box). If anyone with an actual geophysics degree wants to look at the miniSEED files and tell me I botched my filter settings, please do. Because right now, nothing about this morning's telemetry adds up.</p>
+
+<p>Here is the trace data from earlier today.</p>
+
+<h3>04:17 UTC - The first spike</h3>
+
+<p>At <code>04:17:02 UTC</code>, my helicorder display jumped.</p>
+
+<p>My initial assumption was a regional shaker somewhere under the Irish Sea or North Wales, maybe magnitude 3.8 to 4.2. But when I pulled the raw components and killed the low-pass filter, the waveform looked completely wrong.</p>
+
+<p>A standard tectonic rupture gives you distinct P and S wave arrivals, crustal scatter, and rolling low-frequency coda. This was basically a clean, single-frequency pulse centered around <strong>4.1 Hz</strong>. The energy stayed almost flat across the network. Stations out on the Atlantic margin picked it up at nearly the exact same ground velocity as inland broadband stations hundreds of kilometers away.</p>
+
+<p>I jumped onto the Freenode <code>#geology</code> IRC channel to see if anyone else was seeing it. The two guys awake figured it was a bad NTP time-sync packet corrupting the seed buffers across a few European hubs, or maybe an unannounced naval depth-charge clearance.</p>
+
+<p>Then 11:31 rolled around.</p>
+
+<h3>11:31 UTC - The inverted arrival</h3>
+
+<p>At <code>11:31:24 UTC</code>, the feeds jumped again.</p>
+
+<p>I pulled the SAC files from BGS, GEOFON, and a couple of open DIAS stations in Ireland to run a rough time-of-arrival calculation in WinQuake. With any normal event, the sensor closest to the hypocenter registers first, and the wavefront expands outward across the grid.</p>
+
+<p>At 11:31, the arrival sequence ran backward.</p>
+
+<p>The outer stations - coastal Scotland, western Brittany, the Spanish shelf - triggered first. The wave propagated inward toward the center. It collapsed inward across the Irish Sea basin and converged on a single point. When it converged, my local trace logged a brief, sharp mechanical pulse that died off almost immediately. No resonance ringing, no trailing coda.</p>
+
+<h3>The location (and my rough math)</h3>
+
+<p>I ran a standard trilateration using an IASP91 travel-time model, but because the apparent phase velocity across the regional array was ridiculously high (closer to <strong>8.2 km/s</strong> than normal crustal P-wave speeds), the depth estimate is completely messy. WinQuake is spitting out a hypocenter down around 35 to 40 kilometers in the upper mantle, which makes no sense for something that registered with zero surface shear.</p>
+
+<p>My surface coordinates put the epicenter somewhere out in the rural Midlands/Southeast border of Ireland, right in the scrub wetlands around County Wexford. Looking at Google Earth imagery, there's no active fault line, no heavy industry, and no military proving ground. It just centers near an old farm pond or drainage reservoir out past the tree line.</p>
+
+<p>Then there’s the timing gap: <strong>7 hours, 14 minutes, and 22 seconds</strong> between the first pulse and the return.</p>
+
+<p>If this was a surface wave traveling along the crust at typical Rayleigh speeds (roughly 3.2 km/s), 26,062 seconds puts the travel distance at around <strong>83,000 kilometers</strong>. That is slightly more than two complete trips around the equator, yet none of the global stations picked up the intermediate orbital passes you'd expect from a multi-orbit R1/R2 train.</p>
+
+<p>If you assume it was an acoustic wave trapped in the oceanic SOFAR channel at 1.5 km/s, the distance works out to roughly <strong>39,100 km</strong> - which is suspiciously close to the Earth's circumference - except the source point is sitting in muddy bedrock miles away from deep water.</p>
+
+<p>My current guess is that we're looking at a bad telemetry loop on the regional hub servers, or maybe some bizarre British MoD low-frequency acoustic test in the Celtic Sea that bled into the coastal telemetry and fooled the software.</p>
+
+<p>If anyone with institutional access can pull the raw unclipped logs from the DIAS network or the UK broadband arrays, let me know what you see. I put the raw <code>.DAT</code> export and my station list up on MediaFire; link is in the sidebar.</p>
+
+<p><strong>Labels:</strong> <a href="#">seismology</a> <a href="#">geophysics</a> <a href="#">data-anomaly</a> <a href="#">amateur-seismo</a> <a href="#">iris</a> <a href="#">geofon</a></p>
+
+<h3>Comments</h3>
+
+<div class="comment">
+<b>seismo_dan</b> <span>12 March 2012 15:03</span>
+<p>NTP desync. There was a firmware push on a couple of the Euro hub servers last week. Half the seed buffers in the region are timestamped from a clock that’s drifting. Your “inverted arrival” is probably just stations being written out of order.</p>
+</div>
+
+<div class="comment">
+<b>Dave_Tremor_91</b> <span>12 March 2012 15:24</span>
+<p>@seismo_dan - that was my first thought too. But the same 4.1 Hz pulse shows up on the GEOFON broadbands, which are flat to velocity well below that. If it were my sensor I’d expect it on my trace and nowhere else. It’s on everybody’s trace.</p>
+</div>
+
+<p><em>Comments are closed.</em></p>
+</div>
+
+<div id="side">
+<div class="widget">
+<h4>About</h4>
+<p>Amateur seismologist. 4.5 Hz geophone in a basement. AmaSeis on an XP box that will not die. Mostly I log freight trains and quarry blasts.</p>
+</div>
+
+<div class="widget">
+<h4>Downloads</h4>
+<ul>
+<li><a href="#" onclick="openDat();return false;">raw_20120312.DAT</a></li>
+<li><a href="#">station_list.txt</a></li>
+<li><a href="#">04-17_bandpass.PNG</a></li>
+<li><a href="#">1131_moveout.PNG</a></li>
+</ul>
+</div>
+
+<div class="widget">
+<h4>Links</h4>
+<ul>
+<li><a href="#">IRIS</a></li>
+<li><a href="#">GEOFON</a></li>
+<li><a href="#">BGS</a></li>
+<li><a href="#">DIAS</a></li>
+<li><a href="#">WinQuake</a></li>
+</ul>
+</div>
+
+<div class="widget">
+<h4>Visitors</h4>
+<div class="counter" id="counter">0001150</div>
+<div class="counter-label">since 14 Feb 2010</div>
+</div>
+
+<div class="widget">
+<div class="stamp">Best viewed at 1024&times;768<br>in Firefox 3.6</div>
+</div>
+</div>
+
+<div class="clear"></div>
+<div id="footer">© 2012 The Geophone Basement - Powered by Blogger</div>
+</div>
+
+<script>
+/* visitor counter: starts at 1150, +1 per refresh */
+(function () {
+  var el = document.getElementById('counter');
+  var n;
+  try {
+    var stored = localStorage.getItem('gpb_hits');
+    if (stored === null) {
+      n = 1150;
+    } else {
+      n = parseInt(stored, 10) + 1;
+    }
+    localStorage.setItem('gpb_hits', String(n));
+  } catch (e) {
+    n = 1150;
+  }
+  el.textContent = ('0000000' + n).slice(-7);
+})();
+
+/* the .DAT file, opened in a 2012-era text reader */
+function openDat() {
+  var datText =
+"# ============================================================\n" +
+"#  AMASEIS RAW EXPORT - STATION DTHB\n" +
+"#  SENSOR   : GEOSPACE 4.5 Hz VERTICAL\n" +
+"#  DIGITIZER: 16-BIT / 100 SPS\n" +
+"#  OPERATOR : DAVE_TREMOR_91\n" +
+"#  EXPORT   : 12-MAR-2012 13:58:44 UTC\n" +
+"# ============================================================\n" +
+"\n" +
+"STATION,CHAN,START_UTC,END_UTC,PEAK_AMP_UM_S,FREQ_HZ,REMARK\n" +
+"------------------------------------------------------------\n" +
+"DTHB ,Z,04:16:00,04:18:00,   42.1,4.1,clean pulse / no coda\n" +
+"GALW ,Z,04:16:00,04:18:00,   39.8,4.1,flat amplitude\n" +
+"BGS  ,Z,04:16:00,04:18:00,   40.4,4.1,flat amplitude\n" +
+"DIAS1,Z,04:16:00,04:18:00,   41.0,4.1,flat amplitude\n" +
+"\n" +
+"\n" +
+"# ------------------------------------------------------------\n" +
+"#  EVENT 1 - 04:17:02 UTC\n" +
+"# ------------------------------------------------------------\n" +
+"#  onset          04:17:02.14\n" +
+"#  peak amp       42.1 um/s\n" +
+"#  dominant freq  4.1 Hz\n" +
+"#  duration       ~6 s\n" +
+"#  P/S separation NONE\n" +
+"#  coda           NONE\n" +
+"#\n" +
+"#  remark: single-frequency pulse, identical ground velocity\n" +
+"#          at coast and inland. not a tectonic rupture.\n" +
+"\n" +
+"\n" +
+"# ------------------------------------------------------------\n" +
+"#  EVENT 2 - 11:31:24 UTC\n" +
+"# ------------------------------------------------------------\n" +
+"#  ARRIVAL ORDER (first -> last)\n" +
+"#\n" +
+"#   station        dist_km   arrival_utc     remark\n" +
+"#   ------------   -------   -------------   -----------------\n" +
+"#   BRITTANY_W        610    11:31:21.30     triggered FIRST\n" +
+"#   EDINBURGH         480    11:31:21.62\n" +
+"#   LEEDS             340    11:31:21.90\n" +
+"#   OXFORD_NET        290    11:31:24.02     triggered LAST\n" +
+"#   WEXFORD (local)    11    11:31:24.11     converged here\n" +
+"#\n" +
+"#  wavefront moved INWARD, not outward.\n" +
+"#  convergence point below the Irish Sea basin.\n" +
+"#  local trace: brief mechanical pulse, then dead.\n" +
+"\n" +
+"\n" +
+"# ------------------------------------------------------------\n" +
+"#  TRILATERATION (IASP91)\n" +
+"# ------------------------------------------------------------\n" +
+"#  apparent phase vel : 8.2 km/s  (far too high for crust)\n" +
+"#  depth estimate      : 35 - 40 km  (upper mantle)\n" +
+"#  surface coords      : ~52.34 N, ~6.62 W\n" +
+"#                        rural Co. Wexford, scrub wetland\n" +
+"#  nearest landmark    : old farm pond / drainage reservoir\n" +
+"#                        past the tree line\n" +
+"#\n" +
+"#  note: no active fault, no industry, no proving ground\n" +
+"#        on the imagery. nothing there but water and mud.\n" +
+"\n" +
+"\n" +
+"# ------------------------------------------------------------\n" +
+"#  TIMING\n" +
+"# ------------------------------------------------------------\n" +
+"#  gap between events : 7 h 14 m 22 s  (26062 s)\n" +
+"#  Rayleigh @ 3.2 km/s -> ~83000 km  (~2x equator)\n" +
+"#  SOFAR    @ 1.5 km/s -> ~39100 km  (~circumference)\n" +
+"#\n" +
+"#  neither fits. source is not in deep water.\n" +
+"\n" +
+"\n" +
+"# ------------------------------------------------------------\n" +
+"#  OPERATOR NOTES\n" +
+"# ------------------------------------------------------------\n" +
+"#  - filters re-run four times, different settings, same result\n" +
+"#  - same 4.1 Hz pulse on broadbands flat below 4 Hz\n" +
+"#  - five independent hobby stations show inward moveout\n" +
+"#  - boiler ruled out\n" +
+"#  - pond not yet checked (see comment #12, I am not doing it)\n" +
+"#\n" +
+"#  conclusion: unknown. bad telemetry loop is my best guess.\n" +
+"#              if you have DIAS/UK raw logs, email me.\n" +
+"# ============================================================\n" +
+"#  END OF FILE\n";
+
+  var page =
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>raw_20120312.DAT - Mozilla Firefox</title>' +
+'<style>' +
+'body{margin:0;background:#d4d0c8;font:12px "Segoe UI",Tahoma,Verdana,sans-serif;color:#000}' +
+'#titlebar{background:linear-gradient(#f0f0ee,#d8d5cf);border-bottom:1px solid #a9a49a;padding:5px 8px;font-size:12px;color:#333}' +
+'#menubar{background:linear-gradient(#fbfbfa,#e9e6df);border-bottom:1px solid #bdb8ad;padding:4px 8px;font-size:12px}' +
+'#menubar span{margin-right:14px;cursor:default}' +
+'#menubar span:hover{background:#cfe0f5}' +
+'#toolbar{background:linear-gradient(#f2f1ee,#ddd9d1);border-bottom:1px solid #b0aa9e;padding:4px 8px}' +
+'#toolbar button{font:11px Tahoma,sans-serif;padding:2px 8px;margin-right:4px;border:1px solid #9b968b;background:linear-gradient(#fbfbfa,#dedad2);border-radius:2px;cursor:default;color:#444}' +
+'#urlbar{background:#fff;border:1px solid #8a867d;padding:3px 8px;margin:6px 8px 0;font:12px Tahoma,sans-serif;color:#333;display:flex;align-items:center}' +
+'#urlbar .favicon{width:14px;height:14px;background:#e0e0d8;border:1px solid #b8b3a8;margin-right:6px;border-radius:2px}' +
+'#urlbar .url{flex:1}' +
+'#urlbar .go{color:#666;padding-left:8px;border-left:1px solid #ccc;margin-left:8px}' +
+'#content{background:#fff;margin:8px;border:1px solid #9a958b;padding:14px 16px;height:calc(100vh - 150px);overflow:auto}' +
+'pre{margin:0;font:12px/1.45 "Courier New",monospace;color:#1a1a1a;white-space:pre-wrap;word-wrap:break-word}' +
+'pre .stn{color:#4d5a75}' +
+'#statusbar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(#f2f1ee,#ddd9d1);border-top:1px solid #b0aa9e;padding:3px 10px;font:11px Tahoma,sans-serif;color:#555;display:flex;justify-content:space-between}' +
+'</style></head><body>' +
+'<div id="titlebar">raw_20120312.DAT - Mozilla Firefox</div>' +
+'<div id="menubar"><span>File</span><span>Edit</span><span>View</span><span>History</span><span>Bookmarks</span><span>Tools</span><span>Help</span></div>' +
+'<div id="toolbar"><button>&#8592; Back</button><button>&#8594; Forward</button><button>&#8635; Reload</button><button>&#8963; Home</button></div>' +
+'<div id="urlbar"><div class="favicon"></div><div class="url">file:///C:/Documents and Settings/Dave/My Documents/AmaSeis/raw_20120312.DAT</div><div class="go">Go</div></div>' +
+'<div id="content"><pre>' + datText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/(BRITTANY_W|EDINBURGH|LEEDS|OXFORD_NET|WEXFORD)/g, '<span class="stn">$1</span>') + '</pre></div>' +
+'<div id="statusbar"><span>Done</span><span>raw_20120312.DAT (3.4 KB)</span></div>' +
+'</body></html>';
+
+  var w = window.open('', '_blank');
+  if (w) {
+    w.document.open();
+    w.document.write(page);
+    w.document.close();
+  }
+}
+</script>
+
+</body>
+</html>
