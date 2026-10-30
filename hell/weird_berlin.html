@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Just moved to Berlin – question about the city — Stadtleben Berlin Forum</title>
+<meta name="description" content="Stadtleben Berlin – the forum for people living in Berlin. Nightlife, neighbourhoods, renting, transport and everything in between.">
+<style>
+  :root{
+    --bg:#eef1f5;
+    --panel:#ffffff;
+    --line:#c3cfdc;
+    --line-soft:#e0e7ef;
+    --head:#1f3b5c;
+    --head2:#2d5a87;
+    --link:#15528f;
+    --text:#1b1b1b;
+    --muted:#647180;
+    --strip:#e8eef6;
+    --redact:#c0392b;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:13px/1.65 Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
+  }
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .page{max-width:1020px;margin:0 auto;padding:0 12px 48px}
+
+  /* ---------- redacted name ---------- */
+  .redacted{
+    color:var(--redact);
+    font-weight:bold;
+    background:#fdeceb;
+    padding:0 3px;
+    border-radius:2px;
+    letter-spacing:.2px;
+    white-space:nowrap;
+  }
+
+  /* ---------- header ---------- */
+  .site-header{
+    background:linear-gradient(#2b4a6f,#1f3b5c);
+    border-bottom:3px solid #16304c;
+    color:#fff;
+  }
+  .site-header .inner{
+    max-width:1020px;margin:0 auto;padding:14px 12px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .logo{display:flex;align-items:baseline;gap:10px}
+  .logo .mark{
+    font:bold 22px/1 Georgia,"Times New Roman",serif;
+    letter-spacing:.5px;color:#fff;
+  }
+  .logo .mark span{color:#8fc0ef}
+  .logo .tag{font-size:11px;color:#b9d2ea;letter-spacing:.4px}
+  .userbox{font-size:11px;color:#cfe0f0;text-align:right}
+  .userbox a{color:#dceaf7;border-bottom:1px dotted #7fa3c6}
+  .userbox .small{display:block;color:#9dbad6;margin-top:2px}
+
+  /* ---------- nav ---------- */
+  .mainnav{
+    background:#dfe8f2;
+    border:1px solid var(--line);
+    border-top:none;
+    border-radius:0 0 6px 6px;
+    padding:0 8px;
+    display:flex;flex-wrap:wrap;
+    font-size:12px;
+  }
+  .mainnav a{
+    display:block;padding:8px 12px;color:#254a72;font-weight:bold;
+    border-right:1px solid #ccd8e6;
+  }
+  .mainnav a:last-child{border-right:none}
+  .mainnav a:hover{background:#cfdcea;text-decoration:none}
+
+  /* ---------- breadcrumb / title ---------- */
+  .breadcrumb{
+    font-size:11px;color:var(--muted);padding:12px 2px 8px;
+  }
+  .breadcrumb a{color:var(--link)}
+  .breadcrumb .sep{color:#a9b6c4;padding:0 5px}
+
+  h1.thread-title{
+    font:bold 17px/1.4 Georgia,"Times New Roman",serif;
+    color:#1c3552;
+    margin:0 0 4px;
+  }
+  .thread-meta{
+    font-size:11px;color:var(--muted);margin-bottom:14px;
+  }
+  .thread-meta .dot{color:#b5c1cd;padding:0 6px}
+
+  .toolbar{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    flex-wrap:wrap;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:7px 12px;
+    font-size:11px;color:var(--muted);
+    margin-bottom:14px;
+  }
+  .toolbar .pager a{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:3px;background:#f6f9fc}
+  .toolbar .pager a.current{background:var(--head2);border-color:var(--head2);color:#fff}
+  .toolbar .btn{
+    display:inline-block;padding:4px 10px;border:1px solid #9fb4ca;border-radius:3px;
+    background:linear-gradient(#fdfefe,#e6eef7);color:#22496f;font-weight:bold;
+  }
+  .toolbar .btn:hover{text-decoration:none;background:linear-gradient(#ffffff,#d8e5f2)}
+
+  /* ---------- posts ---------- */
+  .post{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  .post-head{
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    background:var(--strip);
+    border-bottom:1px solid var(--line-soft);
+    padding:7px 12px;
+    font-size:11px;color:var(--muted);
+  }
+  .post-head .author{font-size:12px}
+  .post-head .num{color:#8b98a6}
+  .post-body{display:flex;gap:0;align-items:stretch}
+  .post-side{
+    width:172px;flex:0 0 172px;
+    border-right:1px solid var(--line-soft);
+    background:#fafcfe;
+    padding:12px;
+    text-align:center;
+    font-size:11px;color:var(--muted);
+  }
+  .avatar{
+    width:88px;height:88px;margin:0 auto 9px;
+    border:1px solid #b9c8d8;
+    border-radius:3px;
+    display:flex;align-items:center;justify-content:center;
+    font:bold 34px/1 Georgia,serif;color:#fff;
+    box-shadow:inset 0 0 0 3px #fff;
+  }
+  .a1{background:#3f6d9e}
+  .a2{background:#5d8a5a}
+  .a3{background:#8a5a5a}
+  .a4{background:#6b5a8a}
+  .side-name{font-size:12px;margin-bottom:2px}
+  .side-rank{color:#7b8794;font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .side-stats{text-align:left;border-top:1px dotted #cfdae6;padding-top:8px;margin-top:8px}
+  .side-stats div{display:flex;justify-content:space-between;gap:6px;line-height:1.9}
+  .side-stats span:last-child{color:#3d4a58}
+  .online{color:#2e7d32;font-size:10px;margin-top:8px}
+  .post-content{padding:14px 16px 10px;flex:1 1 auto;min-width:0}
+  .post-content p{margin:0 0 11px}
+  .post-content p:last-of-type{margin-bottom:4px}
+  .post-actions{
+    border-top:1px dotted #d5dfea;
+    margin-top:12px;padding-top:8px;
+    font-size:11px;color:var(--muted);
+    display:flex;gap:14px;flex-wrap:wrap;
+  }
+  .post-actions a{color:#3c628c}
+  .signature{
+    margin-top:12px;padding-top:8px;
+    border-top:1px dotted #d5dfea;
+    font-size:11px;color:#7d8894;font-style:italic;
+  }
+  .quote-box{
+    border-left:3px solid #c3d4e5;
+    background:#f6f9fc;
+    padding:7px 10px;
+    margin:0 0 12px;
+    font-size:12px;color:#4a5866;
+  }
+  .quote-box .qhead{display:block;font-size:10px;color:#8494a4;margin-bottom:3px}
+
+  /* ---------- reply box ---------- */
+  .reply{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    margin-top:20px;
+  }
+  .reply h2{
+    font:bold 12px/1 Verdana,sans-serif;
+    margin:0;padding:9px 12px;
+    background:var(--strip);
+    border-bottom:1px solid var(--line-soft);
+    color:#1c3552;letter-spacing:.3px;
+  }
+  .reply .inner{padding:14px 12px}
+  .reply textarea{
+    width:100%;min-height:96px;
+    border:1px solid #b4c3d3;border-radius:3px;
+    padding:8px;font:13px/1.6 Verdana,Geneva,sans-serif;
+    background:#fdfefe;resize:vertical;color:#222;
+  }
+  .reply .row{margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+  .reply button{
+    font:bold 12px Verdana,sans-serif;
+    padding:6px 16px;border-radius:3px;cursor:pointer;
+    border:1px solid #9fb4ca;
+    background:linear-gradient(#fdfefe,#e6eef7);color:#22496f;
+  }
+  .reply button:hover{background:linear-gradient(#ffffff,#d8e5f2)}
+
+  /* ---------- footer ---------- */
+  .site-footer{
+    margin-top:26px;padding-top:14px;
+    border-top:1px solid var(--line);
+    font-size:11px;color:var(--muted);
+    text-align:center;line-height:1.9;
+  }
+  .site-footer a{color:#3c628c}
+  .site-footer .dot{color:#b5c1cd;padding:0 6px}
+
+  @media (max-width:640px){
+    .post-body{display:block}
+    .post-side{
+      width:auto;flex:none;border-right:none;
+      border-bottom:1px solid var(--line-soft);
+      display:flex;align-items:center;gap:12px;text-align:left;
+    }
+    .avatar{width:48px;height:48px;flex:0 0 48px;font-size:20px;margin:0}
+    .side-stats,.online{display:none}
+    .side-rank{margin-bottom:0}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <div class="logo">
+      <div class="mark">Stadt<span>leben</span> Berlin</div>
+      <div class="tag">the forum for people who actually live here</div>
+    </div>
+    <div class="userbox">
+      <a href="#">Log in</a> &nbsp;·&nbsp; <a href="#">Register</a>
+      <span class="small">Not a member yet? It takes 30 seconds.</span>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <nav class="mainnav">
+    <a href="i_am_NOT_throwing_away_my_shot.html">Index</a>
+    <a href="i_am_NOT_throwing_away_my_shot.html">Living in Berlin</a>
+    <a href="i_am_NOT_throwing_away_my_shot.html">Neighbourhoods</a>
+    <a href="i_am_NOT_throwing_away_my_shot.html">Nightlife &amp; Culture</a>
+    <a href="i_am_NOT_throwing_away_my_shot.html">Renting &amp; Flats</a>
+    <a href="i_am_NOT_throwing_away_my_shot.html">Transport</a>
+    <a href="i_am_NOT_throwing_away_my_shot.html">Off Topic</a>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="#">Stadtleben Berlin</a><span class="sep">›</span>
+    <a href="#">Living in Berlin</a><span class="sep">›</span>
+    Just moved to Berlin – question about the city
+  </div>
+
+  <h1 class="thread-title">Just moved to Berlin – question about the city</h1>
+  <div class="thread-meta">
+    Started by <span class="redacted">[ZEROIZED]</span><span class="dot">·</span>2 October 2016, 21:47
+    <span class="dot">·</span>4 posts<span class="dot">·</span>312 views
+  </div>
+
+  <div class="toolbar">
+    <div class="pager">Page <a href="#" class="current">1</a> of 1</div>
+    <div>
+      <a class="btn" href="#reply">Reply to topic</a>
+    </div>
+  </div>
+
+  <!-- ================= POST 1 ================= -->
+  <article class="post" id="p1">
+    <div class="post-head">
+      <div class="author"><span class="redacted">[ZEROIZED]</span></div>
+      <div>Posted: Sun 02 Oct 2016, 21:47 &nbsp;<span class="num">#1</span></div>
+    </div>
+    <div class="post-body">
+      <aside class="post-side">
+        <div class="avatar a1" aria-label="Avatar redacted">?</div>
+        <div class="side-name"><span class="redacted">[ZEROIZED]</span></div>
+        <div class="side-rank">New Member</div>
+        <div class="side-stats">
+          <div><span>Joined</span><span>30 Sep 2016</span></div>
+          <div><span>Posts</span><span>1</span></div>
+          <div><span>Location</span><span>Berlin</span></div>
+        </div>
+        <div class="online">● online</div>
+      </aside>
+      <div class="post-content">
+        <p>Hello everyone. I'm <span class="redacted">[ZEROIZED]</span> and I just moved to Germany two months ago. I love living here. I've already made lots of friends and I've visited most of Berlin with them — well, mostly the nightlife, but still, haha.</p>
+        <p>Anyway, I wanted to ask (and please don't take this as a rude thing, I'm just curious): some of my friends said that a lot of places are not the same anymore because homeless people live there? I've never seen anything like that, but I know what that's about. Thanks!</p>
+        <div class="post-actions">
+          <a href="#">Quote</a>
+          <a href="#">Report</a>
+          <a href="#reply">Reply</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= POST 2 ================= -->
+  <article class="post" id="p2">
+    <div class="post-head">
+      <div class="author"><span class="redacted">[ZEROIZED]</span></div>
+      <div>Posted: Sun 02 Oct 2016, 22:19 &nbsp;<span class="num">#2</span></div>
+    </div>
+    <div class="post-body">
+      <aside class="post-side">
+        <div class="avatar a2" aria-label="Avatar redacted">?</div>
+        <div class="side-name"><span class="redacted">[ZEROIZED]</span></div>
+        <div class="side-rank">Senior Member</div>
+        <div class="side-stats">
+          <div><span>Joined</span><span>04 Feb 2009</span></div>
+          <div><span>Posts</span><span>3,412</span></div>
+          <div><span>Location</span><span>Prenzlauer Berg</span></div>
+        </div>
+      </aside>
+      <div class="post-content">
+        <div class="quote-box">
+          <span class="qhead"><span class="redacted">[ZEROIZED]</span> wrote:</span>
+          …some of my friends said that a lot of places are not the same anymore because homeless people live there?
+        </div>
+        <p>Germany (and Berlin) has one of the lowest homelessness rates in all of Europe. I have no idea what you are talking about. Most of them live in homeless shelters or hostels.</p>
+        <div class="post-actions">
+          <a href="#">Quote</a>
+          <a href="#">Report</a>
+          <a href="#reply">Reply</a>
+        </div>
+        <div class="signature">— Berlin is a city, not a museum. Stop treating it like one.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= POST 3 ================= -->
+  <article class="post" id="p3">
+    <div class="post-head">
+      <div class="author"><span class="redacted">[ZEROIZED]</span></div>
+      <div>Posted: Mon 03 Oct 2016, 08:03 &nbsp;<span class="num">#3</span></div>
+    </div>
+    <div class="post-body">
+      <aside class="post-side">
+        <div class="avatar a3" aria-label="Avatar redacted">?</div>
+        <div class="side-name"><span class="redacted">[ZEROIZED]</span></div>
+        <div class="side-rank">Senior Member</div>
+        <div class="side-stats">
+          <div><span>Joined</span><span>18 Aug 2004</span></div>
+          <div><span>Posts</span><span>1,208</span></div>
+          <div><span>Location</span><span>Charlottenburg</span></div>
+        </div>
+      </aside>
+      <div class="post-content">
+        <p>Yeah, yeah, I've lived here for 20 years and I can say that things have got a bit more complicated in the last few months. Apparently Neukölln has got a lot trashier, and used mattresses and rubbish are found in the back alleys. I personally have always hated that place — I don't like nightlife.</p>
+        <div class="post-actions">
+          <a href="#">Quote</a>
+          <a href="#">Report</a>
+          <a href="#reply">Reply</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= POST 4 ================= -->
+  <article class="post" id="p4">
+    <div class="post-head">
+      <div class="author"><span class="redacted">[ZEROIZED]</span></div>
+      <div>Posted: Mon 03 Oct 2016, 09:41 &nbsp;<span class="num">#4</span></div>
+    </div>
+    <div class="post-body">
+      <aside class="post-side">
+        <div class="avatar a4" aria-label="Avatar redacted">?</div>
+        <div class="side-name"><span class="redacted">[ZEROIZED]</span></div>
+        <div class="side-rank">Member</div>
+        <div class="side-stats">
+          <div><span>Joined</span><span>22 Sep 2011</span></div>
+          <div><span>Posts</span><span>764</span></div>
+          <div><span>Location</span><span>Wedding</span></div>
+        </div>
+      </aside>
+      <div class="post-content">
+        <p>I don't care about that — I care that the crime rate has increased. Apparently a weirdo with a knife was responsible for over 16 deaths in the past month. The police are useless, as usual.</p>
+        <div class="post-actions">
+          <a href="#">Quote</a>
+          <a href="#">Report</a>
+          <a href="#reply">Reply</a>
+        </div>
+        <div class="signature">Nobody reads signatures anyway.</div>
+      </div>
+    </div>
+  </article>
+
+  <div class="toolbar">
+    <div>1 user browsing this topic (0 members, 1 guest)</div>
+    <div class="pager">Page <a href="#" class="current">1</a> of 1</div>
+  </div>
+
+  <!-- ================= REPLY ================= -->
+  <section class="reply" id="reply">
+    <h2>Post a reply</h2>
+    <div class="inner">
+      <textarea placeholder="Write your message here…" aria-label="Reply text"></textarea>
+      <div class="row">
+        <div>You are posting as <strong>Guest</strong>. <a href="#">Log in</a> or <a href="#">register</a> to post with your account.</div>
+        <button type="button">Submit reply</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <a href="#">Index</a><span class="dot">·</span>
+    <a href="#">Forum rules</a><span class="dot">·</span>
+    <a href="#">Impressum</a><span class="dot">·</span>
+    <a href="#">Datenschutz</a><span class="dot">·</span>
+    <a href="#">Contact</a>
+    <br>
+    Powered by PhorumBB 3.0.14 &nbsp;·&nbsp; © 2004–2016 Stadtleben Berlin e.V.
+    <br>
+    All times are CET (UTC+1). Page generated in 0.031 seconds.
+  </footer>
+
+</div>
+
+</body>
+</html>

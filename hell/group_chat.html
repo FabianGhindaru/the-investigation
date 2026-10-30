@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahornweg · Nachtwache</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:#07090b;
+    color:#e8ecf1;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  :root{
+    --bg:#0a0d10;
+    --panel:#0e1216;
+    --panel2:#131920;
+    --line:#1b222a;
+    --line2:#232b34;
+    --text:#e8ecf1;
+    --muted:#8b97a6;
+    --dim:#6d7887;
+    --amber:#f0a04b;
+    --danger:#e0574a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+
+  .app{
+    height:100dvh;
+    max-width:1240px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:288px 1fr;
+    background:var(--bg);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .side{
+    border-right:1px solid var(--line);
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+    overflow-y:auto;
+  }
+  .brand{
+    padding:18px 18px 14px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand-mark{
+    width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(160deg,#1a222b,#11171d);
+    border:1px solid var(--line2);
+    display:grid;place-items:center;
+    color:var(--amber);
+    flex:0 0 auto;
+  }
+  .brand-txt{display:flex;flex-direction:column;line-height:1.25}
+  .brand-txt b{font-size:13px;letter-spacing:.14em;font-weight:600}
+  .brand-txt span{font-size:10.5px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+
+  .side-block{padding:16px 18px;border-bottom:1px solid var(--line)}
+  .side-h{
+    font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 10px;font-weight:600;
+  }
+
+  .lage{display:flex;flex-direction:column;gap:9px}
+  .lage-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px}
+  .lage-row span{color:var(--muted)}
+  .lage-row b{font-weight:600;font-family:var(--mono);font-size:12px;text-align:right}
+  .lage-row b.warn{color:var(--danger)}
+  .lage-row b.odd{color:#c79ae6}
+
+  .members{display:flex;flex-direction:column;gap:2px;margin:-6px -8px 0}
+  .member{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px}
+  .member:hover{background:#12181e}
+  .m-txt{min-width:0;display:flex;flex-direction:column;line-height:1.3}
+  .m-txt b{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .m-txt span{font-size:10.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .avatar{
+    width:32px;height:32px;border-radius:50%;
+    display:grid;place-items:center;
+    font-size:11px;font-weight:700;letter-spacing:.03em;
+    flex:0 0 auto;position:relative;
+  }
+  .dot{
+    position:absolute;right:-1px;bottom:-1px;
+    width:9px;height:9px;border-radius:50%;
+    background:#3fbf7f;border:2px solid var(--panel);
+  }
+  .side-foot{
+    margin-top:auto;padding:14px 18px;
+    font-size:10.5px;color:var(--dim);
+    display:flex;align-items:center;gap:7px;line-height:1.5;
+  }
+
+  /* ---------- CHAT ---------- */
+  .chat{display:flex;flex-direction:column;min-height:0;background:var(--bg)}
+
+  .chat-head{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 18px;
+    border-bottom:1px solid var(--line);
+    background:rgba(14,18,22,.92);
+    backdrop-filter:blur(8px);
+  }
+  .gh-avatar{
+    width:38px;height:38px;border-radius:11px;
+    background:linear-gradient(160deg,#20262e,#141a20);
+    border:1px solid var(--line2);
+    display:grid;place-items:center;color:var(--amber);flex:0 0 auto;
+  }
+  .gh-txt{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+  .gh-txt b{font-size:14px;font-weight:600}
+  .gh-txt span{font-size:11.5px;color:var(--dim)}
+  .gh-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    padding:4px 9px;border-radius:999px;
+    border:1px solid rgba(224,87,74,.32);
+    background:rgba(224,87,74,.09);
+    color:#f08a7f;font-weight:600;
+  }
+  .icon-btn{
+    width:32px;height:32px;border-radius:8px;
+    display:grid;place-items:center;
+    border:1px solid transparent;background:transparent;color:var(--muted);
+    cursor:pointer;
+  }
+  .icon-btn:hover{background:#141a20;color:var(--text);border-color:var(--line2)}
+
+  .thread{
+    flex:1;min-height:0;overflow-y:auto;
+    padding:20px 20px 6px;
+    background:
+      radial-gradient(760px 320px at 78% -12%, rgba(240,160,75,.055), transparent 65%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 46px);
+  }
+  .thread::-webkit-scrollbar{width:9px}
+  .thread::-webkit-scrollbar-thumb{background:#1e262e;border-radius:9px;border:2px solid var(--bg)}
+
+  .daydiv{
+    display:flex;align-items:center;gap:12px;
+    margin:6px 0 20px;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);
+  }
+  .daydiv::before,.daydiv::after{content:"";height:1px;flex:1;background:var(--line)}
+
+  .sys{
+    text-align:center;margin:18px 0;font-size:11.5px;color:var(--dim);
+    font-family:var(--mono);letter-spacing:.01em;
+  }
+  .sys::before{content:"— ";opacity:.45}
+  .sys::after{content:" —";opacity:.45}
+
+  .msg{
+    display:flex;gap:10px;
+    max-width:660px;margin-bottom:13px;
+    animation:fade .28s ease both;
+  }
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .bubble{
+    position:relative;
+    background:var(--panel2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:7px 12px 8px 14px;
+    min-width:0;
+  }
+  .bubble::before{
+    content:"";position:absolute;left:0;top:9px;bottom:9px;
+    width:2px;border-radius:2px;background:var(--c);
+    opacity:.85;
+  }
+  .who{
+    display:flex;align-items:baseline;gap:8px;
+    font-size:12.5px;font-weight:650;margin-bottom:2px;
+    color:var(--c);
+  }
+  .who time{
+    font-family:var(--mono);font-size:10px;font-weight:400;
+    color:var(--dim);letter-spacing:.01em;
+  }
+  .txt{font-size:13.5px;line-height:1.52;color:#dbe3ec;white-space:pre-wrap;overflow-wrap:anywhere}
+
+  .quote{
+    border-left:2px solid #3a4552;
+    padding:1px 0 1px 8px;
+    margin:0 0 6px;
+    font-size:11.5px;color:#8b97a6;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .quote b{color:#aab6c4;font-weight:600}
+
+  .reacts{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+  .react{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:11px;line-height:1;
+    padding:4px 7px;border-radius:999px;
+    background:#0f1419;border:1px solid var(--line2);
+    color:#aab6c4;cursor:pointer;
+    font-family:var(--mono);
+    transition:.15s;
+  }
+  .react:hover{border-color:#3a4552}
+  .react.on{background:rgba(240,160,75,.12);border-color:rgba(240,160,75,.42);color:#f2b374}
+
+  /* voice note */
+  .voice{display:flex;align-items:center;gap:11px;padding:3px 2px 3px 0}
+  .vplay{
+    width:30px;height:30px;border-radius:50%;
+    background:rgba(240,160,75,.14);
+    border:1px solid rgba(240,160,75,.35);
+    display:grid;place-items:center;color:var(--amber);flex:0 0 auto;
+  }
+  .wave{display:flex;align-items:center;gap:2.5px;height:26px}
+  .wave i{display:block;width:2.5px;border-radius:2px;background:#4d5b6b}
+  .vtime{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-left:2px}
+
+  .seen{
+    text-align:right;font-size:10.5px;color:var(--dim);
+    font-family:var(--mono);padding:2px 4px 18px;
+  }
+
+  .composer{
+    border-top:1px solid var(--line);
+    background:var(--panel);
+    padding:11px 16px 14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .cbox{
+    flex:1;display:flex;align-items:center;gap:9px;
+    background:#0b0f13;border:1px solid var(--line2);
+    border-radius:11px;padding:10px 13px;
+    color:var(--dim);font-size:13px;
+    cursor:not-allowed;
+  }
+  .cbox svg{opacity:.7}
+  .ctag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:#5c6672;
+    border:1px solid var(--line2);border-radius:6px;padding:3px 6px;
+    white-space:nowrap;
+  }
+
+  /* ---------- FLOATING TRANSLATE BUTTON ---------- */
+  .lang-fab{
+    position:fixed;
+    right:22px;bottom:22px;
+    z-index:50;
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 16px 11px 13px;
+    border-radius:999px;
+    background:linear-gradient(160deg,#1b222b,#11171d);
+    border:1px solid rgba(240,160,75,.38);
+    color:var(--amber);
+    font-family:var(--mono);
+    font-size:12px;font-weight:700;letter-spacing:.09em;
+    cursor:pointer;
+    box-shadow:0 10px 26px -10px rgba(0,0,0,.9), 0 0 0 1px rgba(0,0,0,.4);
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+  }
+  .lang-fab:hover{transform:translateY(-2px);border-color:rgba(240,160,75,.72);background:linear-gradient(160deg,#222a34,#141b22)}
+  .lang-fab:active{transform:translateY(0) scale(.97)}
+  .lang-fab svg{opacity:.9}
+  .lang-fab .lf-sub{
+    font-family:ui-sans-serif,system-ui,sans-serif;
+    font-size:9.5px;font-weight:600;letter-spacing:.1em;
+    color:#6d7887;text-transform:uppercase;
+    border-left:1px solid var(--line2);
+    padding-left:8px;
+  }
+
+  @media (max-width:860px){
+    .app{grid-template-columns:1fr;border-left:none;border-right:none}
+    .side{display:none}
+    .thread{padding:16px 13px 4px}
+    .msg{max-width:100%}
+    .gh-right .pill{display:none}
+    .lang-fab{right:14px;bottom:14px;padding:10px 14px 10px 12px}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0-6 6v4l-1.5 3h15L18 13V9a6 6 0 0 0-6-6Z"/>
+          <path d="M10 19a2 2 0 0 0 4 0"/>
+        </svg>
+      </div>
+      <div class="brand-txt">
+        <b id="brandName">NACHTWACHE</b>
+        <span id="brandSub">Privat · 5 Mitglieder</span>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <p class="side-h" id="lageH">Lage</p>
+      <div class="lage" id="lageRows"></div>
+    </div>
+
+    <div class="side-block">
+      <p class="side-h" id="membersH">Mitglieder</p>
+      <div class="members" id="members"></div>
+    </div>
+
+    <div class="side-foot">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <rect x="4" y="10" width="16" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+      </svg>
+      <span id="sideFoot">Ende-zu-Ende-verschlüsselt · Nur für Mitglieder</span>
+    </div>
+  </aside>
+
+  <!-- ============ CHAT ============ -->
+  <main class="chat">
+    <header class="chat-head">
+      <div class="gh-avatar">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5h4v5"/>
+        </svg>
+      </div>
+      <div class="gh-txt">
+        <b id="chatTitle">Ahornweg · Nachtwache</b>
+        <span id="chatSub">5 Mitglieder · alle online</span>
+      </div>
+      <div class="gh-right">
+        <span class="pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
+          <span id="pillText">Vorfall 04</span>
+        </span>
+        <button class="icon-btn" aria-label="Suche">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/>
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Info">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="thread" id="thread"></div>
+
+    <div class="composer">
+      <div class="cbox" aria-disabled="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="10" width="16" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+        <span id="composerText">Archiv — Schreibzugriff gesperrt</span>
+      </div>
+      <span class="ctag" id="composerTag">read only</span>
+    </div>
+  </main>
+</div>
+
+<button class="lang-fab" id="langFab" title="Switch language">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M3.6 9h16.8M3.6 15h16.8"/>
+    <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/>
+  </svg>
+  <span id="fabLabel">EN</span>
+  <span class="lf-sub" id="fabSub">Deutsch</span>
+</button>
+
+<script>
+/* ---------------- Sprache ---------------- */
+let lang = 'de';
+
+/* ---------------- Personen ---------------- */
+const PEOPLE = {
+  katrin: { name:'Katrin Vogt',   ini:'KV', hue:6,   role:{ de:'Schwester von Jonas', en:"Jonas's sister" } },
+  anke:   { name:'Anke Reimers',  ini:'AR', hue:280, role:{ de:'Tante von Lena',      en:"Lena's aunt" } },
+  tobi:   { name:'Tobias Kranz',  ini:'TK', hue:32,  role:{ de:'Nachbar, Haus 14',    en:'Neighbor, house 14' } },
+  bjoern: { name:'Björn Habicht', ini:'BH', hue:190, role:{ de:'Nachbar, Haus 3',     en:'Neighbor, house 3' } },
+  svenja: { name:'Svenja Roth',   ini:'SR', hue:145, role:{ de:'Nachbarin, Haus 21',  en:'Neighbor, house 21' } }
+};
+
+/* ---------------- Oberflächentexte ---------------- */
+const UI = {
+  brandName:   { de:'NACHTWACHE',                              en:'NIGHTWATCH' },
+  brandSub:    { de:'Privat · 5 Mitglieder',                    en:'Private · 5 members' },
+  lageH:       { de:'Lage',                                     en:'Situation' },
+  membersH:    { de:'Mitglieder',                               en:'Members' },
+  sideFoot:    { de:'Ende-zu-Ende-verschlüsselt · Nur für Mitglieder',
+                 en:'End-to-end encrypted · Members only' },
+  chatTitle:   { de:'Ahornweg · Nachtwache',                     en:'Ahornweg · Nightwatch' },
+  chatSub:     { de:'5 Mitglieder · alle online',                en:'5 members · all online' },
+  pillText:    { de:'Vorfall 04',                                en:'Incident 04' },
+  composerText:{ de:'Archiv — Schreibzugriff gesperrt',          en:'Archive — write access locked' },
+  composerTag: { de:'nur lesen',                                 en:'read only' },
+  day:         { de:'Heute · 4. Oktober',                        en:'Today · 4 October' },
+  seen:        { de:'Gelesen von 4 · 22:46',                     en:'Read by 4 · 22:46' },
+  fabLabel:    { de:'EN',                                        en:'DE' },
+  fabSub:      { de:'Deutsch',                                   en:'English' }
+};
+
+const LAGE = [
+  { k:{ de:'Angriffe seit Juli', en:'Attacks since July' }, v:'4', warn:false },
+  { k:{ de:'Todesopfer',         en:'Fatalities' },         v:'1', warn:true  },
+  { k:{ de:'Verletzte',          en:'Injured' },            v:'3', warn:false },
+  { k:{ de:'Letzter Vorfall',    en:'Last incident' },      v:'02:40', warn:false },
+  { k:{ de:'Muster',             en:'Pattern' },            v:{ de:'allein · draußen · nachts', en:'alone · outdoors · night' }, warn:false },
+  { k:{ de:'Täter',              en:'Perpetrator' },        v:{ de:'unbekannt', en:'unknown' }, warn:false },
+  { k:{ de:'Gerüchte',           en:'Rumors' },             v:{ de:'„kein Mensch“', en:'“not human”' }, odd:true },
+  { k:{ de:'SoKo „Dämmerung“',   en:'Task force “Twilight”' }, v:{ de:'seit 12 Wo.', en:'for 12 wks.' }, warn:false }
+];
+
+/* ---------------- Nachrichten (ohne 22:41-Interaktion) ---------------- */
+const MSG = [
+  { from:'katrin', t:'21:38',
+    de:'Anke hat mir gerade geschrieben. Lena ist wach.',
+    en:'Anke just messaged me. Lena is awake.' },
+
+  { from:'anke', t:'21:39',
+    de:'Sie ist wach. Zwei Rippen gebrochen, Jochbein auch. Sie spricht kaum.',
+    en:'She’s awake. Two broken ribs, cheekbone too. She barely speaks.' },
+
+  { from:'tobi', t:'21:40',
+    de:'Wo ist es passiert?',
+    en:'Where did it happen?' },
+
+  { from:'anke', t:'21:41',
+    de:'Draußen. Auf dem Stück zwischen der Haltestelle und ihrem Haus. Sie war allein, es war kurz nach zwei.',
+    en:'Outside. On the stretch between the bus stop and her house. She was alone, it was just past two.' },
+
+  { from:'bjoern', t:'21:43',
+    de:'Vierter Angriff seit Juli. Und jedes Mal dasselbe Muster: eine Person, allein, draußen, nachts. Die Polizei sagt weiterhin, es gebe keinen Zusammenhang.',
+    en:'Fourth attack since July. And the same pattern every time: one person, alone, outdoors, at night. The police still say there’s no connection.' },
+
+  { from:'svenja', t:'21:44',
+    de:'Sie haben eine Spur. Vielleicht ist diesmal etwas dran.',
+    en:'They have a lead. Maybe this time it’s real.' },
+
+  { from:'katrin', t:'21:44',
+    de:'Das haben sie bei Jonas auch gesagt. Jonas ist nachts allein nach Hause gegangen, wie jeden Donnerstag. Danach haben sie von „Erkenntnissen“ geredet. Jonas ist trotzdem tot.',
+    en:'That’s what they said about Jonas too. Jonas walked home alone at night, like every Thursday. Then they talked about “findings.” Jonas is still dead.' },
+
+  { from:'tobi', t:'21:46',
+    de:'Vier Angriffe. Ein Toter. Und wir sitzen hier und tauschen Nachrichten.',
+    en:'Four attacks. One dead. And we sit here trading messages.' },
+
+  { from:'bjoern', t:'21:48',
+    de:'Ab morgen geht hier keiner mehr allein raus. Niemand. Nicht nach Einbruch der Dunkelheit. Zu zweit oder gar nicht. Das ist die einzige Regel, die zählt.',
+    en:'Starting tomorrow, nobody here walks out alone. Nobody. Not after dark. In pairs or not at all. That’s the only rule that matters.' },
+
+  { from:'svenja', t:'21:49',
+    de:'Das ist das Einzige, was wirklich hilft. Nicht allein sein. Kein Mut, keine Werkzeuge — nur nicht allein.',
+    en:'That’s the only thing that actually helps. Not being alone. Not courage, not tools — just not being alone.' },
+
+  { from:'tobi', t:'21:50',
+    de:'Und wenn er zu zweit kommt? Was dann?',
+    en:'And what if he comes for two of us? Then what?',
+    react:[{e:'👍', n:1}] },
+
+  { from:'katrin', t:'21:52',
+    de:'Wir behandeln das wie ein Nachbarschaftsproblem. Es ist kein Nachbarschaftsproblem.',
+    en:'We’re treating this like a neighborhood problem. It isn’t one.' },
+
+  { from:'anke', t:'21:53',
+    de:'Bitte. Heute Nacht keine Diskussionen. Ich will nur, dass Lena schläft.',
+    en:'Please. No arguments tonight. I just want Lena to sleep.',
+    reply:7 },
+
+  { from:'tobi', t:'21:55', kind:'voice', dur:'0:14' },
+
+  { from:'svenja', t:'21:56',
+    de:'Meine Nachbarin schwört, es sei kein Mensch. Sie sagt, es sei etwas, das im Dunkeln wartet. Und sie ist nicht die Einzige, die das sagt.',
+    en:'My neighbor swears it isn’t a person. She says it’s something that waits in the dark. And she’s not the only one saying it.' },
+
+  { from:'bjoern', t:'21:57',
+    de:'Gerede. Wer eine Maske trägt, ist immer noch ein Mensch. Der hat Hände und Füße und einen Namen, den wir nur nicht kennen.',
+    en:'Talk. Someone wearing a mask is still a person. He has hands and feet and a name we just don’t know.' },
+
+  { from:'anke', t:'21:58',
+    de:'Lena hat gesagt, er hat gerochen wie nasser Waldboden. Sie konnte nicht sagen, ob er geatmet hat. Sie sagt, sie hat nichts gehört — keine Schritte.',
+    en:'Lena said he smelled like wet forest floor. She couldn’t say whether he was breathing. She says she heard nothing — no footsteps.' },
+
+  { from:'tobi', t:'22:00',
+    de:'Mein Bruder ist bei der Feuerwehr. Er sagt, die Wunden passen zu keinem Tier. Aber auch zu keinem normalen Messer. Sie haben bisher nichts gefunden, was dazu passt.',
+    en:'My brother is with the fire department. He says the wounds don’t match any animal. But not a normal knife either. So far they haven’t found anything that fits.' },
+
+  { from:'katrin', t:'22:03',
+    de:'Ich sage euch, was ich will. Ich will nicht, dass er wieder ins Krankenhaus kommt. Ich will, dass er nicht mehr aufsteht.',
+    en:'I’ll tell you what I want. I don’t want him back in a hospital. I want him to not get up again.',
+    react:[{e:'😶', n:2},{e:'❤️', n:1}] },
+
+  { from:'svenja', t:'22:04',
+    de:'Katrin. Das bist nicht du.',
+    en:'Katrin. That’s not you.' },
+
+  { from:'katrin', t:'22:05',
+    de:'Vielleicht bin ich das jetzt.',
+    en:'Maybe it is now.' },
+
+  { from:'bjoern', t:'22:07',
+    de:'Der Mann im grauen Mantel. Der jeden Abend an der Haltestelle Eichenstraße steht. Ich habe mit dem Busfahrer gesprochen — er war auch in der Nacht da. Allein, an der Haltestelle, nach Mitternacht.',
+    en:'The man in the grey coat. The one at the Eichenstraße stop every evening. I talked to the bus driver — he was there that night too. Alone, at the stop, after midnight.' },
+
+  { from:'svenja', t:'22:08',
+    de:'Dann gebt das der Polizei. Mit Uhrzeit, Linie, allem.',
+    en:'Then give that to the police. With times, line numbers, everything.' },
+
+  { from:'bjoern', t:'22:09',
+    de:'Wir haben einen Mantel, keinen Namen. Die Polizei hat den Mantel seit September.',
+    en:'We have a coat, not a name. The police have had the coat since September.' },
+
+  { from:'tobi', t:'22:11',
+    de:'Ich fahre hin. Ich schaue nur, ob er wieder da steht.',
+    en:'I’m driving over. Just to see if he’s standing there again.' },
+
+  { from:'anke', t:'22:12',
+    de:'Tobi. Nicht allein. Bitte. Nimm jemanden mit oder bleib zu Hause.',
+    en:'Tobi. Not alone. Please. Take someone with you or stay home.' },
+
+  { from:'tobi', t:'22:13',
+    de:'Ich melde mich, wenn ich da bin.',
+    en:'I’ll check in when I’m there.' },
+
+  { kind:'sys', t:'22:31',
+    de:'Tobias Kranz hat seinen Standort geteilt · 1,2 km entfernt',
+    en:'Tobias Kranz shared his location · 1.2 km away' },
+
+  { from:'katrin', t:'22:33',
+    de:'Tobi?',
+    en:'Tobi?' },
+
+  { from:'bjoern', t:'22:34',
+    de:'Ich fahre auch hin.',
+    en:'I’m driving over too.' },
+
+  { from:'svenja', t:'22:34',
+    de:'Nein. Björn. Nein.',
+    en:'No. Björn. No.' },
+
+  { from:'anke', t:'22:35',
+    de:'Ich rufe die Polizei.',
+    en:'I’m calling the police.' },
+
+  { from:'bjoern', t:'22:45',
+    de:'Katrin. Mach das Licht an. Und mach die Tür zu. Wir sind in zehn Minuten da.',
+    en:'Katrin. Turn the lights on. And lock the door. We’ll be there in ten minutes.' }
+];
+
+/* ---------------- Helfer ---------------- */
+const thread    = document.getElementById('thread');
+const membersEl = document.getElementById('members');
+const lageEl    = document.getElementById('lageRows');
+
+const col = h => `hsl(${h} 62% 63%)`;
+const bg  = h => `hsl(${h} 62% 55% / .15)`;
+const bd  = h => `hsl(${h} 62% 55% / .34)`;
+
+function L(v){
+  if (v == null) return '';
+  return typeof v === 'string' ? v : v[lang];
+}
+
+function avatar(key, size = 32, withDot = false){
+  const p = PEOPLE[key];
+  const d = document.createElement('div');
+  d.className = 'avatar';
+  d.style.cssText = `width:${size}px;height:${size}px;background:${bg(p.hue)};color:${col(p.hue)};border:1px solid ${bd(p.hue)};font-size:${size*0.34}px`;
+  d.textContent = p.ini;
+  if (withDot){
+    const dot = document.createElement('i');
+    dot.className = 'dot';
+    d.appendChild(dot);
+  }
+  return d;
+}
+
+function waveBars(seed, count){
+  const frag = document.createDocumentFragment();
+  let s = seed;
+  for (let i = 0; i < count; i++){
+    s = (s * 9301 + 49297) % 233280;
+    const h = 5 + Math.round((s / 233280) * 20);
+    const bar = document.createElement('i');
+    bar.style.height = h + 'px';
+    if (i > count - 6) bar.style.background = '#3a4652';
+    frag.appendChild(bar);
+  }
+  return frag;
+}
+
+function applyStatic(){
+  document.documentElement.lang = lang;
+  ['brandName','brandSub','lageH','membersH','sideFoot','chatTitle',
+   'chatSub','pillText','composerText','composerTag','fabLabel','fabSub']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = L(UI[id]);
+    });
+  document.getElementById('langFab').title =
+    lang === 'de' ? 'Auf Englisch umschalten' : 'Switch to German';
+}
+
+function renderLage(){
+  lageEl.innerHTML = '';
+  LAGE.forEach(row => {
+    const d = document.createElement('div');
+    d.className = 'lage-row';
+    const k = document.createElement('span');
+    k.textContent = L(row.k);
+    const v = document.createElement('b');
+    v.textContent = L(row.v);
+    if (row.warn) v.classList.add('warn');
+    if (row.odd)  v.classList.add('odd');
+    d.appendChild(k);
+    d.appendChild(v);
+    lageEl.appendChild(d);
+  });
+}
+
+function renderMembers(){
+  membersEl.innerHTML = '';
+  Object.keys(PEOPLE).forEach(k => {
+    const p = PEOPLE[k];
+    const row = document.createElement('div');
+    row.className = 'member';
+    row.appendChild(avatar(k, 32, true));
+    const txt = document.createElement('div');
+    txt.className = 'm-txt';
+    const b = document.createElement('b');
+    b.textContent = p.name;
+    const s = document.createElement('span');
+    s.textContent = L(p.role);
+    txt.appendChild(b);
+    txt.appendChild(s);
+    row.appendChild(txt);
+    membersEl.appendChild(row);
+  });
+}
+
+function renderThread(){
+  thread.innerHTML = '';
+
+  const day = document.createElement('div');
+  day.className = 'daydiv';
+  day.textContent = L(UI.day);
+  thread.appendChild(day);
+
+  let seedCounter = 41;
+
+  MSG.forEach((m, idx) => {
+    if (m.kind === 'sys'){
+      const s = document.createElement('div');
+      s.className = 'sys';
+      s.textContent = `${L(m)} · ${m.t}`;
+      thread.appendChild(s);
+      return;
+    }
+
+    const p = PEOPLE[m.from];
+    const row = document.createElement('div');
+    row.className = 'msg';
+    row.style.setProperty('--c', col(p.hue));
+    row.style.animationDelay = Math.min(idx * 12, 260) + 'ms';
+
+    row.appendChild(avatar(m.from));
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.style.setProperty('--c', col(p.hue));
+
+    if (m.reply != null){
+      const orig = MSG[m.reply - 1];
+      const full = L(orig);
+      const snip = full.length > 62 ? full.slice(0, 62) + '…' : full;
+      const q = document.createElement('div');
+      q.className = 'quote';
+      const who = document.createElement('b');
+      who.textContent = PEOPLE[orig.from].name;
+      q.appendChild(who);
+      q.appendChild(document.createTextNode(' ' + snip));
+      bubble.appendChild(q);
+    }
+
+    const who = document.createElement('div');
+    who.className = 'who';
+    const nm = document.createElement('span');
+    nm.textContent = p.name;
+    const tm = document.createElement('time');
+    tm.textContent = m.t;
+    who.appendChild(nm);
+    who.appendChild(tm);
+    bubble.appendChild(who);
+
+    if (m.kind === 'voice'){
+      const v = document.createElement('div');
+      v.className = 'voice';
+      v.innerHTML = `<div class="vplay">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div><div class="wave"></div><span class="vtime">${m.dur}</span>`;
+      v.querySelector('.wave').appendChild(waveBars(seedCounter++, 26));
+      bubble.appendChild(v);
+    } else {
+      const t = document.createElement('div');
+      t.className = 'txt';
+      t.textContent = L(m);
+      bubble.appendChild(t);
+    }
+
+    if (m.react && m.react.length){
+      const rs = document.createElement('div');
+      rs.className = 'reacts';
+      m.react.forEach(r => {
+        const b = document.createElement('button');
+        b.className = 'react';
+        b.innerHTML = `<span>${r.e}</span><span>${r.n}</span>`;
+        b.addEventListener('click', () => {
+          b.classList.toggle('on');
+          const num = b.lastElementChild;
+          num.textContent = String(Number(num.textContent) + (b.classList.contains('on') ? 1 : -1));
+        });
+        rs.appendChild(b);
+      });
+      bubble.appendChild(rs);
+    }
+
+    row.appendChild(bubble);
+    thread.appendChild(row);
+  });
+
+  const seen = document.createElement('div');
+  seen.className = 'seen';
+  seen.textContent = L(UI.seen);
+  thread.appendChild(seen);
+
+  thread.scrollTop = thread.scrollHeight;
+}
+
+function render(){
+  applyStatic();
+  renderLage();
+  renderMembers();
+  renderThread();
+}
+
+document.getElementById('langFab').addEventListener('click', () => {
+  lang = lang === 'de' ? 'en' : 'de';
+  render();
+});
+
+render();
+</script>
+</body>
+</html>

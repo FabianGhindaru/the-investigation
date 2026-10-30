@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INT-01-0008 — LAN Interview Recording Log</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --dim: #7d7d7d;
+    --accent: #6ea8ff;
+    --pink: #ff4d7d;
+    --turquoise: #3fe0c5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  body {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 20px 96px;
+  }
+
+  .sheet {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header ---------- */
+
+  .header {
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 22px;
+    margin-bottom: 34px;
+  }
+
+  .header h1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  .header h1 .tag {
+    color: var(--dim);
+    font-weight: 400;
+    letter-spacing: .12em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 2px 14px;
+    font-size: 13px;
+  }
+
+  .meta dt {
+    color: var(--dim);
+    letter-spacing: .08em;
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .subject { color: var(--pink); }
+  .status  { color: var(--turquoise); letter-spacing: .12em; }
+  .clearance { color: var(--pink); }
+
+  .note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ---------- transcript ---------- */
+
+  .log {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .line {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .ts {
+    color: var(--dim);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .said { margin: 0; }
+
+  .speaker {
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
+  .speaker::after { content: ":"; color: var(--dim); margin-right: .5ch; }
+
+  .text { color: var(--fg); }
+
+  /* stage directions */
+
+  .cue {
+    margin: 8px 0;
+    padding: 2px 0 2px 14px;
+    border-left: 2px solid var(--turquoise);
+    color: var(--turquoise);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .cue .lbl { letter-spacing: .1em; }
+
+  /* redactions and key identifiers */
+
+  .redacted {
+    color: var(--pink);
+    font-weight: 700;
+    background: rgba(255, 77, 125, .12);
+    padding: 0 .3em;
+  }
+
+  .key { color: var(--pink); }
+
+  .ref {
+    margin: 30px 0 0;
+    font-size: 12px;
+    letter-spacing: .14em;
+    color: var(--dim);
+  }
+
+  /* footer */
+
+  .terminated {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #1e1e1e;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 14px; padding: 36px 16px 72px; }
+    .line { grid-template-columns: 1fr; gap: 2px; }
+    .meta { grid-template-columns: 1fr; }
+    .meta dt { margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="header">
+    <h1>LAN Interview Recording Log <span class="tag">— record INT-01-0008</span></h1>
+
+    <dl class="meta">
+      <dt>INTERVIEW ID</dt><dd>INT-01-0008</dd>
+      <dt>SUBJECT</dt><dd class="subject">E-01-089</dd>
+      <dt>FACILITY</dt><dd>S-00-A</dd>
+      <dt>DATE</dt><dd>30.09.2016</dd>
+      <dt>START</dt><dd>16:45:23</dd>
+      <dt>STATUS</dt><dd class="status">ARCHIVED</dd>
+      <dt>CLEARANCE</dt><dd class="clearance">[II]</dd>
+    </dl>
+
+    <p class="note">Witness testimony · interview room capture</p>
+  </header>
+
+  <section class="log">
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> LANCET interview room. Nurse Faraday and Mr. Becker are face to face at a table.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts">16:45:31</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"Good afternoon, Mr. Becker. I see your hand is in better condition now."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:45:38</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"It sure is. I was afraid I was going to lose it permanently. I can move it slowly now."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:45:46</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"That's great to hear. I won't take too much of your time. Please describe your account of what happened on the night of 29 September 2016."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:46:02</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"Right. I was coming home from work. I work as a private bodyguard at <span class="redacted">[ZEROIZED]</span>&mdash;"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:46:09</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"We can't allow direct naming of other organizations, Mr. Becker. Please continue."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:46:14</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"Of course. As I was saying&hellip; I was going home when my wife asked me to pick her up, she needed to go to her sister's place. I park my car and go the usual way through the alley toward my apartment complex. I see her waiting outside, and then I see a man behind her."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:46:41</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"Can you describe this man, Mr. Becker?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:46:45</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"He was around 180 centimeters, had a black coat and a fedora on his head. Very weird outfit, kind of like from a noir movie."</span>
+      </p>
+    </div>
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> Nurse Faraday types on her tablet, then shows him a sketch of the individual.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts">16:46:58</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"Yes! That's him. That's that monster!"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:47:02</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"Good. Please continue."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:47:05</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"So I'm looking at him, because as I said, he looks weird. Then suddenly he appears next to my wife. My instincts kick in &mdash; the adrenaline too. I see him stabbing her with a pair of scissors, then&mdash;"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:47:24</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"Scissors? Are you sure, Mr. Becker?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:47:27</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"100%. Classic scissors, the handle was blue. So yeah. I see her and she screams in pain. I dash and I hit the monster's hand &mdash; the one with the scissors &mdash; with my baton. He grunts and drops the scissors. I go for another strike, but he dodges and slashes my left hand with his claws."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:48:01</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"Could you please show your hand to the camera?"</span>
+      </p>
+    </div>
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> Mr. Becker raises his hand. It is covered in bandages, but black spots are visible beneath them.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts">16:48:09</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"Your team said it was plague. I got so scared when I heard that."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:48:15</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"'Like the plague,' Mr. Becker. Thankfully, some strong antibiotics and creams were enough. What happened after?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">16:48:23</span>
+      <p class="said">
+        <span class="speaker">A. Becker</span>
+        <span class="text">"He vanished. Just poof! I then called an ambulance for my wife, and your men arrived later. How is she?"</span>
+      </p>
+    </div>
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> Nurse Faraday shows him the live feed on her tablet. A woman in a hospital bed is talking with a nurse.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts">16:48:37</span>
+      <p class="said">
+        <span class="speaker">P. Faraday</span>
+        <span class="text">"She will be released tomorrow."</span>
+      </p>
+    </div>
+
+  </section>
+
+  <p class="ref">Reference number: 23 5 9 18 4 2 5 18 12 9 14</p>
+
+  <p class="terminated">[Recording terminated. Duration 198s.]</p>
+
+</main>
+</body>
+</html>

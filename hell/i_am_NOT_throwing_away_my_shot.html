@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAL-16-0434 — Internal Line Log</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --dim: #7d7d7d;
+    --accent: #6ea8ff;
+    --bracket: #ff4d7d;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  body {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 20px 96px;
+  }
+
+  .sheet {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header block ---------- */
+
+  .header {
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 22px;
+    margin-bottom: 34px;
+  }
+
+  .header h1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin: 0 0 18px;
+  }
+
+  .header h1 .tag {
+    color: var(--dim);
+    font-weight: 400;
+    letter-spacing: .12em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 2px 14px;
+    font-size: 13px;
+  }
+
+  .meta dt {
+    color: var(--dim);
+    letter-spacing: .08em;
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .meta dd .arrow { color: var(--accent); }
+
+  .clearance {
+    color: var(--bracket);
+  }
+
+  .note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ---------- transcript ---------- */
+
+  .log {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .line {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .ts {
+    color: var(--dim);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .said { margin: 0; }
+
+  .speaker {
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
+  .speaker::after { content: ":"; color: var(--dim); margin-right: .5ch; }
+
+  .text { color: var(--fg); }
+
+  /* system / bracketed events */
+
+  .event {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .event .val {
+    color: var(--bracket);
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .call-end {
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid #1e1e1e;
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--bracket);
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 14px; padding: 36px 16px 72px; }
+    .line, .event { grid-template-columns: 1fr; gap: 2px; }
+    .meta { grid-template-columns: 1fr; gap: 0 0; }
+    .meta dt { margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="header">
+    <h1>WCT / HQ Internal Line Log <span class="tag">— transcript</span></h1>
+
+    <dl class="meta">
+      <dt>CALL ID</dt><dd>CAL-16-0434</dd>
+      <dt>ROUTE</dt><dd>B06 <span class="arrow">&#8594;</span> B00, B06 <span class="arrow">&#8594;</span> B09</dd>
+      <dt>DATE</dt><dd>06.10.2016</dd>
+      <dt>START</dt><dd>05:09:07 CET</dd>
+      <dt>LINE</dt><dd>STABLE</dd>
+      <dt>TRANSCRIPT</dt><dd>Auto-generated. Not reviewed.</dd>
+      <dt>CLEARANCE</dt><dd class="clearance">[III]</dd>
+    </dl>
+
+    <p class="note">Unverified automatic record</p>
+  </header>
+
+  <section class="log">
+
+    <div class="line">
+      <span class="ts">05:09:07</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Unit 004 to HQ, radio check. How copy, over?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:11</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"HQ reads you five by five, 004. Go ahead."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:14</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Copy. In position, on the glass. I have positive identification on Tango 089. Range six-four-zero, wind four knots left to right, no lead. Dope is good, cold bore confirmed."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:24</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Roger, 004. Hold what you've got."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:27</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Holding. Target is static, facing away. Safeties are off, on the gun."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:33</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Copy. Permission to engage is pending at HQ. Stand by."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:37</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Standing by. Spotter's glassing the treeline, no other movement."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:44</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Wind's picking up. Recalculating. Adjusted position, re-doping."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:09:52</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Roger, keep me posted."</span>
+      </p>
+    </div>
+
+    <div class="event">
+      <span class="ts">[&mdash;]</span>
+      <span class="val">[3 minutes later]</span>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:12:41</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"004, HQ. Can you incapacitate the target?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:12:46</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Negative. Any shot on this angle is a lethal shot. No clean limb hit, no wounding option. Over."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:12:54</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Disengage, 004. HQ wants Tango 089 captured alive. Alive and talking. Acknowledge."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:13:02</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"...Copy. Weapons tight, coming off the gun."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:13:08</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Confirm safeties on."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:13:11</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Safeties on, weapons cold. Disengaging. Breaking down the position, repositioning to alternate. Rally at Sierra Two, ETA ten mikes."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:13:22</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Roger. Keep eyes on him if you can, but do not engage. Do not spook him. HQ is moving a ground element."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:13:31</span>
+      <p class="said">
+        <span class="speaker">004</span>
+        <span class="text">"Understood. We'll shadow from the ridge, stay out of his sightline. If he moves, you'll hear it from me first."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts">05:13:40</span>
+      <p class="said">
+        <span class="speaker">T. Rzepka</span>
+        <span class="text">"Good. HQ out."</span>
+      </p>
+    </div>
+
+  </section>
+
+  <p class="call-end">[Call ended. Duration 04:36.]</p>
+
+</main>
+</body>
+</html>
