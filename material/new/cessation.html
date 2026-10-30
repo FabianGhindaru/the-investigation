@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TES-01-0058 — LAN Test Recording Log</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --dim: #7d7d7d;
+    --accent: #6ea8ff;
+    --pink: #ff4d7d;
+    --turquoise: #3fe0c5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  body {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 20px 96px;
+  }
+
+  .sheet {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header ---------- */
+
+  .header {
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 22px;
+    margin-bottom: 34px;
+  }
+
+  .header h1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  .header h1 .tag {
+    color: var(--dim);
+    font-weight: 400;
+    letter-spacing: .12em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 2px 14px;
+    font-size: 13px;
+  }
+
+  .meta dt {
+    color: var(--dim);
+    letter-spacing: .08em;
+  }
+
+  .meta dd {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .subject { color: var(--pink); }
+  .status  { color: var(--turquoise); letter-spacing: .12em; }
+  .clearance { color: var(--pink); }
+
+  .note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ---------- transcript ---------- */
+
+  .log {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .line {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .ts {
+    color: var(--dim);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .said { margin: 0; }
+
+  .speaker {
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
+  .speaker::after { content: ":"; color: var(--dim); margin-right: .5ch; }
+
+  .text { color: var(--fg); }
+
+  /* stage directions */
+
+  .cue {
+    margin: 8px 0;
+    padding: 2px 0 2px 14px;
+    border-left: 2px solid var(--turquoise);
+    color: var(--turquoise);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .cue .lbl { letter-spacing: .1em; }
+
+  /* system events — dropouts, failures */
+
+  .cue.event {
+    border-left-color: var(--pink);
+    color: var(--pink);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* redactions and key identifiers */
+
+  .redacted {
+    color: var(--pink);
+    font-weight: 700;
+    background: rgba(255, 77, 125, .12);
+    padding: 0 .3em;
+  }
+
+  .key { color: var(--pink); }
+
+  /* corrupted fields */
+
+  .ts.err {
+    color: var(--pink);
+    white-space: normal;
+    font-size: 11px;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  /* footer */
+
+  .terminated {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #1e1e1e;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 14px; padding: 36px 16px 72px; }
+    .line { grid-template-columns: 1fr; gap: 2px; }
+    .meta { grid-template-columns: 1fr; }
+    .meta dt { margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="header">
+    <h1>LAN Test Recording Log <span class="tag">— record TES-01-0058</span></h1>
+
+    <dl class="meta">
+      <dt>TEST ID</dt><dd>TES-01-0058</dd>
+      <dt>SUBJECT</dt><dd class="subject">E-01-991</dd>
+      <dt>FACILITY</dt><dd>B-01</dd>
+      <dt>DATE</dt><dd>13.10.1991</dd>
+      <dt>START</dt><dd><span class="key">!PARSING_ERROR!</span></dd>
+      <dt>STATUS</dt><dd class="status">ARCHIVED</dd>
+      <dt>CLEARANCE</dt><dd class="clearance">[II]</dd>
+    </dl>
+
+    <p class="note">Controlled test capture · subject session</p>
+  </header>
+
+  <section class="log">
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> Wood cabin master bedroom. Twin XL bed. Adjacent nightstand with a generic 1980s digital alarm clock featuring a single top button. A man in his early 30s is lying on the bed.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"Test number one for <span class="key">991</span>, performed by Dr. De Luca with Mr. Girard, designated as <span class="key">SUB-023</span>. It is currently believed that 023 is already under the effect of 991."</span>
+      </p>
+    </div>
+
+    <p class="cue event">[Video dropout <span class="key">!PARSING_ERROR!</span>s]</p>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"023, please state your current condition as well as any physical disturbances you may feel."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">SUB-023</span>
+        <span class="text">"I feel&hellip; lethargic. Yes, that would be the word. It's like my motivation and energy have been stripped away."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"Do you believe these are physical or mental symptoms, 023?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">SUB-023</span>
+        <span class="text">"I would like to say mental. I don't feel pain in my limbs, but it takes a significant amount of effort to move them. Even&hellip; even talking to you is tiring. No offense."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"None taken. Please make an effort and try to explain what you see when looking at 991. Any detail is useful."</span>
+      </p>
+    </div>
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> SUB-023 makes a noticeable effort to turn his head toward 991.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">SUB-023</span>
+        <span class="text">"It's&hellip; simple. Normal. Plastic, I think. Simple red LED lighting, I believe. I don't see anything unusual."</span>
+      </p>
+    </div>
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> Dr. De Luca writes on her clipboard for approximately one minute, glancing repeatedly at SUB-023 and 991 between sentences.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"And this red lighting you are describing&hellip; is it just a steady glow, or does it display anything?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">SUB-023</span>
+        <span class="text">"I don't understand the question. It's just&hellip; a simple timer, I think."</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"Timer? Please tell me what it displays."</span>
+      </p>
+    </div>
+
+    <p class="cue"><span class="lbl">(VISUAL:</span> SUB-023 looks at 991, then back at Dr. De Luca.<span class="lbl">)</span></p>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">SUB-023</span>
+        <span class="text">"I mean, my vision isn't that good without my glasses, but it says <span class="key">5:23</span> and dropping, right?"</span>
+      </p>
+    </div>
+
+    <div class="line">
+      <span class="ts err">[!PARSING_ERROR!]</span>
+      <p class="said">
+        <span class="speaker">Dr. A. De Luca</span>
+        <span class="text">"That will be all, Mr. Girard. LANCET personnel will arrive here shortly."</span>
+      </p>
+    </div>
+
+  </section>
+
+  <p class="terminated">[Recording terminated. Duration <span class="key">!PARSING_ERROR!</span>s.]</p>
+
+</main>
+</body>
+</html>

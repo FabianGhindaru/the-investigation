@@ -1,277 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>trn 1.03 - alt.folklore.urban</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personal Journal — 1991 (scanned)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: #d9d6cd;
-    color: #1c1c1c;
-    font-family: "Courier New", Courier, "Lucida Console", monospace;
-    font-size: 15px;
-    line-height: 1.42;
-    padding: 28px 16px;
-    min-height: 100vh;
+  /* ---------------------------------------------------------
+     SCANNER BED
+  --------------------------------------------------------- */
+  :root{
+    --ink: #232c44;
+    --ink-soft: #3b4560;
+    --paper: #f1e7d3;
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .terminal {
-    max-width: 820px;
-    margin: 0 auto;
-    background: #fdfcf7;
-    border: 1px solid #8d8a80;
-    padding: 26px 30px 22px;
+  *{ box-sizing: border-box; }
+
+  html, body{ margin:0; padding:0; }
+
+  body{
+    min-height:100vh;
+    padding: 56px 16px 72px;
+    background:
+      radial-gradient(ellipse at 50% 0%, #2a2a2a 0%, #141414 55%, #0b0b0b 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 54px;
+    font-family: "Caveat", "Segoe Script", cursive;
   }
 
-  .status-bar {
-    background: #1c1c1c;
-    color: #fdfcf7;
-    padding: 3px 8px;
-    margin-bottom: 22px;
-    letter-spacing: 0.5px;
-    white-space: pre;
+  /* ---------------------------------------------------------
+     THE PAGE
+  --------------------------------------------------------- */
+  .page{
+    position: relative;
+    width: min(640px, 94vw);
+    min-height: 860px;
+    padding: clamp(48px, 7vw, 78px) clamp(34px, 6vw, 68px) clamp(64px, 8vw, 92px);
+    background:
+      linear-gradient(115deg, #f6efdd 0%, var(--paper) 38%, #e9dcc2 78%, #ded0b2 100%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.55) inset,
+      0 24px 48px rgba(0,0,0,.55),
+      0 3px 10px rgba(0,0,0,.45);
+    color: var(--ink);
+    isolation: isolate;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .article {
-    border-bottom: 1px dashed #b3afa3;
-    padding-bottom: 20px;
-    margin-bottom: 22px;
-  }
-  .article:last-of-type { border-bottom: none; }
+  /* slight rotation, like pages laid on glass */
+  .page:nth-of-type(1){ transform: rotate(-0.75deg); }
+  .page:nth-of-type(2){ transform: rotate(0.5deg); }
 
-  .headers {
-    margin-bottom: 14px;
-    color: #1c1c1c;
-  }
-
-  .header-field {
-    display: block;
-    overflow-wrap: anywhere;
-  }
-  .header-field span { color: #6d6a62; }
-
-  .body-text {
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    color: #1c1c1c;
+  /* aging / stain layers ------------------------------------ */
+  .page::before{
+    /* foxing spots + coffee ring + edge darkening */
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 78% 22%, rgba(126,92,44,.20) 0 7%, transparent 7.6%),
+      radial-gradient(circle at 78% 22%, rgba(126,92,44,.12) 0 15%, transparent 15.8%),
+      radial-gradient(circle at 12% 68%, rgba(120,90,50,.16) 0 3.2%, transparent 3.9%),
+      radial-gradient(circle at 33% 91%, rgba(120,90,50,.13) 0 1.6%, transparent 2.2%),
+      radial-gradient(circle at 88% 79%, rgba(120,90,50,.14) 0 2.4%, transparent 3%),
+      radial-gradient(circle at 55% 12%, rgba(120,90,50,.10) 0 1.4%, transparent 2%),
+      radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(116,88,46,.30) 100%);
+    mix-blend-mode: multiply;
+    pointer-events:none;
+    z-index: 2;
   }
 
-  .quote {
-    color: #5a5750;
-    display: block;
+  /* paper grain */
+  .grain{
+    position:absolute; inset:-10%;
+    background-image: var(--grain);
+    background-size: 260px 260px;
+    opacity:.30;
+    mix-blend-mode: multiply;
+    pointer-events:none;
+    z-index: 3;
   }
 
-  .prompt {
-    margin-top: 24px;
-    padding-top: 12px;
-    border-top: 1px solid #b3afa3;
-    color: #1c1c1c;
-    white-space: pre-wrap;
+  /* scanner light band + faint horizontal scan lines */
+  .scan{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(104deg,
+        transparent 38%,
+        rgba(255,255,255,.42) 47%,
+        rgba(255,255,255,.10) 52%,
+        transparent 62%),
+      repeating-linear-gradient(0deg,
+        rgba(0,0,0,.035) 0 1px,
+        transparent 1px 3px);
+    mix-blend-mode: soft-light;
+    pointer-events:none;
+    z-index: 4;
   }
 
-  #transcript { white-space: pre-wrap; }
-  #inputline { white-space: pre-wrap; }
-
-  .cursor {
-    display: inline-block;
-    width: 8px;
-    height: 15px;
-    background: #1c1c1c;
-    vertical-align: -2px;
-    animation: blink 1s step-start infinite;
+  /* soft crease down the middle */
+  .crease{
+    position:absolute; top:0; bottom:0; left:56%;
+    width: 46px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(120,95,55,.13) 42%,
+      rgba(255,255,255,.35) 50%,
+      rgba(120,95,55,.10) 58%,
+      transparent 100%);
+    mix-blend-mode: multiply;
+    pointer-events:none;
+    z-index: 3;
   }
 
-  @keyframes blink { 50% { opacity: 0; } }
+  /* punched binder holes on the left margin */
+  .holes{
+    position:absolute; left:14px; top:0; bottom:0;
+    width: 22px;
+    display:flex; flex-direction:column; justify-content:space-evenly;
+    pointer-events:none;
+    z-index: 5;
+  }
+  .holes i{
+    display:block;
+    width:17px; height:17px;
+    border-radius:50%;
+    background: radial-gradient(circle at 40% 35%, #191919 0 55%, #000 100%);
+    box-shadow:
+      0 0 0 1px rgba(90,70,40,.35),
+      1px 1px 3px rgba(0,0,0,.45) inset;
+  }
+
+  /* archived stamp */
+  .stamp{
+    position:absolute;
+    top: clamp(22px, 5vw, 44px);
+    right: clamp(16px, 4vw, 40px);
+    padding: 6px 14px 4px;
+    border: 2px solid rgba(150,42,32,.55);
+    border-radius: 3px;
+    color: rgba(150,42,32,.62);
+    font-family: "Courier Prime", monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    transform: rotate(-7deg);
+    mix-blend-mode: multiply;
+    z-index: 6;
+    opacity:.85;
+  }
+
+  /* folio number */
+  .folio{
+    position:absolute;
+    bottom: clamp(22px, 4vw, 34px);
+    right: clamp(34px, 6vw, 68px);
+    font-family: "Courier Prime", monospace;
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: rgba(60,50,35,.55);
+    z-index: 6;
+  }
+
+  /* ---------------------------------------------------------
+     HANDWRITTEN TEXT
+  --------------------------------------------------------- */
+  .content{
+    position: relative;
+    z-index: 1;
+    font-size: clamp(20px, 3.4vw, 25px);
+    line-height: 1.85;
+    color: var(--ink);
+    letter-spacing: .1px;
+    /* ink bleed */
+    text-shadow:
+      0 0 .7px rgba(35,44,68,.55),
+      0 0 .12em rgba(35,44,68,.18);
+  }
+
+  .content p{
+    margin: 0 0 1.05em;
+    opacity: .93;
+  }
+
+  /* dates written in a heavier, darker hand */
+  .date{
+    display:block;
+    margin: 1.5em 0 .35em;
+    font-weight: 600;
+    font-size: .92em;
+    letter-spacing: .04em;
+    color: #1a2138;
+    text-decoration: underline;
+    text-decoration-color: rgba(35,44,68,.35);
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+  }
+  .date:first-child{ margin-top: 0; }
+
+  /* the half-thought that closes page one */
+  .aside{
+    margin-top: 1.8em;
+    opacity: .78;
+    font-size: .95em;
+  }
+
+  /* ---------------------------------------------------------
+     ARCHIVE CAPTION
+  --------------------------------------------------------- */
+  .caption{
+    font-family: "Courier Prime", monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #6c6a63;
+    text-align: center;
+    max-width: 640px;
+    line-height: 1.9;
+  }
+  .caption b{ color:#8e8b82; font-weight:400; }
+
+  @media (max-width: 520px){
+    body{ padding-top: 32px; gap: 36px; }
+    .page{ min-height: 0; padding-bottom: 80px; }
+    .stamp{ font-size: 9px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="terminal">
-  <div class="status-bar">VAX/VMS 5.4   trn v1.03   alt.folklore.urban   [3 unread]</div>
+  <!-- ============ PAGE 1 ============ -->
+  <article class="page">
+    <div class="grain"></div>
+    <div class="scan"></div>
+    <div class="crease"></div>
+    <div class="holes"><i></i><i></i></div>
+    <div class="stamp">archived · 1991</div>
 
-  <!-- ARTICLE 1 -->
-  <div class="article">
-    <div class="headers">
-      <span class="header-field"><span>From:</span> d_parsons@uvm.edu (Dana Parsons)</span>
-      <span class="header-field"><span>Newsgroups:</span> alt.folklore.urban,alt.conspiracy</span>
-      <span class="header-field"><span>Subject:</span> Death in Manchester (Chronicle, 8 Oct) "no box for this"</span>
-      <span class="header-field"><span>Date:</span> Wed, 9 Oct 1991 21:03:44 GMT</span>
-      <span class="header-field"><span>Organization:</span> University of Vermont, Bailey/Howe Library</span>
-      <span class="header-field"><span>Message-ID:</span> &lt;1991Oct09.210344.1187@emba.uvm.edu&gt;</span>
-      <span class="header-field"><span>X-Newsreader:</span> trn 1.03</span>
-      <span class="header-field"><span>Lines:</span> 36</span>
+    <div class="content">
+      <p>I promised Marta I will keep filling this jurnal up but it gets too hard. I barely have
+      the motivation to go to work, and even there I do the absolutly bare necessary so that i
+      can still afford to eat. I dont feel like eating either.</p>
+
+      <p>I reset it again today. managed to get around 7 hours. good sleep time. all i do at
+      home is sleep now.</p>
+
+      <p class="aside">When did things turn out this way?</p>
     </div>
 
-    <div class="body-text">This has grown teeth in town. My department keeps getting asked about it,
-so I've transcribed the parts of Tuesday's Chronicle piece that matter.
-Elisions are mine.
+    <div class="folio">— 1 —</div>
+  </article>
 
-   Archivist, 28, Found Dead in Bed
-   Coroner rules suicide after autopsy finds no wound, no poison,
-   and no cause
+  <!-- ============ PAGE 2 ============ -->
+  <article class="page">
+    <div class="grain"></div>
+    <div class="scan"></div>
+    <div class="crease"></div>
+    <div class="holes"><i></i><i></i></div>
 
-   MANCHESTER, Oct. 7. Julian Mercer, a twenty-eight-year-old
-   archivist employed by the county records office, was found dead
-   in his bed at his apartment on Harrow Street shortly after nine
-   o'clock Monday morning.
+    <div class="content">
+      <span class="date">6th of November 1991</span>
+      <p>the sleep did not help, i think im even more tired than before.</p>
 
-   [...] no defensive wounds, no intoxicants in his blood, and no
-   organic trauma.
-
-      "An impossible, voluntary cessation of autonomic brainstem
-       function."
-                       Medical examiner's report, Oct. 8, 1991
-
-   The medical examiner's office gave that phrase [...] as the cause
-   of death. Asked to elaborate, a spokesperson said only that the
-   report "stands as written."
-
-   No note was found. The bed was made. His shoes had been placed
-   together on the floor beside it, toes to the wall.
-
-   [...] "We don't have a box for this," the coroner said.
-
-I knew him by sight only. Sad business, but I've read a hundred
-suicides in the county paper and none of them looked like this one.
-What I cannot get past is the sentence. Examiners do not write like
-that in a public document. Papers do not print it unless the source
-has run out of things to say.
-
-Any pathologists on the group? Does that phrase mean anything, or is
-it a long way of writing "unknown"?
-
--- 
-Dana Parsons | Bailey/Howe Library | d_parsons@uvm.edu
-"Manuscripts don't burn."</div>
-  </div>
-
-  <!-- ARTICLE 2 -->
-  <div class="article">
-    <div class="headers">
-      <span class="header-field"><span>From:</span> p_sutton@dartmouth.edu (Pete Sutton)</span>
-      <span class="header-field"><span>Newsgroups:</span> alt.folklore.urban</span>
-      <span class="header-field"><span>Subject:</span> Re: Death in Manchester (Chronicle, 8 Oct) "no box for this"</span>
-      <span class="header-field"><span>Date:</span> Thu, 10 Oct 1991 08:37:12 GMT</span>
-      <span class="header-field"><span>Organization:</span> Dartmouth College</span>
-      <span class="header-field"><span>Message-ID:</span> &lt;1991Oct10.083712.441@eleazar.dartmouth.edu&gt;</span>
-      <span class="header-field"><span>References:</span> &lt;1991Oct09.210344.1187@emba.uvm.edu&gt;</span>
-      <span class="header-field"><span>X-Newsreader:</span> trn 1.03</span>
-      <span class="header-field"><span>Lines:</span> 30</span>
+      <span class="date">7th of November 1991</span>
+      <p>i cant keep going on like this. i dont have the power to get up. im already an hour
+      late to work. ill just rest some time.</p>
     </div>
 
-    <div class="body-text"><span class="quote">&gt; "An impossible, voluntary cessation of autonomic brainstem function."</span>
+    <div class="folio">— 2 —</div>
+  </article>
 
-It means nothing. There is no such diagnosis. Every death is a
-cessation of autonomic function. "Voluntary" asserts something no
-autopsy can show, and "impossible" is a man who has run out of forms.
-
-Toxicology takes two to four weeks at the state lab. Whatever they
-ruled on Tuesday, it was not based on the blood. Vermont also has no
-coroners. It's a medical examiner system, and if the Chronicle can't
-get that right in the first four paragraphs I would not trust it on
-the shoes.
-
-The dull explanation is that men of twenty-eight die in bed from
-undiagnosed conduction defects. Long QT, Brugada, a few per hundred
-thousand a year, first symptom last symptom. A clean autopsy doesn't
-exclude them, and you only find out afterwards by putting the family
-on an ECG.
-
-The arms and the shoes are not testimony. They are what a shaken
-colleague told a reporter who needed a lede.
-
-What is actually worth reading here is the folklore. Walter Cannon,
-"Voodoo Death," American Anthropologist 44:169-181, 1942. He
-collected reports of people dying under a curse and blamed sustained
-sympathetic overactivity. It is a serious paper by a serious
-physiologist and it is almost certainly wrong. Every case is
-secondhand. Not one has a necropsy. All of them take place in a
-society that expects the death, and Cannon was careful to point that
-out. The people quoting him are not.
-
-Mercer was not under a curse. Occam's razor.
-
--- 
-Peter Sutton || Dept. of Physiology || Hanover, NH</div>
-  </div>
-
-  <!-- PROMPT -->
-  <div class="prompt" id="prompt">
-    <div id="transcript"></div>
-    <div id="inputline"><span id="promptlabel">End of thread. [N]ext unread, [P]revious, [R]eply via mail, [Q]uit? &gt; </span><span id="cmd"></span><span class="cursor" id="cursor"></span></div>
-  </div>
-</div>
-
-<script>
-(function () {
-  var buf = '';
-  var firstCommand = true;
-  var cmd = document.getElementById('cmd');
-  var label = document.getElementById('promptlabel');
-  var transcript = document.getElementById('transcript');
-
-  function render() { cmd.textContent = buf; }
-
-  function submit() {
-    var typed = buf;
-    var line = document.createElement('div');
-    line.textContent = (firstCommand
-      ? 'End of thread. [N]ext unread, [P]revious, [R]eply via mail, [Q]uit? > '
-      : '> ') + typed;
-    transcript.appendChild(line);
-
-    var t = typed.trim().toUpperCase();
-    var out = '';
-    if (t === '') out = '';
-    else if (t === 'N' || t === 'NEXT') out = 'No unread articles in alt.folklore.urban.';
-    else if (t === 'P' || t === 'PREV') out = 'Already at the first article.';
-    else if (t === 'R' || t === 'REPLY') out = 'Reply via mail unavailable on this host.';
-    else if (t === 'Q' || t === 'QUIT') out = 'trn: .................. use this somewhere else? ...................';
-    else out = "trn: unknown command '" + typed + "'";
-
-    if (out) {
-      var resp = document.createElement('div');
-      resp.textContent = out;
-      transcript.appendChild(resp);
-    }
-
-    buf = '';
-    render();
-    firstCommand = false;
-    label.textContent = '> ';
-  }
-
-  document.addEventListener('keydown', function (e) {
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
-
-    if (e.key === 'Backspace') {
-      e.preventDefault();
-      buf = buf.slice(0, -1);
-      render();
-      return;
-    }
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      submit();
-      return;
-    }
-    if (e.key === ' ') {
-      e.preventDefault();
-      buf += ' ';
-      render();
-      return;
-    }
-    if (e.key.length === 1) {
-      e.preventDefault();
-      buf += e.key;
-      render();
-    }
-  });
-})();
-</script>
+  <p class="caption">
+    <b>scan_0004.tif</b> · personal journal · 300 dpi · 1991<br>
+    do not discard
+  </p>
 
 </body>
 </html>

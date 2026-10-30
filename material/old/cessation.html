@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Personal Journal — 1991 (scanned)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------
+     SCANNER BED
+  --------------------------------------------------------- */
+  :root{
+    --ink: #232c44;
+    --ink-soft: #3b4560;
+    --paper: #f1e7d3;
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{ margin:0; padding:0; }
+
+  body{
+    min-height:100vh;
+    padding: 56px 16px 72px;
+    background:
+      radial-gradient(ellipse at 50% 0%, #2a2a2a 0%, #141414 55%, #0b0b0b 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 54px;
+    font-family: "Caveat", "Segoe Script", cursive;
+  }
+
+  /* ---------------------------------------------------------
+     THE PAGE
+  --------------------------------------------------------- */
+  .page{
+    position: relative;
+    width: min(640px, 94vw);
+    min-height: 860px;
+    padding: clamp(48px, 7vw, 78px) clamp(34px, 6vw, 68px) clamp(64px, 8vw, 92px);
+    background:
+      linear-gradient(115deg, #f6efdd 0%, var(--paper) 38%, #e9dcc2 78%, #ded0b2 100%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.55) inset,
+      0 24px 48px rgba(0,0,0,.55),
+      0 3px 10px rgba(0,0,0,.45);
+    color: var(--ink);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  /* slight rotation, like pages laid on glass */
+  .page:nth-of-type(1){ transform: rotate(-0.75deg); }
+  .page:nth-of-type(2){ transform: rotate(0.5deg); }
+
+  /* aging / stain layers ------------------------------------ */
+  .page::before{
+    /* foxing spots + coffee ring + edge darkening */
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 78% 22%, rgba(126,92,44,.20) 0 7%, transparent 7.6%),
+      radial-gradient(circle at 78% 22%, rgba(126,92,44,.12) 0 15%, transparent 15.8%),
+      radial-gradient(circle at 12% 68%, rgba(120,90,50,.16) 0 3.2%, transparent 3.9%),
+      radial-gradient(circle at 33% 91%, rgba(120,90,50,.13) 0 1.6%, transparent 2.2%),
+      radial-gradient(circle at 88% 79%, rgba(120,90,50,.14) 0 2.4%, transparent 3%),
+      radial-gradient(circle at 55% 12%, rgba(120,90,50,.10) 0 1.4%, transparent 2%),
+      radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(116,88,46,.30) 100%);
+    mix-blend-mode: multiply;
+    pointer-events:none;
+    z-index: 2;
+  }
+
+  /* paper grain */
+  .grain{
+    position:absolute; inset:-10%;
+    background-image: var(--grain);
+    background-size: 260px 260px;
+    opacity:.30;
+    mix-blend-mode: multiply;
+    pointer-events:none;
+    z-index: 3;
+  }
+
+  /* scanner light band + faint horizontal scan lines */
+  .scan{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(104deg,
+        transparent 38%,
+        rgba(255,255,255,.42) 47%,
+        rgba(255,255,255,.10) 52%,
+        transparent 62%),
+      repeating-linear-gradient(0deg,
+        rgba(0,0,0,.035) 0 1px,
+        transparent 1px 3px);
+    mix-blend-mode: soft-light;
+    pointer-events:none;
+    z-index: 4;
+  }
+
+  /* soft crease down the middle */
+  .crease{
+    position:absolute; top:0; bottom:0; left:56%;
+    width: 46px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(120,95,55,.13) 42%,
+      rgba(255,255,255,.35) 50%,
+      rgba(120,95,55,.10) 58%,
+      transparent 100%);
+    mix-blend-mode: multiply;
+    pointer-events:none;
+    z-index: 3;
+  }
+
+  /* punched binder holes on the left margin */
+  .holes{
+    position:absolute; left:14px; top:0; bottom:0;
+    width: 22px;
+    display:flex; flex-direction:column; justify-content:space-evenly;
+    pointer-events:none;
+    z-index: 5;
+  }
+  .holes i{
+    display:block;
+    width:17px; height:17px;
+    border-radius:50%;
+    background: radial-gradient(circle at 40% 35%, #191919 0 55%, #000 100%);
+    box-shadow:
+      0 0 0 1px rgba(90,70,40,.35),
+      1px 1px 3px rgba(0,0,0,.45) inset;
+  }
+
+  /* archived stamp */
+  .stamp{
+    position:absolute;
+    top: clamp(22px, 5vw, 44px);
+    right: clamp(16px, 4vw, 40px);
+    padding: 6px 14px 4px;
+    border: 2px solid rgba(150,42,32,.55);
+    border-radius: 3px;
+    color: rgba(150,42,32,.62);
+    font-family: "Courier Prime", monospace;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    transform: rotate(-7deg);
+    mix-blend-mode: multiply;
+    z-index: 6;
+    opacity:.85;
+  }
+
+  /* folio number */
+  .folio{
+    position:absolute;
+    bottom: clamp(22px, 4vw, 34px);
+    right: clamp(34px, 6vw, 68px);
+    font-family: "Courier Prime", monospace;
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: rgba(60,50,35,.55);
+    z-index: 6;
+  }
+
+  /* ---------------------------------------------------------
+     HANDWRITTEN TEXT
+  --------------------------------------------------------- */
+  .content{
+    position: relative;
+    z-index: 1;
+    font-size: clamp(20px, 3.4vw, 25px);
+    line-height: 1.85;
+    color: var(--ink);
+    letter-spacing: .1px;
+    /* ink bleed */
+    text-shadow:
+      0 0 .7px rgba(35,44,68,.55),
+      0 0 .12em rgba(35,44,68,.18);
+  }
+
+  .content p{
+    margin: 0 0 1.05em;
+    opacity: .93;
+  }
+
+  /* dates written in a heavier, darker hand */
+  .date{
+    display:block;
+    margin: 1.5em 0 .35em;
+    font-weight: 600;
+    font-size: .92em;
+    letter-spacing: .04em;
+    color: #1a2138;
+    text-decoration: underline;
+    text-decoration-color: rgba(35,44,68,.35);
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+  }
+  .date:first-child{ margin-top: 0; }
+
+  /* the half-thought that closes page one */
+  .aside{
+    margin-top: 1.8em;
+    opacity: .78;
+    font-size: .95em;
+  }
+
+  /* ---------------------------------------------------------
+     ARCHIVE CAPTION
+  --------------------------------------------------------- */
+  .caption{
+    font-family: "Courier Prime", monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #6c6a63;
+    text-align: center;
+    max-width: 640px;
+    line-height: 1.9;
+  }
+  .caption b{ color:#8e8b82; font-weight:400; }
+
+  @media (max-width: 520px){
+    body{ padding-top: 32px; gap: 36px; }
+    .page{ min-height: 0; padding-bottom: 80px; }
+    .stamp{ font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ PAGE 1 ============ -->
+  <article class="page">
+    <div class="grain"></div>
+    <div class="scan"></div>
+    <div class="crease"></div>
+    <div class="holes"><i></i><i></i></div>
+    <div class="stamp">archived · 1991</div>
+
+    <div class="content">
+      <p>I promised Marta I will keep filling this jurnal up but it gets too hard. I barely have
+      the motivation to go to work, and even there I do the absolutly bare necessary so that i
+      can still afford to eat. I dont feel like eating either.</p>
+
+      <p>I reset it again today. managed to get around 7 hours. good sleep time. all i do at
+      home is sleep now.</p>
+
+      <p class="aside">When did things turn out this way?</p>
+    </div>
+
+    <div class="folio">— 1 —</div>
+  </article>
+
+  <!-- ============ PAGE 2 ============ -->
+  <article class="page">
+    <div class="grain"></div>
+    <div class="scan"></div>
+    <div class="crease"></div>
+    <div class="holes"><i></i><i></i></div>
+
+    <div class="content">
+      <span class="date">6th of November 1991</span>
+      <p>the sleep did not help, i think im even more tired than before.</p>
+
+      <span class="date">7th of November 1991</span>
+      <p>i cant keep going on like this. i dont have the power to get up. im already an hour
+      late to work. ill just rest some time.</p>
+    </div>
+
+    <div class="folio">— 2 —</div>
+  </article>
+
+  <p class="caption">
+    <b>scan_0004.tif</b> · personal journal · 300 dpi · 1991<br>
+    do not discard
+  </p>
+
+</body>
+</html>
