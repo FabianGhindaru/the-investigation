@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<title>Camlann Cross Park - The Covered Lake &amp; Garda presence - The Hidden Truth Forum</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #dfe6ec;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='%23dfe6ec'/><rect width='1' height='1' fill='%23d3dce4'/></svg>");
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #2b2b2b;
+  }
+  a { color: #1a5c9c; text-decoration: none; }
+  a:hover { color: #b30000; text-decoration: underline; }
+  .wrap { width: 980px; margin: 0 auto; }
+
+  #header {
+    background: linear-gradient(#164b7a, #071d33);
+    border-bottom: 3px solid #8b1a1a;
+    padding: 10px 14px 8px;
+    color: #cfe1f2;
+    overflow: hidden;
+  }
+  #header h1 {
+    margin: 0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 25px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 1px 0 #000, 0 0 12px #2e7fc4;
+  }
+  #header h1 span { color: #ffcf4d; }
+  #header .tagline { font-size: 10px; color: #8fb4d6; margin-top: 3px; font-style: italic; }
+  #header .eye { float: right; font-size: 38px; line-height: 1; opacity: .5; margin-top: -4px; }
+
+  #nav {
+    background: #123f68;
+    border-top: 1px solid #2f6b9e;
+    border-bottom: 1px solid #04121f;
+    padding: 5px 10px;
+    font-size: 10px;
+    color: #a9c6e0;
+  }
+  #nav a { color: #d6e8f7; padding: 0 8px; border-right: 1px solid #2f6b9e; }
+  #nav a:last-child { border-right: 0; }
+  #nav .login { float: right; color: #9fc0dc; }
+
+  .panel {
+    background: #f4f7fa;
+    border: 1px solid #9cb3c9;
+    margin-top: 8px;
+  }
+  .panel-head {
+    background: linear-gradient(#e6eef5, #c1d2e0);
+    border-bottom: 1px solid #9cb3c9;
+    padding: 4px 8px;
+    font-weight: bold;
+    color: #0b2e4f;
+  }
+  .panel-body { padding: 8px 10px; }
+
+  #crumbs { padding: 6px 10px; font-size: 10px; color: #4a5c6b; }
+
+  .thread-title {
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: #0b2e4f;
+    padding: 9px 10px 2px;
+    margin: 0;
+  }
+  .thread-sub { padding: 0 10px 9px; font-size: 10px; color: #5a6b7a; }
+  .tag {
+    background: #8b1a1a; color: #fff; font-size: 9px;
+    padding: 1px 4px; letter-spacing: 1px; vertical-align: 3px;
+    margin-right: 6px;
+  }
+
+  table.posts { width: 100%; border-collapse: collapse; }
+  table.posts td { vertical-align: top; }
+
+  td.profile {
+    width: 168px;
+    background: #e8eff5;
+    border-right: 1px solid #c3d3e0;
+    border-bottom: 1px solid #c3d3e0;
+    padding: 8px;
+    font-size: 10px;
+    color: #4a5c6b;
+    line-height: 1.55;
+    text-align: center;
+  }
+  tr.alt td.profile { background: #e2eaf1; }
+  td.body {
+    border-bottom: 1px solid #c3d3e0;
+    padding: 0;
+    background: #fbfdfe;
+  }
+  tr.alt td.body { background: #f5f9fc; }
+
+  .uname { font-size: 12px; font-weight: bold; }
+  .uname a { color: #8b1a1a; }
+  .rank { color: #2b6b2b; font-weight: bold; }
+  .rank.mod { color: #0b4f8b; }
+  .avatar {
+    width: 84px; height: 84px; margin: 7px auto;
+    border: 1px solid #8fa5b8;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 27px; font-weight: bold; color: #fff;
+    letter-spacing: -1px;
+  }
+  .av1 { background: #24506e; }
+  .av2 { background: #6b6b6b; }
+  .av3 { background: #7a2e2e; }
+  .av4 { background: #3f6b3a; }
+  .av5 { background: #4a3b6b; }
+  .av6 { background: #6b5a2e; }
+  .av7 { background: #0b2e4f; }
+  .prow { margin-top: 4px; }
+
+  .post-meta {
+    background: #e3ecf3;
+    border-bottom: 1px solid #c3d3e0;
+    padding: 3px 8px;
+    font-size: 10px;
+    color: #4a5c6b;
+    overflow: hidden;
+  }
+  .post-meta .right { float: right; }
+  .post-meta a { color: #1a5c9c; }
+
+  .post-content { padding: 11px 13px; font-size: 12px; line-height: 1.62; color: #1d1d1d; }
+  .post-content p { margin: 0 0 10px; }
+  .post-content ul, .post-content ol { margin: 0 0 10px 0; padding-left: 24px; }
+  .post-content li { margin-bottom: 5px; }
+  .caps { font-weight: bold; color: #8b1a1a; }
+  .small { font-size: 10px; color: #5a6b7a; }
+
+  blockquote.bb {
+    margin: 0 0 11px;
+    border: 1px solid #c3d3e0;
+    background: #eef4f9;
+    padding: 6px 9px;
+    font-size: 11px;
+    color: #33505f;
+  }
+  blockquote.bb .who { font-weight: bold; color: #0b2e4f; display: block; margin-bottom: 3px; font-size: 10px; }
+
+  pre.bbcode {
+    background: #eef1f4;
+    border: 1px solid #cfd8e0;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
+    padding: 7px 9px;
+    margin: 0 0 11px;
+    color: #2b2b2b;
+    white-space: pre-wrap;
+    overflow: auto;
+  }
+
+  .attach {
+    border: 1px solid #b9c9d6;
+    background: #eef3f7;
+    padding: 6px 8px;
+    margin: 10px 0;
+    font-size: 10px;
+    color: #3f5566;
+  }
+  .attach .fname { font-family: Consolas, monospace; color: #1a5c9c; }
+  .thumb {
+    width: 190px; height: 128px;
+    border: 1px solid #8a9aa8;
+    margin-top: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: #7d8b96; font-size: 9px; font-family: Consolas, monospace;
+    text-align: center;
+    background-color: #22282e;
+    background-image: repeating-linear-gradient(45deg, #1c2127 0 6px, #262d34 6px 12px);
+  }
+
+  .sig {
+    margin-top: 15px;
+    padding-top: 9px;
+    border-top: 1px dashed #b9c9d6;
+    font-size: 10px;
+    color: #6b7a87;
+    line-height: 1.6;
+  }
+
+  .edited { font-size: 9px; color: #7a8a97; font-style: italic; margin-top: 9px; }
+
+  #pagejump { padding: 9px 10px; font-size: 10px; color: #4a5c6b; overflow: hidden; }
+  .pagination { float: right; }
+  .pagination a, .pagination span {
+    display: inline-block; border: 1px solid #9cb3c9; background: #e6eef5;
+    padding: 2px 6px; margin-left: 2px; font-size: 10px; color: #1a5c9c;
+  }
+  .pagination span.current { background: #0b2e4f; color: #fff; border-color: #0b2e4f; }
+
+  #lockbar {
+    border: 1px solid #a86b6b;
+    background: #f3e3e3;
+    color: #6b1a1a;
+    padding: 9px 12px;
+    margin-top: 8px;
+    font-size: 11px;
+    text-align: center;
+  }
+  #lockbar strong { letter-spacing: 1px; }
+
+  #footer {
+    margin: 12px 0 24px;
+    padding: 10px;
+    text-align: center;
+    font-size: 10px;
+    color: #6b7a87;
+    border-top: 1px solid #b9c9d6;
+  }
+  #footer a { color: #1a5c9c; }
+  .stats { font-size: 10px; color: #5a6b7a; }
+  .red { color: #8b1a1a; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div class="wrap">
+    <div class="eye">◉</div>
+    <h1>THE HIDDEN <span>TRUTH</span> FORUM</h1>
+    <div class="tagline">Est. 2004 &nbsp;·&nbsp; "You are not supposed to know." &nbsp;·&nbsp; 41,882 members &nbsp;·&nbsp; 1,204,551 posts</div>
+  </div>
+</div>
+
+<div id="nav">
+  <div class="wrap">
+    <a href="#">Index</a>
+    <a href="#">Unexplained Phenomena</a>
+    <a href="#">Conspiracy Theories</a>
+    <a href="#">Military / Black Projects</a>
+    <a href="#">Local Anomalies</a>
+    <a href="#">Archive</a>
+    <a href="#">Rules</a>
+    <span class="login">Logged in as: <strong>Guest</strong> &nbsp;|&nbsp; <a href="#">Login</a> &nbsp;|&nbsp; <a href="#">Register</a></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div id="crumbs">
+    <a href="#">The Hidden Truth Forum Index</a> &nbsp;»&nbsp; <a href="#">Local Anomalies</a> &nbsp;»&nbsp;
+    <a href="#">Ireland</a> &nbsp;»&nbsp; Camlann Cross Park - The Covered Lake &amp; Garda presence
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      Topic: Camlann Cross Park - The Covered Lake &amp; Garda presence (Read 14,229 times)
+    </div>
+
+    <h2 class="thread-title"><span class="tag">STICKY</span>Camlann Cross Park - The Covered Lake &amp; Garda presence (LONG POST)</h2>
+    <div class="thread-sub">Started by <a href="#">camlann_watcher</a> &nbsp;·&nbsp; Sat Aug 14, 2010 11:47 pm</div>
+
+    <table class="posts">
+
+      <!-- ============ POST 1 (OP) ============ -->
+      <tr class="post">
+        <td class="profile">
+          <div class="uname"><a href="#">camlann_watcher</a></div>
+          <div class="avatar av1">CW</div>
+          <div class="prow"><span class="rank">Truth Seeker</span></div>
+          <div class="prow">Joined: Mar 2007</div>
+          <div class="prow">Posts: 1,248</div>
+          <div class="prow">Location: Co. Wexford</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Sat Aug 14, 2010 11:47 pm</span>
+            Post subject: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p>I've been putting off writing this up for ages because every time I bring it up with anyone around here they tell me to cop on and stop reading shite on the internet. But I'm 24 now, I've lived three miles down the road from Camlann Cross my entire life, and I know for a fact something dodgy has been going on at the back of that park since the late 90s.</p>
+
+            <p>For anyone unfamiliar with north Wexford: Camlann Cross amenity park is about sixty acres of boggy scrub and birch trees out past Ferns, just off the old road. Wexford County Council bought the land back around 1997 or 1998 with lottery funding. On paper it's a completely standard rural park. There's a rusty playground, a 9-hole pitch and putt course that nobody maintains, a tarmac walkway loop, and a gravel car park full of potholes where local young lads go to do handbrake turns at the weekend.</p>
+
+            <p>The issue is the lake at the southern end.</p>
+
+            <p>It's about twenty-five or thirty acres of water, but you can't actually see 95% of it because it has a massive, low-profile aluminium composite roof built directly over the surface. It isn't a shed with walls. It's like a floating lid sitting on heavy concrete stilts about four feet above the waterline, sloping up very gently towards the middle, with industrial louvred cowls running along the ridge. You can only see the water around the very perimeter, just a black strip of water about three feet wide between the gravel bund and the bottom edge of the panelling.</p>
+
+            <p>There's a heavy galvanised barrier gate across the service track leading down to it, and there are literally two uniformed Gardaí standing at that gate around the clock. Not sitting in a marked squad car, not in a sentry box, just standing out in the open in yellow high-vis jackets on the wet gravel. A plain navy Ford Transit (civilian 04-WX plates, totally unmarked) drops two guards off and picks two up every morning at 7:00 AM and again in the evening. I've walked the dog past that track at half six in the morning in the middle of January and they're standing there in the freezing slush. I've seen them at 11:00 PM on a wet Tuesday in October. They don't patrol the walkway loop, they don't do vehicle checks on the road, and if you stop on the public path to look down the track they just stare at you until you walk on.</p>
+
+            <p>Here are the facts I've gathered first-hand over the last few years:</p>
+
+            <p>1. <strong>Zero signage anywhere.</strong> Every council waterworks, ESB substation, and Bord Gáis compound in Ireland has a yellow hazard sign, a site code, and an emergency phone number on the gate. This gate has nothing except a commercial padlock. No 'Danger Deep Water' signs, no council crest, nothing.</p>
+
+            <p>2. <strong>Wexford County Council deny any knowledge.</strong> I went into the council planning office in Carricklawn in 2008 and asked to inspect the planning register for the townland. The whole park parcel is logged as 'Amenity &amp; Open Space - General Unzoned'. There is no planning application for the roof, no Part 8 council notice on file, and no record of the barrier gate. When I asked about water extraction, the girl at the desk transferred me to Water Services, and the engineer there told me it wasn't a council reservoir and told me to ring the OPW in Trim. When I rang the OPW, the man checked their database and said they have no property holdings or drainage schemes registered in Camlann Cross.</p>
+
+            <p>3. <strong>The hum at night.</strong> If you park up near the top cattle grid late at night when the traffic on the N11 has died down, you can hear a distinct low-frequency hum vibrating right up through the ground. It isn't an agricultural generator because it doesn't chug or change pitch; it sounds like a massive 3-phase electric industrial motor or heavy induction pump. It runs for twenty minutes, winds down with a high whine, cuts out for ten minutes, and kicks in again.</p>
+
+            <p>4. <strong>Steam in cold weather.</strong> During the big freeze last January when every pond and ditch in the parish was frozen solid enough to walk across, the strip of water around the edge of the cover didn't have a single crust of ice on it. In hard frost you can see dense white vapour coming off the ridge louvres all day.</p>
+
+            <p>5. <strong>Commercial divers at the south hatch.</strong> There's a reinforced steel bulkhead hatch built into the embankment where the roof meets the ditch. Back in autumn 2007 I was cutting across the ditch around 10:00 PM looking for owls with a torch, and there were three men down on the concrete pad. Two of them were in commercial drysuits with twin-tank diving rigs and headlamps, slipping into the water under the lid, while a third guy in a dark fleece jacket was standing on the gravel bank with a Motorola handheld radio. I slipped away through the briars before anyone saw me, but nobody has divers going into a standard balancing pond in the pitch dark.</p>
+
+            <p>The council is cutting road maintenance, streetlights, and library staff across the county because of the recession, yet the State has been paying 24/7 Garda overtime details to stand in the rain at a locked gate in north Wexford for over a decade. Nobody in the local papers mentions it, and none of the local councillors will touch it.</p>
+
+            <p>Has anyone else in the county actually noticed this place? Or does anyone know what contractor put the roof on back in the 90s?</p>
+
+            <div class="attach">
+              Attachment: <span class="fname">cover_from_walkway_08-2010.jpg</span> (142.6 KB, downloaded 3,117 times)
+              <div class="thumb">[ image unavailable ]<br>thumb_0914.png</div>
+            </div>
+
+            <div class="edited">Last edited by camlann_watcher on Sun Aug 15, 2010 12:09 am; edited 2 times in total</div>
+
+            <div class="sig">
+              Intel Core 2 Duo E8400 @ 3.6GHz | 4GB DDR2 | Radeon HD 4870 512MB | Win7 x64<br>
+              [img]http://i142.photobucket.com/albums/r99/cw_wexford/forum_sig_2009.gif[/img]
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 2 ============ -->
+      <tr class="post alt">
+        <td class="profile">
+          <div class="uname"><a href="#">SkepticSeamus</a></div>
+          <div class="avatar av2">SS</div>
+          <div class="prow"><span class="rank">Senior Member</span></div>
+          <div class="prow">Joined: Jun 2005</div>
+          <div class="prow">Posts: 4,921</div>
+          <div class="prow">Location: Dublin</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Sun Aug 15, 2010 12:31 am</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p>Ah lads. I swear every time someone finds an ugly water installation or an attenuation pond behind a hedge in this country, it has to be Area 51.</p>
+
+            <p>Let's look at this with a tiny bit of practical common sense instead of writing an X-Files script:</p>
+
+            <p>First of all, covered reservoirs and covered raw water balances are completely standard engineering. After the massive cryptosporidium outbreak down in Galway three years ago, local authorities all over the country started looking at vulnerable open water intakes. Open water in rural Ireland gets slurry run-off, dead sheep, bird droppings, and algae blooms. If that lake feeds into a local regional scheme, throwing modular aluminium composite sheeting over it on concrete piers is the quickest way to stop organic contamination. It looks rough as bags, which is why councils tuck them behind public park walking tracks and plant alder trees around them.</p>
+
+            <p>Second, planning files. Councils do not go through standard planning permission for their own water and sanitary infrastructure. Under Part 8 of the Planning and Development Regulations, local authorities have statutory exemptions for water treatment, pumping stations, and flood works. Half the infrastructure built in the late 90s never made it onto the public ePlan online portals because the councils were still keeping physical paper maps in damp basement filing cabinets in Carricklawn. Expecting a receptionist on the front desk to dig up a twelve-year-old engineering drawing for an unzoned rural parcel is pure optimism.</p>
+
+            <p>Third, the "Guards". Do you have any idea what 24/7 Garda overtime costs? The Department of Justice is practically bankrupt right now with the public sector pay cuts and the moratorium on recruitment. They are not spending €200k a year out of the Wexford-Wicklow division budget to have two members of the force standing in the mud guarding an empty pond. If you're seeing people in high-vis at the gate, they are almost certainly private security contractors hired by whatever engineering firm holds the maintenance contract, or there was a standing order put in place after local joyriders or diesel launderers were dumping rubbish in the catchment.</p>
+
+            <p>Fourth, the "hum" and the divers. Raw water extraction requires high-volume multi-stage submersible pumps. They vibrate, and deep low-frequency hums carry for miles across wet bogland at night. And commercial divers are routinely hired by utility contractors to clear silt screens, inspect submerged intake valves, and dredge bottom silt so the pump impellers don't burn out.</p>
+
+            <p>You have found a standard, badly maintained municipal water facility that Wexford County Council forgot to put a sign on. The reason nobody in the council gave you an answer is because Irish local government is notoriously disorganized, not because they're hiding a crashed spaceship under corrugated iron in the middle of a Wexford bog.</p>
+
+            <div class="sig">
+              "Never attribute to malice that which is adequately explained by stupidity." - Hanlon's Razor<br>
+              <a href="#">Irish Skeptics Society</a> member
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 3 ============ -->
+      <tr class="post">
+        <td class="profile">
+          <div class="uname"><a href="#">camlann_watcher</a></div>
+          <div class="avatar av1">CW</div>
+          <div class="prow"><span class="rank">Truth Seeker</span></div>
+          <div class="prow">Joined: Mar 2007</div>
+          <div class="prow">Posts: 1,249</div>
+          <div class="prow">Location: Co. Wexford</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Sun Aug 15, 2010 1:14 am</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <blockquote class="bb">
+              <span class="who">SkepticSeamus wrote:</span>
+              If you're seeing people in high-vis at the gate, they are almost certainly private security contractors hired by whatever engineering firm holds the maintenance contract
+            </blockquote>
+
+            <p>Seamus, with respect, I know what a security guard looks like and I know what a Garda looks like. They have standard Garda issue stab vests with the blue-and-silver reflective chequers, shoulder numbers on the epaulettes, Garda caps, and standard digital Tetra radios on their belts. One of the men standing there two weeks ago had three silver sergeant's chevrons on his sleeve. They are not private security from a shopping centre in Gorey.</p>
+
+            <p>And as for the Part 8 excuse: there is a small council booster station two miles down the road at Ballycarney for the local group water scheme. It has a green chainlink fence, a blue Wexford County Council crest on the gate, an emergency contact telephone number, and an ESB yellow hazard triangle. Camlann Cross has nothing. Not a crest, not a private property sign, not even a basic warning notice about deep water. That alone is completely mad from an insurance perspective if it were just an open council balancing pond.</p>
+
+            <p>Also, regarding your point about Galway and cryptosporidium: that roof was already on that lake in 2001. I remember the low-loaders and the cranes coming down the lane when I was still in primary school. My uncle was driving tipper lorries for council road resurfacing back then, and he told my father at the time that the local council crews were explicitly told to stay away from the south parcel while the external contractor was putting the pilings in. Dublin contractor, private security on the boreen, and local council engineers weren't allowed near it.</p>
+
+            <p>I never said the word "aliens" once in my post, you brought that in yourself to make me sound like a headcase. I'm saying the State is guarding something at that water that isn't on the public books, and nobody in the council or the OPW will give a straight answer about who owns the ground.</p>
+
+            <div class="sig">
+              Intel Core 2 Duo E8400 @ 3.6GHz | 4GB DDR2 | Radeon HD 4870 512MB | Win7 x64<br>
+              [img]http://i142.photobucket.com/albums/r99/cw_wexford/forum_sig_2009.gif[/img]
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 4 ============ -->
+      <tr class="post alt">
+        <td class="profile">
+          <div class="uname"><a href="#">EmptyFence</a></div>
+          <div class="avatar av3">EF</div>
+          <div class="prow"><span class="rank">Junior Member</span></div>
+          <div class="prow">Joined: Aug 2010</div>
+          <div class="prow">Posts: 6</div>
+          <div class="prow">Location: Co. Wexford</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Sun Aug 15, 2010 2:02 am</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p>I only registered on here tonight because my daughter showed me this thread on her laptop. We live in the bungalow on the boreen just above the top gate of the park, and we've been here since 1989.</p>
+
+            <p>I don't know anything about conspiracies or what's under the water, but what the original poster says about the guards and the dark van is God's honest truth. They are definitely Gardaí. I see them getting out of that dark Transit van at the top gate many a morning when I'm walking up to put the recycling bins out. In the winter months they look half dead with the cold, stamping their feet in the wet mud. There's no shelter down at that gate at all, just the two of them standing by the metal barrier. My husband Joe walked down and offered one of them a mug of tea during the heavy snow in January 2009, and the guard was very polite but said "we're not permitted to take anything sir, thank you very much anyway". Joe said he had a thick Dublin accent.</p>
+
+            <p>That navy Transit van goes up and down our lane at all hours of the night. Mostly on Tuesday or Wednesday nights between midnight and two in the morning. It drives up very slowly with just the sidelights on until it reaches the cattle grid, then whoever is in the passenger seat gets out with a key for the padlock, opens the barrier, and they drive down the track toward the water. The dog starts barking and growling at the kitchen window every single time it passes our hedge.</p>
+
+            <p>And someone mentioned water surveys earlier. Back around 2003 or 2004 we had two men in dark coats with clipboards call to our front door. They had laminated ID cards around their necks that said "Environmental Survey Team", but with no department name or council logo. They asked Joe if our domestic well was bored or shallow, and whether we had noticed any metallic taste in the tap water or a sudden drop in water pressure over the previous six months. When Joe asked them who commissioned the survey, the younger chap just said "Inter-departmental monitoring" and wouldn't say another word, just ticked his sheet, thanked us, and walked down the road to the next house.</p>
+
+            <p>I don't like living next to it, to be completely honest with you. That hum makes the double glazing in our back bedroom rattle when the wind comes from the south, like a low throbbing that gets into your chest. Joe always said it was an old army bunker from the Emergency, but God only knows why they'd need armed guards standing over an empty hole in the ground in 2010 if that was all it was.</p>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 5 ============ -->
+      <tr class="post">
+        <td class="profile">
+          <div class="uname"><a href="#">MOD_ADMIN</a></div>
+          <div class="avatar av7">M</div>
+          <div class="prow"><span class="rank mod">Administrator</span></div>
+          <div class="prow">Joined: Jan 2004</div>
+          <div class="prow">Posts: 11,006</div>
+          <div class="prow">Location: The Server Room</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Sun Aug 15, 2010 8:47 am</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p><strong>Mod Note:</strong></p>
+
+            <p>Leaving this thread open for now as it's generating genuine local discussion, but a couple of house rules before things get out of hand:</p>
+
+            <p>1. DO NOT post registration plate numbers, names of individual Gardaí, or names and specific house locations of private residents along that lane. We had a thread in the Dublin subforum two years ago that resulted in solicitors' letters being served to the forum host over defamation. Any private details or doxxing posted here will result in an immediate permanent ban.</p>
+
+            <p>2. Do not go trespassing. If anyone goes up to that park after hours, wanders off the marked council walking paths, or tries to climb the security gate, you are on your own. Do not post photos taken from restricted or fenced-off property. Photos from the public walkway only.</p>
+
+            <p>3. SkepticSeamus and camlann_watcher: keep the bickering civil. Attack the argument, not the poster.</p>
+
+            <p>Carry on.</p>
+
+            <div class="sig">
+              <strong>The Hidden Truth Forum Administrator</strong><br>
+              <a href="#">Forum Rules &amp; Guidelines</a> | <a href="#">Server Status</a><br>
+              <em>"Question everything. Archive everything."</em>
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 6 ============ -->
+      <tr class="post alt">
+        <td class="profile">
+          <div class="uname"><a href="#">night_shift_ron</a></div>
+          <div class="avatar av4">NR</div>
+          <div class="prow"><span class="rank">Member</span></div>
+          <div class="prow">Joined: Nov 2008</div>
+          <div class="prow">Posts: 233</div>
+          <div class="prow">Location: Leinster</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Sun Aug 15, 2010 4:19 pm</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p>I work as a GIS mapping technician for a civil engineering and utility contractor doing pipeline and cable route surveys across Leinster, so after reading this thread I decided to pull up the Ordnance Survey Ireland (OSI) historic orthophoto datasets and the Land Registry vector layers for that townland out of curiosity.</p>
+
+            <p>Two things jump out straight away that confirm what the OP is seeing on the ground:</p>
+
+            <p>First, on the 1995 and 2000 OSI black-and-white aerial photography layers, that exact water basin is deliberately blanked out. If you zoom into the surrounding townlands, you can clearly see the individual hedgerows, cattle, the N11 bypass groundworks, and farm roofs at 1-metre resolution. But the 25-acre water parcel itself is completely obscured by a uniform grey rectangular digital mask with the edges feathered into the tree boundary. The only other sites in the country that were blanked out like that on the 1995-2005 OSI public raster maps were Department of Defence properties (the Curragh Camp, McKee Barracks, Baldonnel Aerodrome) and Portlaoise Prison.</p>
+
+            <p>Second, I checked the Land Registry (PRAI) digital folio map. The amenity park itself is Folio WX14298F, registered to Wexford County Council in 1998 under a transfer from the Land Commission / Department of Agriculture. But the actual water parcel was severed from the surrounding folio under a Section 84 memorial back in November 1997. The registered owner on the folio isn't Wexford CoCo; it's listed under 'The Minister for Finance - State Property Act 1954 (Statutory Reserve No. 4)'.</p>
+
+            <p>That specific designation was used in the 1970s and 80s for strategic emergency infrastructure, like the continuity-of-government telecommunications bunkers and broadcast relays built by the old Department of Posts and Telegraphs (P&amp;T) during the Cold War. Most of those heavy subterranean bunkers were constructed near flooded quarries or natural water bodies because the mechanical plants relied on continuous water extraction for heat exchangers, emergency diesel generator cooling, and positive-pressure NBC air filtration.</p>
+
+            <p>If there's an emergency communications facility or a hardened subterranean vault under that water, it explains almost every detail mentioned here: the heavy roof (overhead concealment and EMP shielding), the constant pump hum and water circulation, the divers inspecting submerged intake pipes, and the total lack of council planning files. Under the State Property Act, strategic installations held by the Minister were completely exempt from public planning notices.</p>
+
+            <p>As for the Gardaí: if the site still holds classified communications links or remains designated as an active strategic asset under the Defence Act, standing operational orders require the divisional superintendent to maintain a physical perimeter post, even if the facility itself is just ticking over on standby. That's how bureaucracy works here. It isn't a sci-fi mystery, but it definitely isn't a municipal duck pond either.</p>
+
+            <div class="edited">Last edited by night_shift_ron on Sun Aug 15, 2010 4:41 pm; edited 1 time in total</div>
+
+            <div class="sig">
+              "In theory, there is no difference between theory and practice. In practice, there is."
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 7 ============ -->
+      <tr class="post">
+        <td class="profile">
+          <div class="uname"><a href="#">camlann_watcher</a></div>
+          <div class="avatar av1">CW</div>
+          <div class="prow"><span class="rank">Truth Seeker</span></div>
+          <div class="prow">Joined: Mar 2007</div>
+          <div class="prow">Posts: 1,252</div>
+          <div class="prow">Location: Co. Wexford</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Mon Aug 16, 2010 1:38 am</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p>Ron, thank you for posting that. That is genuinely the first piece of solid, verifiable information anyone has turned up on this place in ten years.</p>
+
+            <p>I went onto the OSI public map viewer after reading your post and checked the 1995 ortho layer, and you're dead right. The whole water section is a smooth grey rectangle, and you can even see where the edge of the mask cuts straight across a natural ditch line on the northern bank.</p>
+
+            <p>A strategic bunker or an old Department of Defence communications site makes total sense with the infrastructure: why the council has no records, why the pumps run constantly for cooling, and why commercial divers were going down into that hatch at night.</p>
+
+            <p>The only thing that still doesn't sit right with me is why they still need two uniformed guards standing at a gate in 2010. The Cold War ended twenty years ago. The state is cutting back on basic public services, yet Wexford Garda division is still sending four shifts of guards a day out to a wet boreen to watch an old flooded concrete bunker? And what is the navy Transit doing coming up the lane at 1:00 AM on Wednesday nights?</p>
+
+            <p>I'm still going to drive up past the top lane this Wednesday night around midnight and park up near the forestry entrance just to see if the van comes in like EmptyFence described. I'm staying in the car on the public road and keeping the engine off, so nobody can claim I'm trespassing. If the van turns up, I'll update the thread on Thursday morning.</p>
+
+            <div class="edited">Last edited by camlann_watcher on Mon Aug 16, 2010 1:44 am; edited 1 time in total</div>
+
+            <div class="sig">
+              Intel Core 2 Duo E8400 @ 3.6GHz | 4GB DDR2 | Radeon HD 4870 512MB | Win7 x64<br>
+              [img]http://i142.photobucket.com/albums/r99/cw_wexford/forum_sig_2009.gif[/img]
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+      <!-- ============ POST 8 ============ -->
+      <tr class="post alt">
+        <td class="profile">
+          <div class="uname"><a href="#">SkepticSeamus</a></div>
+          <div class="avatar av2">SS</div>
+          <div class="prow"><span class="rank">Senior Member</span></div>
+          <div class="prow">Joined: Jun 2005</div>
+          <div class="prow">Posts: 4,938</div>
+          <div class="prow">Location: Dublin</div>
+        </td>
+        <td class="body">
+          <div class="post-meta">
+            <span class="right">Posted: Mon Aug 16, 2010 9:12 am</span>
+            Post subject: Re: Camlann Cross Park - The Covered Lake &amp; Garda presence
+          </div>
+          <div class="post-content">
+
+            <p>Fair play to ron for actually pulling up the Land Registry folio and the OSI mapping data instead of spinning wild theories. That's actual research.</p>
+
+            <p>To answer your question about why they would still have guards there in 2010 if it's just a Cold War installation: welcome to the Irish civil service. Once a security directive or a statutory instrument gets signed by a Minister under the State Property Act, it literally requires a formal departmental review or an Act of the Oireachtas to formally rescind it.</p>
+
+            <p>If the Department of Defence or Justice designated Camlann Cross as a secure installation during the Troubles or the 1980s, and ordered a standing security detail from the local division, that order remains on the station books indefinitely until some principal officer in Dublin remembers to review it. Nobody in Garda HQ wants to be the civil servant who signs a memo downgrading physical security on a State asset, so the superintendents in Enniscorthy just keep filling the roster slots year after year. It's usually treated as light duties for members recovering from injury or lads nearing retirement.</p>
+
+            <p>And the navy Transit at 1:00 AM on Wednesday nights is almost certainly the divisional relief van dropping off supplies, or an orderly sergeant doing a mandatory welfare check on a remote post.</p>
+
+            <p>Go sit in your car on Wednesday night if you really want, but bring a warm flask. You're going to spend three hours in the dark watching two bored guards counting down the minutes until their relief arrives.</p>
+
+            <div class="sig">
+              "Never attribute to malice that which is adequately explained by stupidity." - Hanlon's Razor<br>
+              <a href="#">Irish Skeptics Society</a> member
+            </div>
+
+          </div>
+        </td>
+      </tr>
+
+    </table>
+
+    <div id="pagejump">
+      Page <strong>1</strong> of <strong>3</strong>
+      <div class="pagination">
+        <span class="current">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">Next »</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">Quick Reply</div>
+    <div class="panel-body">
+      <span class="small">You must be <a href="#">logged in</a> to reply to this topic. Guests may <a href="#">register</a> for an account.</span>
+      <div style="margin-top:8px;">
+        <pre class="bbcode">[b]bold[/b]  [i]italic[/i]  [quote="username"]...[/quote]  [img]url[/img]  [url=link]text[/url]</pre>
+      </div>
+    </div>
+  </div>
+
+  <div id="lockbar">
+    <strong>TOPIC LOCKED</strong> &nbsp;—&nbsp; This topic has been locked by a moderator.
+    <div class="small" style="margin-top:5px;color:#8a5a5a;">Reason: Thread locked pending review. Users posting Land Registry folio references and speculation regarding active Garda operational duties. Read-only archive.</div>
+  </div>
+
+  <div id="footer">
+    Powered by <a href="#">phpBB</a> © 2000, 2002, 2005, 2007 phpBB Group &nbsp;·&nbsp;
+    <a href="#">Terms of Use</a> &nbsp;·&nbsp; <a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Contact</a><br>
+    <span class="stats">Page generated in 0.0412 seconds &nbsp;·&nbsp; 11 queries &nbsp;·&nbsp; GZIP enabled</span>
+    <div style="margin-top:6px;" class="red">▮ THE HIDDEN TRUTH FORUM — READ ONLY ARCHIVE SNAPSHOT</div>
+  </div>
+
+</div>
+
+</body>
+</html>
