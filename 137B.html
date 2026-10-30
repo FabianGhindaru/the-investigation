@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【求助】G511，我老婆在4号车厢，三天了，没人告诉我她在哪 - 海角社区·城市茶座</title>
+<style>
+  :root{
+    --bg:#eef0f3;
+    --card:#ffffff;
+    --line:#dcdfe4;
+    --line2:#eceef1;
+    --ink:#333333;
+    --ink2:#5f6670;
+    --muted:#9aa0a6;
+    --link:#2b5fa8;
+    --accent:#ff7a00;
+    --red:#c0392b;
+    --green:#2e7d4f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    font-size:14px;
+    line-height:1.75;
+    padding-bottom:40px;
+  }
+  a{color:var(--link);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:#2c2f33;color:#b9bfc6;font-size:12px;
+  }
+  .topbar-inner{
+    max-width:1120px;margin:0 auto;padding:6px 16px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .topbar a{color:#b9bfc6;margin-left:14px;}
+  .topbar a:hover{color:#fff;text-decoration:none;}
+
+  /* ---------- header ---------- */
+  .site-header{background:var(--card);border-bottom:1px solid var(--line);}
+  .header-inner{
+    max-width:1120px;margin:0 auto;padding:14px 16px;
+    display:flex;align-items:center;gap:22px;
+  }
+  .logo{
+    font-size:26px;font-weight:800;letter-spacing:1px;color:#1d3f6e;
+    font-family:"Songti SC","SimSun",Georgia,serif;
+    white-space:nowrap;
+  }
+  .logo small{
+    display:block;font-family:inherit;font-size:10px;letter-spacing:3px;
+    color:var(--muted);font-weight:400;margin-top:-4px;
+  }
+  .sitenav{display:flex;gap:18px;font-size:14px;flex-wrap:wrap;}
+  .sitenav a{color:var(--ink2);padding:2px 0;border-bottom:2px solid transparent;}
+  .sitenav a.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+  .searchbox{margin-left:auto;display:flex;}
+  .searchbox input{
+    border:1px solid var(--line);border-right:none;background:#fbfbfc;
+    padding:6px 10px;font-size:13px;width:170px;outline:none;
+    font-family:inherit;color:var(--ink);
+  }
+  .searchbox button{
+    border:1px solid var(--line);background:#f4f5f7;color:var(--ink2);
+    padding:6px 14px;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+  .searchbox button:hover{background:#e8eaee;}
+
+  /* ---------- layout ---------- */
+  .layout{
+    max-width:1120px;margin:16px auto;padding:0 16px;
+    display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start;
+  }
+
+  .crumb{font-size:12px;color:var(--muted);margin-bottom:10px;}
+  .crumb a{color:var(--ink2);}
+
+  .thread-head{
+    background:var(--card);border:1px solid var(--line);
+    padding:18px 22px 14px;border-bottom:none;
+  }
+  .thread-head h1{
+    font-size:21px;line-height:1.5;font-weight:700;color:#1a1a1a;
+    margin-bottom:10px;word-break:break-word;
+  }
+  .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+  .tag{
+    font-size:11px;padding:1px 7px;border-radius:2px;
+    background:#eef3fb;color:#3a6fb0;border:1px solid #d8e4f4;
+  }
+  .tag.hot{background:#fff1e6;color:#d2660a;border-color:#ffd9b8;}
+  .tag.warn{background:#fdecea;color:var(--red);border-color:#f6cfcb;}
+  .thread-stats{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;}
+
+  .mod-notice{
+    background:#fffaf0;border:1px solid #f5e0b8;border-left:3px solid var(--accent);
+    padding:10px 16px;font-size:12.5px;color:#8a5a10;margin-bottom:12px;
+  }
+  .mod-notice b{color:#a3430a;}
+
+  /* ---------- posts ---------- */
+  .post{
+    background:var(--card);border:1px solid var(--line);border-top:none;
+    display:grid;grid-template-columns:150px 1fr;
+  }
+  .post:first-of-type{border-top:1px solid var(--line);}
+  .post.op{background:#fdfdfd;}
+
+  .post-side{
+    padding:16px 12px;border-right:1px solid var(--line2);
+    text-align:center;background:#fafbfc;
+  }
+  .avatar{
+    width:56px;height:56px;line-height:56px;margin:0 auto 8px;
+    border-radius:4px;background:#dbe4ef;color:#40618c;
+    font-size:24px;font-weight:700;font-family:"Songti SC",serif;
+    user-select:none;
+  }
+  .avatar.gray{background:#e4e6e9;color:#8b9199;}
+  .avatar.dark{background:#3c4552;color:#cfd6df;}
+  .uname{font-size:13px;font-weight:700;color:#1d3f6e;word-break:break-all;}
+  .uname.op-name{color:var(--accent);}
+  .ulevel{
+    display:inline-block;font-size:10px;color:#8a929c;
+    background:#eef0f3;border:1px solid var(--line);
+    padding:0 5px;border-radius:2px;margin-top:4px;
+  }
+  .ustats{margin-top:10px;font-size:11px;color:var(--muted);line-height:1.9;text-align:left;}
+  .ustats div{display:flex;justify-content:space-between;}
+  .ustats dt{color:#a8aeb5;}
+  .ustats dd{color:#6b7280;}
+
+  .post-main{padding:14px 22px 12px;min-width:0;}
+  .post-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:var(--muted);padding-bottom:10px;
+    border-bottom:1px dashed var(--line2);margin-bottom:12px;
+  }
+  .floor{color:#8a929c;}
+  .floor b{color:var(--accent);}
+  .post-body{font-size:14.5px;line-height:1.95;color:#2f3338;word-break:break-word;}
+  .post-body p{margin-bottom:14px;}
+  .post-body p:last-child{margin-bottom:0;}
+  .post-body .hr{
+    height:1px;background:var(--line2);margin:20px 0;
+  }
+  .post-body strong{font-weight:700;color:#1a1a1a;}
+  .post-body .soft{color:var(--ink2);}
+
+  .post-foot{
+    margin-top:14px;padding-top:9px;border-top:1px solid var(--line2);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:var(--muted);gap:12px;flex-wrap:wrap;
+  }
+  .post-foot .actions a{margin-left:12px;color:#8a929c;}
+  .post-foot .actions a:hover{color:var(--link);}
+
+  /* deleted / hidden rows */
+  .post.deleted{grid-template-columns:150px 1fr;background:#f7f8f9;}
+  .post.deleted .post-main{padding:14px 22px;}
+  .del-note{
+    font-size:13px;color:#a5abb2;font-style:normal;
+    display:flex;align-items:center;gap:8px;
+  }
+  .del-note::before{
+    content:"";width:3px;height:14px;background:#d3d7dc;display:inline-block;
+  }
+  .post.deleted .post-side{background:#f2f3f5;}
+
+  /* quoted reply */
+  .quote{
+    background:#f7f8fa;border:1px solid var(--line2);border-left:3px solid #c8d2de;
+    padding:9px 14px;margin:0 0 14px;font-size:13px;color:#6b7280;line-height:1.8;
+  }
+  .quote b{color:#8a929c;font-weight:600;}
+
+  /* reply-to-row */
+  .re-to{
+    font-size:12.5px;color:var(--muted);margin-bottom:10px;
+    background:#fafbfc;border:1px solid var(--line2);padding:5px 10px;display:inline-block;
+  }
+  .re-to b{color:var(--link);font-weight:600;}
+
+  /* translation */
+  .t-en{display:none;}
+  body.show-en .t-zh{display:none;}
+  body.show-en .t-en{display:block;}
+  body.show-en .t-en.post-body,
+  body.show-en p.t-en{display:block;}
+
+  .lang-btn{
+    position:fixed;right:18px;bottom:18px;z-index:99;
+    background:#1d3f6e;color:#fff;border:none;border-radius:20px;
+    padding:9px 18px;font-size:12.5px;cursor:pointer;
+    font-family:inherit;letter-spacing:.5px;
+    box-shadow:0 3px 12px rgba(0,0,0,.18);
+  }
+  .lang-btn:hover{background:#16324f;}
+
+  /* pagination */
+  .pager{
+    background:var(--card);border:1px solid var(--line);border-top:none;
+    padding:16px 22px;display:flex;gap:6px;align-items:center;
+    font-size:13px;flex-wrap:wrap;justify-content:center;
+  }
+  .pager a,.pager span{
+    border:1px solid var(--line);padding:4px 11px;color:var(--ink2);
+    background:#fbfbfc;border-radius:2px;
+  }
+  .pager .cur{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;}
+  .pager a:hover{background:#eef1f5;text-decoration:none;}
+
+  /* reply box */
+  .replybox{
+    background:var(--card);border:1px solid var(--line);margin-top:16px;padding:16px 22px;
+  }
+  .replybox h3{font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:10px;}
+  .replybox textarea{
+    width:100%;height:88px;border:1px solid var(--line);background:#fbfbfc;
+    padding:10px;font-family:inherit;font-size:13.5px;color:var(--ink);
+    resize:vertical;outline:none;
+  }
+  .replybox textarea:focus{border-color:#b8c6d8;background:#fff;}
+  .replybox .rb-foot{
+    display:flex;justify-content:space-between;align-items:center;margin-top:10px;
+    font-size:12px;color:var(--muted);flex-wrap:wrap;gap:10px;
+  }
+  .replybox .rb-btn{
+    background:var(--link);color:#fff;border:none;padding:7px 22px;
+    font-size:13px;border-radius:2px;cursor:pointer;font-family:inherit;
+  }
+  .replybox .rb-btn:hover{background:#234c88;}
+
+  /* sidebar */
+  aside{display:flex;flex-direction:column;gap:14px;}
+  .widget{background:var(--card);border:1px solid var(--line);padding:14px 16px;}
+  .widget h3{
+    font-size:13px;font-weight:700;color:#1d3f6e;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:2px solid #1d3f6e;
+  }
+  .widget ul{list-style:none;font-size:13px;}
+  .widget li{margin-bottom:10px;line-height:1.6;}
+  .widget li:last-child{margin-bottom:0;}
+  .widget li a{color:#3b4450;}
+  .widget li a:hover{color:var(--accent);}
+  .widget li .meta{display:block;font-size:11px;color:var(--muted);margin-top:2px;}
+  .noti{font-size:12.5px;color:var(--ink2);line-height:1.85;}
+  .noti li{padding-left:14px;position:relative;}
+  .noti li::before{
+    content:"·";position:absolute;left:2px;top:-2px;color:var(--accent);
+    font-weight:700;font-size:16px;
+  }
+  .topic-tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .topic-tags a{
+    font-size:12px;padding:3px 9px;background:#f2f4f7;border:1px solid var(--line);
+    border-radius:12px;color:#4a5563;
+  }
+  .topic-tags a:hover{background:#e8eef7;color:var(--link);text-decoration:none;border-color:#c6d6ea;}
+  .statline{
+    display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);
+    padding:5px 0;border-bottom:1px dotted var(--line2);
+  }
+  .statline:last-child{border-bottom:none;}
+  .statline b{color:var(--accent);font-weight:700;}
+
+  footer{
+    max-width:1120px;margin:26px auto 0;padding:18px 16px 0;
+    border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);line-height:1.9;text-align:center;
+  }
+  footer .fl{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:6px;}
+  footer a{color:var(--muted);}
+
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;}
+    .post,.post.deleted{grid-template-columns:1fr;}
+    .post-side{
+      display:flex;align-items:center;gap:10px;text-align:left;
+      border-right:none;border-bottom:1px solid var(--line2);padding:10px 14px;
+    }
+    .avatar{width:34px;height:34px;line-height:34px;font-size:15px;margin:0;}
+    .ustats{display:none;}
+    .ulevel{margin-top:0;}
+    .post-main{padding:12px 14px;}
+    .thread-head h1{font-size:17px;}
+    .header-inner{flex-wrap:wrap;gap:12px;}
+    .searchbox{margin-left:0;width:100%;}
+    .searchbox input{width:100%;flex:1;}
+    .sitenav{font-size:13px;gap:12px;}
+    .post-body{font-size:14px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>海角社区 · 城市茶座</div>
+    <div>
+      <a href="#">登录</a>
+      <a href="#">注册</a>
+      <a href="#">帮助</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">海角社区<small>HAIJIAO BBS</small></div>
+    <nav class="sitenav">
+      <a href="#">首页</a>
+      <a href="#" class="on">城市茶座</a>
+      <a href="#">民生关注</a>
+      <a href="#">铁路迷</a>
+      <a href="#">情感树洞</a>
+      <a href="#">站务</a>
+    </nav>
+    <form class="searchbox" onsubmit="return false;">
+      <input type="text" placeholder="搜索帖子 / 用户">
+      <button type="submit">搜索</button>
+    </form>
+  </div>
+</header>
+
+<div class="layout">
+  <main>
+    <div class="crumb">
+      <a href="#">首页</a> › <a href="#">城市茶座</a> › <a href="#">民生关注</a> › 正文
+    </div>
+
+    <div class="thread-head">
+      <div class="tagrow">
+        <span class="tag warn">求助</span>
+        <span class="tag hot">热</span>
+        <span class="tag">镇江</span>
+        <span class="tag">G511</span>
+      </div>
+      <h1 class="t-zh">【求助】G511，我老婆在4号车厢，三天了，没有一个人告诉我她在哪</h1>
+      <h1 class="t-en">[HELP] G511 — My wife was in Carriage 4. Three days now. Not one person will tell me where she is.</h1>
+      <div class="thread-stats">
+        <span>浏览 214,876</span>
+        <span>回复 3,102</span>
+        <span>收藏 1,447</span>
+        <span>最后回复 2018-08-04 23:58</span>
+      </div>
+    </div>
+
+    <div class="mod-notice">
+      <b>【版务提醒】</b>
+      <span class="t-zh">本帖相关讨论请集中于此帖。请勿发布未经证实的信息，请勿传播截图，请勿公布具体单位与车牌。违者一律禁言，情节严重者移交处理。</span>
+      <span class="t-en">All discussion relating to this thread must be kept here. Do not post unverified information, do not repost screenshots, do not publish specific institutions or licence plates. Violators will be muted; serious cases will be referred onward.</span>
+    </div>
+
+    <!-- ================= OP ================= -->
+    <article class="post op" id="p1">
+      <div class="post-side">
+        <div class="avatar">陈</div>
+        <div class="uname op-name">陈志远_镇江</div>
+        <div class="ulevel">Lv.1</div>
+        <dl class="ustats">
+          <div><dt>帖子</dt><dd>3</dd></div>
+          <div><dt>积分</dt><dd>12</dd></div>
+          <div><dt>注册</dt><dd>2018-08-02</dd></div>
+        </dl>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor"><b>楼主</b></span>
+          <span>发表于 2018-08-04 09:12</span>
+        </div>
+
+        <div class="post-body t-zh">
+          <p>我叫陈志远，今年38，在镇江京口区开了个五金店。不大，够吃饭。</p>
+          <p>我老婆叫王雨，34岁，在一家外贸公司做会计。7月31号晚上她坐G511去上海，8月1号上午那边有个培训。她说就两天，周五回来。走之前她让我把冰箱里那条鲈鱼留着，说回来蒸。</p>
+          <p>8月1号凌晨1点19分，她给我发了一条语音，3秒钟。</p>
+          <p>我到现在听了不下两百遍。前面是很多人一起在喊，听不清喊什么；中间有"咚咚咚"的声音，像是有人在拍门；最后半秒，我听见她说"志远"。</p>
+          <p>就这两个字。后面没有了。</p>
+          <p>1点23我打过去，无法接通。1点40再打，关机。</p>
+          <p>我开车从镇江过去，走312国道，到宝华山那边被拦下来了。穿反光背心的跟我说前面线路检修，不让过。</p>
+          <p>我说我老婆在G511上。</p>
+          <p>他看了我一眼，说："哪趟车？没有车。"</p>
+          <p>他跟我说没有车。</p>
+          <div class="hr"></div>
+          <p>天亮以后新闻就出来了。106人送医，疑似通风故障引发的"急性心理性反应"，情况稳定。</p>
+          <p>稳定。这两个字我看了三遍。</p>
+          <p>我给镇江一院打电话，说没有这批病人。给丹阳人民医院打，也说没有。给120打，接电话的姑娘人挺好，她说当晚确实派了9辆车过去，但人不是她们拉走的，是被"上面的车"接走的，她们的车是空着回来的。</p>
+          <p>8月1号下午，我在市卫生局门口站到天黑。有人出来，给了我一张纸，上面印着一个电话号码，让我打。</p>
+          <p>我打了。那边说："您好，您的信息已登记，请耐心等待通知。"</p>
+          <p>我问我老婆在哪家医院。他说："您好，您的信息已登记，请耐心等待通知。"</p>
+          <p>我又问了一遍。他还是那句。</p>
+          <p>8月2号，她的手机通了。响了两声，一个男的接的，没说话。我喊"你是谁"，他就挂了。再打，关机。</p>
+          <p>我侄子帮我查了定位。她手机8月2号晚上8点多在句容往南出现过一次，两分钟就没了。那个地方地图上没有名字。</p>
+          <div class="hr"></div>
+          <p>我不闹。我也不信那些乱七八糟的说法。</p>
+          <p>我只想知道三件事：</p>
+          <p><strong>她在哪个医院。<br>她现在怎么样。<br>我什么时候能见她。</strong></p>
+          <div class="hr"></div>
+          <p>念念今年五岁。她每天问一遍：妈妈什么时候回来。</p>
+          <p>我说快了，妈妈出差。</p>
+          <p>昨天她自己拿了一双小拖鞋，摆在她妈妈那双旁边。她妈妈那双粉色的，我三天没动过，鞋头朝里，跟她平时摆的一模一样。念念说，这样妈妈一进门就能看见我们。</p>
+          <p>等她回来，我第一件事是把鲈鱼蒸了。那条已经臭了，我前天扔的，但我还会再买一条，买活的。</p>
+          <p>她说想吃红烧肉。我三年没做过，嫌费事。等她回来我做，做一锅，让她吃够。</p>
+          <p>我从8月1号到现在一根烟没抽。等她回来我跟她说，你看，我戒了。</p>
+          <div class="hr"></div>
+          <p>如果有谁知道一点消息，求你告诉我。哪怕就一句"她还在"，我就够了。</p>
+          <p>我的电话：138 0528 4471。我知道写了会被删，但我还是要写。</p>
+          <p>我不删帖。删了我再发。封号了我再注册。</p>
+          <p>我就在镇江。我哪儿也不去。</p>
+        </div>
+
+        <div class="post-body t-en">
+          <p>My name is Chen Zhiyuan. I'm 38. I run a small hardware shop in Jingkou District, Zhenjiang. It's not big. It's enough to eat.</p>
+          <p>My wife is Wang Yu. She's 34, an accountant at an import-export company. On the night of 31 July she took G511 to Shanghai — there was a training session there on the morning of 1 August. She said two days. She'd be back Friday. Before she left she told me to keep the bass in the fridge. She'd steam it when she got home.</p>
+          <p>At 1:19 a.m. on 1 August she sent me a voice message. Three seconds.</p>
+          <p>I've listened to it more than two hundred times now. At the front there are a lot of people shouting together — I can't make out the words. In the middle there's a <em>thump, thump, thump</em>, like someone hitting a door. And in the last half-second, I hear her say "Zhiyuan."</p>
+          <p>Just those two words. Then nothing.</p>
+          <p>At 1:23 I called. Could not connect. At 1:40 I called again. Switched off.</p>
+          <p>I drove from Zhenjiang along the 312 national road. They stopped me near Baohua Mountain. The man in the reflective vest said the line was under maintenance ahead and I couldn't pass.</p>
+          <p>I said my wife was on G511.</p>
+          <p>He looked at me and said: "Which train? There's no train."</p>
+          <p>He told me there was no train.</p>
+          <div class="hr"></div>
+          <p>After dawn the news came out. 106 people hospitalised. Suspected ventilation fault causing an "acute psychogenic reaction." Condition stable.</p>
+          <p>Stable. I read those two characters three times.</p>
+          <p>I called the First People's Hospital in Zhenjiang. They said they didn't have that group of patients. I called Danyang People's Hospital. Same answer. I called 120 — the young woman on the line was decent about it. She said they really did send nine ambulances out that night, but the patients weren't taken away by them. They were taken by "the vans from above." Their own vehicles came back empty.</p>
+          <p>On the afternoon of 1 August I stood outside the Municipal Health Bureau until it got dark. Someone came out and handed me a slip of paper with a phone number printed on it and told me to call it.</p>
+          <p>I called. They said: "Hello. Your information has been registered. Please wait patiently for notification."</p>
+          <p>I asked which hospital my wife was in. They said: "Hello. Your information has been registered. Please wait patiently for notification."</p>
+          <p>I asked again. The same sentence.</p>
+          <p>On 2 August her phone rang through. It rang twice, a man answered, and said nothing. I shouted "Who is this?" He hung up. I called back. Switched off.</p>
+          <p>My nephew checked the location for me. Her phone appeared once, a little after 8 p.m. on 2 August, south of Jurong. Two minutes and it was gone. That place doesn't have a name on any map.</p>
+          <div class="hr"></div>
+          <p>I'm not going to make trouble. And I don't believe any of the wild theories going round.</p>
+          <p>I just want to know three things:</p>
+          <p><strong>Which hospital is she in.<br>How is she.<br>When can I see her.</strong></p>
+          <div class="hr"></div>
+          <p>Niannian is five this year. Every day she asks me once: when is Mum coming back.</p>
+          <p>I tell her soon. Mum's away on a work trip.</p>
+          <p>Yesterday she went and got a pair of her own little slippers and put them next to her mother's. Her mother's are the pink ones. I haven't moved them in three days — toes pointing in, exactly the way she always leaves them. Niannian said: this way, the moment Mum comes in she'll see us.</p>
+          <p>When she comes back, the first thing I'm going to do is steam that bass. It's gone off already — I threw it out the day before yesterday — but I'll buy another one. Alive, this time.</p>
+          <p>She said she wanted my braised pork. I haven't made it in three years; I always said it was too much trouble. When she's back I'll make it. A whole pot. I'll let her eat her fill.</p>
+          <p>I haven't smoked a single cigarette since 1 August. When she's back I'm going to tell her: look, I quit.</p>
+          <div class="hr"></div>
+          <p>If anyone knows anything at all, please tell me. Even just "she's still there" would be enough.</p>
+          <p>My number: 138 0528 4471. I know it'll get deleted if I write it. I'm writing it anyway.</p>
+          <p>I won't delete this post. Delete it and I'll post it again. Ban the account and I'll register another.</p>
+          <p>I'm in Zhenjiang. I'm not going anywhere.</p>
+        </div>
+
+        <div class="post-foot">
+          <span class="t-zh">本帖最后由 陈志远_镇江 于 2018-08-04 09:47 编辑</span>
+          <span class="t-en">Last edited by ChenZhiyuan_Zhenjiang, 2018-08-04 09:47</span>
+          <span class="actions">
+            <a href="#">回复</a><a href="#">引用</a><a href="#">举报</a>
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 2F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">江</div>
+        <div class="uname">江畔晚风</div>
+        <div class="ulevel">Lv.12</div>
+        <dl class="ustats">
+          <div><dt>帖子</dt><dd>3,481</dd></div>
+          <div><dt>积分</dt><dd>9,204</dd></div>
+          <div><dt>吧龄</dt><dd>8.2年</dd></div>
+        </dl>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">2楼</span>
+          <span>2018-08-04 09:31</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>兄弟，顶你。别沉。</p>
+          <p>今天早上我路过宝华山那边，路口还是封的，挂的牌子写的是"设备检修"。</p>
+          <p>修三天了。什么设备要修三天。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>Brother, bumping this for you. Don't let it sink.</p>
+          <p>I went past Baohua Mountain this morning. The junction is still closed. The sign says "equipment maintenance."</p>
+          <p>Three days of maintenance. What kind of equipment takes three days.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 3F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar dark">匿</div>
+        <div class="uname">匿名用户</div>
+        <div class="ulevel">Lv.0</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">3楼</span>
+          <span>2018-08-04 09:36</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>删了吧。真的，删了吧。</p>
+          <p>你这样找不到人的，只会给自己添麻烦。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>Delete it. Really. Delete it.</p>
+          <p>You won't find anyone this way. You'll only make trouble for yourself.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 4F deleted ================= -->
+    <article class="post deleted">
+      <div class="post-side">
+        <div class="avatar gray">?</div>
+        <div class="uname" style="color:#b0b6bd;">—</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">4楼</span>
+          <span>2018-08-04 09:41</span>
+        </div>
+        <div class="del-note t-zh">该回复已被删除</div>
+        <div class="del-note t-en">This reply has been deleted.</div>
+      </div>
+    </article>
+
+    <!-- ================= 5F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar">猫</div>
+        <div class="uname">老猫不吃鱼</div>
+        <div class="ulevel">Lv.7</div>
+        <dl class="ustats">
+          <div><dt>帖子</dt><dd>612</dd></div>
+          <div><dt>积分</dt><dd>1,880</dd></div>
+          <div><dt>吧龄</dt><dd>5.6年</dd></div>
+        </dl>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">5楼</span>
+          <span>2018-08-04 09:44</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>我跑长途的，1号凌晨两点多，在312国道句容段见过一个车队。</p>
+          <p>六七辆银灰色的商务车，没有牌照，或者牌照用布蒙着。前面有警车开道。我靠边停着让了一下，前后大概二十秒就过去了。</p>
+          <p>我当时还骂了一句，什么大人物半夜走这条路。</p>
+          <p>现在想想，时间对得上。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>I drive long-haul. Just after 2 a.m. on the 1st I saw a convoy on the 312 national road, in the Jurong section.</p>
+          <p>Six or seven silver-grey MPVs. No plates — or plates covered with cloth. A police car running ahead of them. I pulled over to let them past. Twenty seconds, maybe, and they were gone.</p>
+          <p>At the time I cursed at them. What kind of big shot drives this road at midnight.</p>
+          <p>Thinking about it now — the timing matches.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">来自 手机版</span>
+          <span class="t-en">Sent from mobile</span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 6F hidden ================= -->
+    <article class="post deleted">
+      <div class="post-side">
+        <div class="avatar gray">?</div>
+        <div class="uname" style="color:#b0b6bd;">—</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">6楼</span>
+          <span>2018-08-04 09:52</span>
+        </div>
+        <div class="del-note t-zh">该楼层已被管理员隐藏</div>
+        <div class="del-note t-en">This post has been hidden by a moderator.</div>
+      </div>
+    </article>
+
+    <!-- ================= 7F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">阿</div>
+        <div class="uname">镇江小阿姨</div>
+        <div class="ulevel">Lv.4</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">7楼</span>
+          <span>2018-08-04 10:02</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>我表姐在一院急诊。</p>
+          <p>她说1号凌晨科室群里通知腾12张床，说是有批病人要来。后来一张也没用上。</p>
+          <p>第二天早上那些床的床单全换了。全新的，没拆封就拉走扔了。</p>
+          <p>她问了一句，没人理她。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>My cousin works in the emergency department at the First Hospital.</p>
+          <p>She says at dawn on the 1st the department group chat told them to clear twelve beds — a group of patients was coming. Not one bed was ever used.</p>
+          <p>The next morning all the bedding on those beds was changed. Brand new, still sealed, taken away and thrown out.</p>
+          <p>She asked about it once. Nobody answered her.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">（该回复已被删除）</span>
+          <span class="t-en">(This reply has been deleted.)</span>
+          <span class="actions"><a href="#">回复</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 8F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">键</div>
+        <div class="uname">键盘侠本侠</div>
+        <div class="ulevel">Lv.9</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">8楼</span>
+          <span>2018-08-04 10:15</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>又来了。</p>
+          <p>官方都说了是集体癔症，106个人一起犯病，医学上叫 mass psychogenic illness，自己百度去。</p>
+          <p>人家医院忙着治病，你在网上带节奏。楼主节哀，早点接受现实。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>Here we go again.</p>
+          <p>The official statement already said it was mass hysteria — 106 people getting ill together. In medicine it's called mass psychogenic illness. Go Baidu it.</p>
+          <p>The hospital is busy treating people and you're out here stirring. My condolences, OP. Accept reality and move on.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 9F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">江</div>
+        <div class="uname">江畔晚风</div>
+        <div class="ulevel">Lv.12</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">9楼</span>
+          <span>2018-08-04 10:21</span>
+        </div>
+        <div class="re-to t-zh">回复 <b>8楼</b> 键盘侠本侠：</div>
+        <div class="re-to t-en">Replying to <b>#8</b> KeyboardWarrior:</div>
+        <div class="post-body t-zh">
+          <p>你他妈</p>
+        </div>
+        <div class="post-body t-en">
+          <p>You absolute—</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">（此回复因含不友善内容被系统折叠）</span>
+          <span class="t-en">(Folded by the system for unfriendly content.)</span>
+          <span class="actions"><a href="#">展开</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 10F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar">猫</div>
+        <div class="uname">老猫不吃鱼</div>
+        <div class="ulevel">Lv.7</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">10楼</span>
+          <span>2018-08-04 10:29</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>106个人一起癔症，还一起流鼻血，还一起被银色车队拉走。</p>
+          <p>你去百度一下，看看哪本书上是这么写的。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>106 people having hysteria together. And bleeding from the nose together. And being driven off together in a convoy of silver vans.</p>
+          <p>Go Baidu it. Find me the textbook that says that.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 11F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">沉</div>
+        <div class="uname">沉默的大多数_</div>
+        <div class="ulevel">Lv.3</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">11楼</span>
+          <span>2018-08-04 11:20</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>楼主，我不认识你，也说不出什么安慰的话。</p>
+          <p>我只想说，你写的那双拖鞋，我看哭了。</p>
+          <p>我老婆去年住院，我在走廊上坐了十一天。那种等的感觉，我知道一点点。</p>
+          <p>撑住。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>OP, I don't know you and I don't have any words of comfort that would help.</p>
+          <p>I just want to say: the part about the slippers made me cry.</p>
+          <p>My wife was in hospital last year. I sat in that corridor for eleven days. I know a little of what that waiting feels like.</p>
+          <p>Hold on.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 12F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar dark">4</div>
+        <div class="uname">4号车厢</div>
+        <div class="ulevel">Lv.0</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">12楼</span>
+          <span>2018-08-04 12:07</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>我也在找我妈。</p>
+          <p>她坐4号车厢，靠窗，11A。穿着一件墨绿色的外套，右手中指上戴着一个金戒指。</p>
+          <p>楼主，你要是打听到什么，能不能也跟我说一声。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>I'm looking for my mother too.</p>
+          <p>She was in Carriage 4, window seat, 11A. She was wearing a dark green coat. Gold ring on her right middle finger.</p>
+          <p>OP, if you hear anything at all, would you tell me too.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">（该用户已被注销）</span>
+          <span class="t-en">(This account has been deregistered.)</span>
+          <span class="actions"><a href="#">回复</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 13F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar dark">护</div>
+        <div class="uname">一个护士</div>
+        <div class="ulevel">Lv.1</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">13楼</span>
+          <span>2018-08-04 13:41</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>我不是镇江的，我在南京。我不说我是哪个医院的。</p>
+          <p>我只想说一句：那106个人，如果有人真的见到过，请站出来。</p>
+          <p>因为到现在为止，我认识的所有同行里，没有一个见过他们。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>I'm not in Zhenjiang. I'm in Nanjing. I won't say which hospital.</p>
+          <p>I only want to say one thing: if anyone has actually seen those 106 people, please speak up.</p>
+          <p>Because so far, out of every colleague I know, not one of them has seen a single one of them.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">（该回复已被删除）</span>
+          <span class="t-en">(This reply has been deleted.)</span>
+          <span class="actions"><a href="#">回复</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 14F mod ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar dark">版</div>
+        <div class="uname">民生关注_版务</div>
+        <div class="ulevel">管理</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">14楼</span>
+          <span>2018-08-04 15:00</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>【巡查提醒】本帖已进入重点巡查范围。</p>
+          <p>请各位注意言辞，不传谣、不信谣。涉及个人隐私、具体单位、具体车牌、具体坐标的内容一律删除，不再另行通知。</p>
+          <p>请理解并配合。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>[Patrol Notice] This thread is now under focused moderation.</p>
+          <p>Please mind your language. Do not spread rumours and do not believe rumours. Content involving personal privacy, named institutions, specific licence plates or specific coordinates will be removed without further notice.</p>
+          <p>Thank you for your understanding and cooperation.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 15F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">夜</div>
+        <div class="uname">夜航船</div>
+        <div class="ulevel">Lv.6</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">15楼</span>
+          <span>2018-08-04 16:23</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>楼主，我问一句不该问的。</p>
+          <p>你有没有想过，她可能已经……</p>
+          <p>对不起。我不是那个意思。我删了。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>OP, I'm going to ask something I shouldn't.</p>
+          <p>Have you considered that she might already be—</p>
+          <p>I'm sorry. That's not what I meant. I'll delete it.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">本帖最后由 夜航船 于 2018-08-04 16:25 编辑</span>
+          <span class="t-en">Last edited by YeHangChuan, 2018-08-04 16:25</span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 16F OP reply ================= -->
+    <article class="post op">
+      <div class="post-side">
+        <div class="avatar">陈</div>
+        <div class="uname op-name">陈志远_镇江</div>
+        <div class="ulevel">Lv.1</div>
+        <dl class="ustats">
+          <div><dt>帖子</dt><dd>3</dd></div>
+          <div><dt>积分</dt><dd>12</dd></div>
+          <div><dt>注册</dt><dd>2018-08-02</dd></div>
+        </dl>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor"><b>楼主</b></span>
+          <span>2018-08-04 16:40</span>
+        </div>
+        <div class="quote t-zh">
+          <b>15楼 夜航船：</b>你有没有想过，她可能已经……
+        </div>
+        <div class="quote t-en">
+          <b>#15 YeHangChuan:</b> Have you considered that she might already be—
+        </div>
+        <div class="post-body t-zh">
+          <p>没有。</p>
+          <p>她说过周五回来。</p>
+          <p>今天才周六。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>No.</p>
+          <p>She said she'd be back on Friday.</p>
+          <p>Today's only Saturday.</p>
+        </div>
+        <div class="post-foot">
+          <span></span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 17F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">王</div>
+        <div class="uname">王小雨</div>
+        <div class="ulevel">Lv.0</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">17楼</span>
+          <span>2018-08-04 21:12</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>志远，别找了。回家吧。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>Zhiyuan. Stop looking. Go home.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">（该回复已被删除）</span>
+          <span class="t-en">(This reply has been deleted.)</span>
+          <span class="actions"><a href="#">回复</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 18F ================= -->
+    <article class="post">
+      <div class="post-side">
+        <div class="avatar gray">江</div>
+        <div class="uname">江畔晚风</div>
+        <div class="ulevel">Lv.12</div>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor">18楼</span>
+          <span>2018-08-04 21:15</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>楼上那个"王小雨"是谁？？</p>
+          <p>楼主你老婆不是叫王雨吗？？</p>
+        </div>
+        <div class="post-body t-en">
+          <p>Who was that "Wang Xiaoyu" above??</p>
+          <p>OP, isn't your wife's name Wang Yu??</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">（该楼层已被管理员隐藏）</span>
+          <span class="t-en">(This post has been hidden by a moderator.)</span>
+          <span class="actions"><a href="#">回复</a></span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 19F OP last ================= -->
+    <article class="post op">
+      <div class="post-side">
+        <div class="avatar">陈</div>
+        <div class="uname op-name">陈志远_镇江</div>
+        <div class="ulevel">Lv.1</div>
+        <dl class="ustats">
+          <div><dt>帖子</dt><dd>3</dd></div>
+          <div><dt>积分</dt><dd>12</dd></div>
+          <div><dt>注册</dt><dd>2018-08-02</dd></div>
+        </dl>
+      </div>
+      <div class="post-main">
+        <div class="post-bar">
+          <span class="floor"><b>楼主</b></span>
+          <span>2018-08-04 23:41</span>
+        </div>
+        <div class="post-body t-zh">
+          <p>今天我又去了。</p>
+          <p>还是那句话：信息已登记，请耐心等待通知。</p>
+          <p>回来的路上我在服务区买了一条鲈鱼，活的，养在盆里。老板说能活到明天。</p>
+          <p>我明天还去。</p>
+          <p>念念睡了。她的拖鞋还摆在门口，两双。</p>
+          <p>晚安。</p>
+        </div>
+        <div class="post-body t-en">
+          <p>I went again today.</p>
+          <p>Same sentence: your information has been registered, please wait patiently for notification.</p>
+          <p>On the way back I bought a bass at the service station. Alive. It's in a basin now. The man said it'll live till tomorrow.</p>
+          <p>I'll go again tomorrow.</p>
+          <p>Niannian's asleep. The slippers are still by the door. Two pairs.</p>
+          <p>Goodnight.</p>
+        </div>
+        <div class="post-foot">
+          <span class="t-zh">本帖最后由 陈志远_镇江 于 2018-08-04 23:44 编辑</span>
+          <span class="t-en">Last edited by ChenZhiyuan_Zhenjiang, 2018-08-04 23:44</span>
+          <span class="actions"><a href="#">回复</a><a href="#">引用</a></span>
+        </div>
+      </div>
+    </article>
+
+    <div class="pager">
+      <a href="#">上一页</a>
+      <span class="cur">1</span>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <span>…</span>
+      <a href="#">156</a>
+      <a href="#">下一页</a>
+    </div>
+
+    <div class="replybox">
+      <h3 class="t-zh">发表回复</h3>
+      <h3 class="t-en">Post a reply</h3>
+      <textarea placeholder="请文明发言，遵守社区规定……"></textarea>
+      <div class="rb-foot">
+        <span class="t-zh">当前账号：未登录 · 回复需绑定手机号</span>
+        <span class="t-en">Current account: not signed in · a verified phone number is required to reply</span>
+        <button class="rb-btn t-zh" type="button">发表</button>
+        <button class="rb-btn t-en" type="button">Post</button>
+      </div>
+    </div>
+  </main>
+
+  <aside>
+    <div class="widget">
+      <h3 class="t-zh">社区公告</h3>
+      <h3 class="t-en">Announcements</h3>
+      <ul class="noti">
+        <li class="t-zh"><a href="#">关于近期部分帖子无法正常显示的情况说明</a></li>
+        <li class="t-en"><a href="#">Notice regarding recent posts that cannot be displayed normally</a></li>
+        <li class="t-zh"><a href="#">站内搜索功能维护中，预计恢复时间另行通知</a></li>
+        <li class="t-en"><a href="#">Site search is under maintenance; restoration time to be announced</a></li>
+        <li class="t-zh"><a href="#">请勿在帖内发布他人真实姓名与联系方式</a></li>
+        <li class="t-en"><a href="#">Do not post others' real names or contact details in threads</a></li>
+      </ul>
+    </div>
+
+    <div class="widget">
+      <h3 class="t-zh">相关帖子</h3>
+      <h3 class="t-en">Related threads</h3>
+      <ul>
+        <li>
+          <a href="#" class="t-zh">G511停运21天？铁路局这个公告我是真看不懂</a>
+          <a href="#" class="t-en">G511 out of service for 21 days? I genuinely can't parse this railway notice</a>
+          <span class="meta">08-03 · 铁路迷 · 回复 448</span>
+        </li>
+        <li>
+          <a href="#" class="t-zh">宝华山隧道这几天为什么封路，有知道的吗</a>
+          <a href="#" class="t-en">Why has the Baohua Mountain tunnel been closed these past few days?</a>
+          <span class="meta">08-04 · 民生关注 · 回复 217</span>
+        </li>
+        <li>
+          <a href="#" class="t-zh">说说我见过的那些"心理性反应"</a>
+          <a href="#" class="t-en">Let me tell you about the "psychogenic reactions" I've actually seen</a>
+          <span class="meta">08-02 · 情感树洞 · 回复 903</span>
+        </li>
+        <li>
+          <a href="#" class="t-zh">有没有人1号凌晨在312国道句容段？</a>
+          <a href="#" class="t-en">Was anyone on the 312 near Jurong in the early hours of the 1st?</a>
+          <span class="meta">08-03 · 城市茶座 · 回复 66</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="widget">
+      <h3 class="t-zh">热门话题</h3>
+      <h3 class="t-en">Trending</h3>
+      <div class="topic-tags">
+        <a href="#">#G511</a>
+        <a href="#">#4号车厢</a>
+        <a href="#">#宝华山隧道</a>
+        <a href="#">#106人</a>
+        <a href="#">#她在哪个医院</a>
+        <a href="#">#等通知</a>
+      </div>
+    </div>
+
+    <div class="widget">
+      <h3 class="t-zh">本版数据</h3>
+      <h3 class="t-en">Board stats</h3>
+      <div class="statline"><span class="t-zh">今日发帖</span><span class="t-en">Posts today</span><b>1,208</b></div>
+      <div class="statline"><span class="t-zh">当前在线</span><span class="t-en">Online now</span><b>4,617</b></div>
+      <div class="statline"><span class="t-zh">本版主题</span><span class="t-en">Threads</span><b>86,441</b></div>
+      <div class="statline"><span class="t-zh">注册会员</span><span class="t-en">Members</span><b>1,932,570</b></div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="fl">
+    <a href="#">关于我们</a>
+    <a href="#">社区公约</a>
+    <a href="#">侵权投诉</a>
+    <a href="#">未成年人保护</a>
+    <a href="#">联系我们</a>
+  </div>
+  <div>海角社区 · 城市茶座 &nbsp;|&nbsp; 沪ICP备 20110428 号-3 &nbsp;|&nbsp; 增值电信业务经营许可证：沪B2-20110428</div>
+  <div>© 2009–2018 海角社区 版权所有 &nbsp;|&nbsp; 本站内容由用户发布，不代表本站立场</div>
+</footer>
+
+<button class="lang-btn" id="langBtn" type="button">English</button>
+
+<script>
+  (function () {
+    var btn = document.getElementById('langBtn');
+    var body = document.body;
+    btn.addEventListener('click', function () {
+      body.classList.toggle('show-en');
+      var en = body.classList.contains('show-en');
+      btn.textContent = en ? '中文' : 'English';
+      btn.setAttribute('aria-label', en ? '切换到中文' : 'Switch to English');
+    });
+  })();
+</script>
+
+</body>
+</html>

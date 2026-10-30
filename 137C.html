@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fine-structure constant - Wikipedia</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14.5px;line-height:1.62;color:#202122;background:#f6f6f6;
+  }
+  a{color:#3366cc;text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:visited{color:#795cb2}
+  a.new{color:#d73333}
+
+  /* ---------- header ---------- */
+  header.site{background:#fff;border-bottom:1px solid #a2a9b1;padding:10px 16px 0}
+  .top{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;flex:none}
+  .brand svg{width:52px;height:52px}
+  .wordmark{line-height:1.1}
+  .wordmark .wm{font-family:"Linux Libertine",Georgia,"Times New Roman",serif;
+    font-size:22px;letter-spacing:.5px;color:#202122}
+  .wordmark .wm small{font-size:12px;letter-spacing:1px}
+  .wordmark .tag{font-size:11px;color:#54595d;font-family:Georgia,serif}
+  .search{margin-left:auto;display:flex;align-items:center;gap:6px}
+  .search input{
+    font:inherit;font-size:13px;padding:5px 8px;width:220px;
+    border:1px solid #a2a9b1;border-radius:2px;background:#fff;color:#202122;
+  }
+  .search input:focus{outline:2px solid #3366cc;outline-offset:-1px}
+  .search button{
+    font:inherit;font-size:13px;padding:5px 12px;border:1px solid #a2a9b1;
+    background:#f8f9fa;border-radius:2px;cursor:pointer;color:#202122;
+  }
+  .search button:hover{background:#eaecf0}
+
+  .tabs{max-width:1240px;margin:8px auto 0;display:flex;gap:2px;font-size:13px}
+  .tabs .spacer{flex:1}
+  .tabs a{
+    padding:6px 12px;border:1px solid transparent;border-bottom:none;
+    border-radius:2px 2px 0 0;color:#3366cc;
+  }
+  .tabs a.on{background:#fff;border-color:#a2a9b1;color:#202122;font-weight:600;
+    margin-bottom:-1px;border-bottom:1px solid #fff}
+  .tabs a:hover{background:#eaecf0;text-decoration:none}
+  .tabs a.on:hover{background:#fff}
+
+  /* ---------- layout ---------- */
+  .layout{max-width:1240px;margin:0 auto;display:flex;align-items:flex-start}
+  aside{width:172px;flex:none;padding:18px 10px 40px;font-size:12.5px;color:#202122}
+  aside h3{
+    font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#54595d;
+    font-weight:600;margin:16px 0 4px;padding-bottom:3px;border-bottom:1px solid #c8ccd1;
+  }
+  aside ul{list-style:none;margin:0;padding:0}
+  aside li{margin:2px 0}
+  aside a{display:block;padding:2px 4px;border-radius:2px}
+  aside a:hover{background:#eaecf0;text-decoration:none}
+  main{
+    flex:1;min-width:0;background:#fff;border-left:1px solid #a2a9b1;
+    padding:22px 34px 70px;
+  }
+
+  /* ---------- article typography ---------- */
+  h1{
+    font-family:"Linux Libertine",Georgia,"Times New Roman",serif;
+    font-weight:400;font-size:2em;line-height:1.25;
+    margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid #a2a9b1;
+  }
+  .sitesub{font-size:12.5px;color:#54595d;margin:0 0 16px}
+  h2{
+    font-family:"Linux Libertine",Georgia,"Times New Roman",serif;
+    font-weight:400;font-size:1.5em;line-height:1.3;
+    margin:26px 0 10px;padding-bottom:4px;border-bottom:1px solid #a2a9b1;
+  }
+  h3{font-size:1.1em;font-weight:700;margin:20px 0 8px}
+  p{margin:0 0 12px}
+  ul,ol{margin:0 0 12px;padding-left:26px}
+  li{margin:3px 0}
+  .lead{font-size:15px}
+  b,strong{font-weight:700}
+
+  .hatnote{
+    font-style:italic;padding-left:1.6em;margin:6px 0 14px;color:#202122;
+  }
+  .ambox{
+    border:1px solid #f0c47a;border-left:10px solid #f28500;
+    background:#fef6e7;padding:9px 14px;margin:0 0 16px;font-size:13px;
+  }
+  .ambox b{font-weight:700}
+  .disclaimer{
+    border:1px solid #c8ccd1;border-left:10px solid #3366cc;
+    background:#eef3fd;padding:9px 14px;margin:0 0 18px;font-size:13px;
+  }
+
+  sup.reference{font-size:11px;line-height:1}
+  sup.reference a{color:#3366cc;padding:0 1px}
+
+  /* ---------- table of contents ---------- */
+  .toc{
+    display:inline-block;min-width:280px;
+    border:1px solid #a2a9b1;background:#f8f9fa;
+    padding:10px 20px;margin:8px 0 18px;font-size:13px;
+  }
+  .toc .toc-title{text-align:center;font-weight:700;margin-bottom:6px}
+  .toc ul{list-style:none;margin:0;padding:0}
+  .toc ul ul{padding-left:14px}
+  .toc li{margin:2px 0}
+  .toc .num{color:#54595d;margin-right:6px}
+
+  /* ---------- infobox ---------- */
+  .infobox{
+    float:right;width:320px;margin:0 0 16px 22px;
+    border:1px solid #a2a9b1;background:#f8f9fa;font-size:12.8px;
+    border-collapse:collapse;clear:right;
+  }
+  .infobox caption{
+    font-weight:700;font-size:1.05em;padding:8px;background:#eaecf0;
+    border-bottom:1px solid #a2a9b1;
+  }
+  .infobox th,.infobox td{
+    border-top:1px solid #c8ccd1;padding:5px 9px;vertical-align:top;text-align:left;
+  }
+  .infobox th{width:42%;font-weight:700;background:#f8f9fa}
+  .infobox .imgcell{padding:8px;text-align:center;border-top:none}
+  .infobox .capcell{
+    font-size:12px;color:#54595d;text-align:center;padding:0 10px 8px;border-top:none;
+  }
+  .infobox code{font-size:12.5px}
+
+  /* ---------- wikitable ---------- */
+  .wikitable{
+    border-collapse:collapse;background:#f8f9fa;font-size:13px;
+    margin:0 0 16px;border:1px solid #a2a9b1;
+  }
+  .wikitable th,.wikitable td{border:1px solid #a2a9b1;padding:6px 10px;text-align:left}
+  .wikitable th{background:#eaecf0;font-weight:700}
+  .wikitable caption{font-weight:700;padding:4px 0 6px;font-size:13px;text-align:left}
+  .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* ---------- references ---------- */
+  .reflist{font-size:13px}
+  .reflist ol{columns:26em;column-gap:2em;padding-left:22px;margin:0}
+  .reflist li{margin:0 0 6px;break-inside:avoid}
+
+  /* ---------- categories + footer ---------- */
+  .catlinks{
+    border:1px solid #a2a9b1;background:#f8f9fa;padding:9px 12px;font-size:13px;
+    margin-top:36px;clear:both;
+  }
+  .catlinks b{font-weight:700;margin-right:6px}
+  .catlinks a{margin-right:4px}
+  footer{
+    max-width:1240px;margin:0 auto;padding:16px 24px 40px;font-size:12px;color:#54595d;
+  }
+  footer a{color:#3366cc}
+
+  /* ---------- hidden trigger ---------- */
+  .secret-trigger{
+    cursor: default;
+    /* no visual indication at rest */
+  }
+  .secret-trigger:hover{
+    cursor: pointer;
+    text-decoration: underline dotted rgba(51,102,204,.45);
+    text-underline-offset: 3px;
+  }
+
+  /* ---------- password gate ---------- */
+  #pw-overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.6);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:9999;
+    padding:20px;
+  }
+  #pw-overlay.open{display:flex}
+  #pw-box{
+    width:360px;max-width:100%;
+    background:#000;
+    border:2px solid #fff;
+    padding:34px 30px 30px;
+    font-family:"Courier New",Consolas,monospace;
+    color:#fff;
+    text-align:center;
+    box-shadow:0 0 0 1px #000, 0 18px 60px rgba(0,0,0,.7);
+  }
+  #pw-box .pw-title{
+    font-size:13px;letter-spacing:4px;margin:0 0 6px;color:#fff;font-weight:400;
+  }
+  #pw-box .pw-sub{
+    font-size:10px;letter-spacing:2px;color:#7a7a7a;margin:0 0 26px;
+  }
+  #pw-input{
+    display:block;width:100%;
+    background:#000;border:1px solid #fff;color:#fff;
+    font:inherit;font-size:16px;letter-spacing:6px;text-align:center;
+    padding:10px 8px;outline:none;
+  }
+  #pw-input:focus{border-color:#fff;box-shadow:0 0 0 1px #fff}
+  #pw-msg{
+    height:16px;font-size:11px;letter-spacing:1px;margin-top:14px;color:#fff;
+  }
+  #pw-msg.err{color:#ff5252}
+  #pw-msg.ok{color:#69f0ae}
+  @keyframes pw-shake{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-9px)}
+    40%{transform:translateX(9px)}
+    60%{transform:translateX(-5px)}
+    80%{transform:translateX(5px)}
+  }
+  #pw-box.shake{animation:pw-shake .32s ease}
+
+  @media (max-width:900px){
+    aside{display:none}
+    main{border-left:none;padding:18px 16px 60px}
+    .infobox{float:none;width:100%;margin:0 0 18px}
+    .search input{width:130px}
+    .brand .wordmark .wm{font-size:18px}
+    .reflist ol{columns:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 60 60" aria-hidden="true">
+        <circle cx="30" cy="30" r="27" fill="none" stroke="#54595d" stroke-width="2"/>
+        <ellipse cx="30" cy="30" rx="12" ry="27" fill="none" stroke="#c8ccd1" stroke-width="1"/>
+        <line x1="3" y1="30" x2="57" y2="30" stroke="#c8ccd1" stroke-width="1"/>
+        <line x1="7" y1="17" x2="53" y2="17" stroke="#c8ccd1" stroke-width="1"/>
+        <line x1="7" y1="43" x2="53" y2="43" stroke="#c8ccd1" stroke-width="1"/>
+        <text x="30" y="40" text-anchor="middle"
+              font-family="Georgia,serif" font-size="26" fill="#202122">W</text>
+      </svg>
+      <div class="wordmark">
+        <div class="wm">WIKIPEDIA<small>&nbsp;</small></div>
+        <div class="tag">The Free Encyclopedia</div>
+      </div>
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Search Wikipedia" aria-label="Search Wikipedia">
+      <button type="button">Search</button>
+    </div>
+  </div>
+  <nav class="tabs">
+    <a href="#" class="on">Article</a>
+    <a href="#">Talk</a>
+    <span class="spacer"></span>
+    <a href="#" class="on">Read</a>
+    <a href="#">Edit</a>
+    <a href="#">View history</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside>
+    <h3>Navigation</h3>
+    <ul>
+      <li><a href="#">Main page</a></li>
+      <li><a href="#">Contents</a></li>
+      <li><a href="#">Current events</a></li>
+      <li><a href="#">Random article</a></li>
+      <li><a href="#">About Wikipedia</a></li>
+      <li><a href="#">Contact us</a></li>
+    </ul>
+    <h3>Contribute</h3>
+    <ul>
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Learn to edit</a></li>
+      <li><a href="#">Community portal</a></li>
+      <li><a href="#">Recent changes</a></li>
+      <li><a href="#">Upload file</a></li>
+    </ul>
+    <h3>Tools</h3>
+    <ul>
+      <li><a href="#">What links here</a></li>
+      <li><a href="#">Related changes</a></li>
+      <li><a href="#">Permanent link</a></li>
+      <li><a href="#">Page information</a></li>
+      <li><a href="#">Cite this page</a></li>
+      <li><a href="#">Download as PDF</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <h1>Fine-structure constant</h1>
+    <p class="sitesub">From Wikipedia, the free encyclopedia</p>
+
+    <div class="disclaimer">
+      <b>This page is a parody.</b> It is written in the style of a Wikipedia article and
+      contains invented anecdotes, invented quotations and invented citations. The physics
+      values quoted are approximately correct; the <i>stories</i> are not to be trusted.
+    </div>
+
+    <div class="ambox">
+      <b>This article may rely excessively on anecdote and numerology.</b>
+      Please help improve it by attaching a derivation, or by admitting that nobody has one.
+      <span style="color:#54595d">(October 2026)</span>
+    </div>
+
+    <table class="infobox">
+      <caption>Fine-structure constant</caption>
+      <tr>
+        <td class="imgcell" colspan="2">
+          <svg viewBox="0 0 240 150" width="100%" role="img"
+               aria-label="Feynman diagram: an electron emits a photon">
+            <rect width="240" height="150" fill="#ffffff"/>
+            <line x1="18" y1="112" x2="120" y2="112" stroke="#202122" stroke-width="2"/>
+            <line x1="120" y1="112" x2="222" y2="112" stroke="#202122" stroke-width="2"/>
+            <path d="M120,112 q8,-9 0,-18 q-8,-9 0,-18 q8,-9 0,-18 q-8,-9 0,-18"
+                  fill="none" stroke="#202122" stroke-width="1.8"/>
+            <circle cx="120" cy="112" r="3.2" fill="#202122"/>
+            <text x="26" y="104" font-size="13" fill="#202122"
+                  font-family="Georgia,serif" font-style="italic">e⁻</text>
+            <text x="198" y="104" font-size="13" fill="#202122"
+                  font-family="Georgia,serif" font-style="italic">e⁻</text>
+            <text x="129" y="46" font-size="13" fill="#202122"
+                  font-family="Georgia,serif" font-style="italic">γ</text>
+          </svg>
+        </td>
+      </tr>
+      <tr>
+        <td class="capcell" colspan="2">
+          The electron–photon vertex. Its amplitude is proportional to √α — the
+          entire theory of light and matter hangs off one number.
+        </td>
+      </tr>
+      <tr><th>Symbol</th><td>α</td></tr>
+      <tr><th>Value</th><td class="num">7.297 352 5693(11) × 10<sup>−3</sup></td></tr>
+      <tr><th>Reciprocal</th><td class="num">137.035 999 206(11)</td></tr>
+      <tr><th>Common shorthand</th><td>“1/137”</td></tr>
+      <tr><th>Introduced by</th><td>Arnold Sommerfeld (1916)</td></tr>
+      <tr><th>Nature</th><td>Dimensionless</td></tr>
+      <tr><th>Governs</th><td>Strength of the electromagnetic interaction</td></tr>
+      <tr><th>Derivation from first principles</th><td><a href="#" class="new">None known</a></td></tr>
+    </table>
+
+    <p class="lead">
+      The <b>fine-structure constant</b>, usually denoted <b>α</b> (alpha), is a
+      <a href="#">dimensionless physical constant</a> that quantifies the strength of the
+      <a href="#">electromagnetic interaction</a> between elementary charged particles.
+      Because it is dimensionless, its numerical value is the same in every system of units —
+      which is precisely what makes it interesting, and precisely what makes it strange.
+    </p>
+
+    <p>
+      Its value is approximately <span class="num">0.007 297 352 5693</span>, so its
+      reciprocal is approximately <span class="num">137.036</span>. Physicists almost never
+      quote α; they quote <b>1/α</b>, and they round it to <b>137</b>, and then they stare at
+      it. The number is not derived from anything. It is measured, inserted into the theory by
+      hand, and quietly left there.<sup class="reference"><a href="#ref-1">[1]</a></sup>
+    </p>
+
+    <p>
+      The constant appears wherever an electron meets a photon: in the spectrum of hydrogen,
+      in the anomalous magnetic moment of the electron, in the Lamb shift, in the lifetime of
+      positronium, in the opacity of stellar plasma. Its smallness — about 1/137 — is why
+      light passes through a windowpane instead of being absorbed by the first layer of atoms,
+      and it is why the universe is transparent.
+    </p>
+
+    <!-- ================= TOC ================= -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ul>
+        <li><span class="num">1</span><a href="#definition">Definition</a></li>
+        <li><span class="num">2</span><a href="#history">History</a>
+          <ul>
+            <li><span class="num">2.1</span><a href="#sommerfeld">Sommerfeld and the splitting of lines</a></li>
+            <li><span class="num">2.2</span><a href="#qed">The quantum electrodynamic era</a></li>
+          </ul>
+        </li>
+        <li><span class="num">3</span><a href="#measurement">Measurement</a></li>
+        <li><span class="num">4</span><a href="#running">Running of the constant</a></li>
+        <li><span class="num">5</span><a href="#stories">Stories and numerology</a>
+          <ul>
+            <li><span class="num">5.1</span><a href="#eddington">Eddington's 137</a></li>
+            <li><span class="num">5.2</span><a href="#pauli">Pauli and room 137</a></li>
+            <li><span class="num">5.3</span><a href="#feynman">Feynman's wall</a></li>
+            <li><span class="num">5.4</span><a href="#dirac">Dirac's large numbers</a></li>
+            <li><span class="num">5.5</span><a href="#pyramid">The pyramid problem</a></li>
+            <li><span class="num">5.6</span><a href="#other">Other attempts and curiosities</a></li>
+          </ul>
+        </li>
+        <li><span class="num">6</span><a href="#variation">Possible variation over time</a></li>
+        <li><span class="num">7</span><a href="#culture">In popular culture</a></li>
+        <li><span class="num">8</span><a href="#seealso">See also</a></li>
+        <li><span class="num">9</span><a href="#notes">Notes</a></li>
+        <li><span class="num">10</span><a href="#references">References</a></li>
+        <li><span class="num">11</span><a href="#links">External links</a></li>
+      </ul>
+    </div>
+
+    <!-- ================= DEFINITION ================= -->
+    <h2 id="definition">Definition</h2>
+
+    <p>
+      In SI units the fine-structure constant is defined as
+    </p>
+    <p style="text-align:center;font-size:1.15em;font-family:Georgia,serif;margin:16px 0">
+      α = <i>e</i><sup>2</sup> / (4π ε<sub>0</sub> ħ <i>c</i>) ≈ 1 / 137.036
+    </p>
+    <p>
+      where <i>e</i> is the elementary charge, ε<sub>0</sub> the vacuum permittivity,
+      ħ the reduced Planck constant and <i>c</i> the speed of light. In natural units,
+      where ħ = <i>c</i> = 4πε<sub>0</sub> = 1, the definition collapses to the pleasingly
+      blunt statement α = <i>e</i><sup>2</sup>.
+    </p>
+
+    <p>
+      Two further readings are common. First, α is the ratio of the velocity of an electron
+      in the first circular orbit of the Bohr model to the speed of light; this is the
+      historical origin of the name, since the ratio sets the size of the <i>fine structure</i>
+      splittings in atomic spectra. Second, α is the squared coupling of quantum
+      electrodynamics: the probability amplitude for an electron to emit or absorb a photon
+      is proportional to √α, so every additional photon in a Feynman diagram costs a factor
+      of about 1/137 in probability. This is why perturbation theory works, and why
+      physicists who compute to five loops earn their keep.
+    </p>
+
+    <p>
+      The square root is itself a well-known quantity: √α ≈ <span class="num">0.085 424 55</span>.
+      It is this number, not 137, that appears in the Feynman quote below — a detail almost
+      everyone gets wrong when quoting it.
+    </p>
+
+    <!-- ================= HISTORY ================= -->
+    <h2 id="history">History</h2>
+
+    <h3 id="sommerfeld">Sommerfeld and the splitting of lines</h3>
+    <p>
+      Arnold Sommerfeld introduced the constant in 1916 while extending the Bohr model to
+      include elliptic orbits and relativistic corrections.<sup class="reference"><a href="#ref-2">[2]</a></sup>
+      His calculation predicted that the hydrogen spectral lines should split into closely
+      spaced components — a <i>fine structure</i> — with a spacing governed by the dimensionless
+      ratio he called α. The prediction was confirmed, and the letter has stuck for
+      one hundred and ten years.
+    </p>
+    <p>
+      Sommerfeld's original value was close to the modern one but derived from a theory that
+      was already obsolete by 1925. The constant survived the theory that produced it, which
+      is not a thing that happens often. As one review put it, "the letter α has outlived
+      three revolutions in physics and remains undefeated."
+    </p>
+
+    <h3 id="qed">The quantum electrodynamic era</h3>
+    <p>
+      With the arrival of Dirac's equation (1928) and the renormalisation programme
+      (1947–1950), α became the single free parameter of quantum electrodynamics — the theory
+      of light and electrons. Everything else in QED is a prediction. The anomalous magnetic
+      moment of the electron, <i>g</i>/2 = 1.001 159 652 18, agrees with theory to more than
+      ten significant figures; it is the most precisely verified prediction in all of
+      science, and it is a prediction written entirely in powers of α.
+    </p>
+
+    <!-- ================= MEASUREMENT ================= -->
+    <h2 id="measurement">Measurement</h2>
+    <p>
+      Because α is dimensionless, it can be extracted from any process whose rate depends on it.
+      Over the past century the error bars have shrunk from a few parts in a thousand to
+      eighty-one parts in a trillion.
+    </p>
+
+    <table class="wikitable">
+      <caption>Selected determinations of α<sup>−1</sup></caption>
+      <thead>
+        <tr>
+          <th>Year</th><th>Method</th><th class="num">α<sup>−1</sup></th><th>Uncertainty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1916</td><td>Hydrogen fine structure (Sommerfeld)</td><td class="num">~137</td><td>order 1</td></tr>
+        <tr><td>1940s</td><td>Optical spectroscopy</td><td class="num">137.036</td><td>~10<sup>−4</sup></td></tr>
+        <tr><td>1987</td><td>Electron <i>g</i>−2, 4th-order QED</td><td class="num">137.035 9979(32)</td><td>2.3 × 10<sup>−8</sup></td></tr>
+        <tr><td>2011</td><td>Atom recoil, rubidium</td><td class="num">137.035 999 037(91)</td><td>6.6 × 10<sup>−10</sup></td></tr>
+        <tr><td>2018</td><td>CODATA recommended value</td><td class="num">137.035 999 084(21)</td><td>1.5 × 10<sup>−10</sup></td></tr>
+        <tr><td>2020</td><td>Atom interferometry, rubidium</td><td class="num">137.035 999 206(11)</td><td>8.1 × 10<sup>−11</sup></td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      The 2020 result, published in <i>Nature</i>, displaced the CODATA recommended value by
+      about two and a half standard deviations — a polite way of saying that two very careful
+      experiments disagreed, and the community is still deciding whom to believe.
+      <sup class="reference"><a href="#ref-3">[3]</a></sup>
+    </p>
+
+    <!-- ================= RUNNING ================= -->
+    <h2 id="running">Running of the constant</h2>
+    <p>
+      Strictly speaking, α is not a constant. Because the vacuum is polarisable — virtual
+      electron–positron pairs screen the bare charge — the effective coupling grows with the
+      energy at which you probe it. At the mass of the Z boson, α<sup>−1</sup> ≈ 127.95.
+    </p>
+
+    <table class="wikitable">
+      <caption>Effective α<sup>−1</sup> at different energy scales</caption>
+      <thead><tr><th>Scale</th><th class="num">α<sup>−1</sup></th><th>Comment</th></tr></thead>
+      <tbody>
+        <tr><td>Thomson limit (<i>q</i> → 0)</td><td class="num">137.036</td><td>the number on the wall</td></tr>
+        <tr><td>Electron mass</td><td class="num">137.036</td><td>essentially unchanged</td></tr>
+        <tr><td>~1 GeV</td><td class="num">~133.5</td><td>hadronic contributions begin</td></tr>
+        <tr><td><i>Z</i> pole (91 GeV)</td><td class="num">127.95</td><td>the value used in electroweak fits</td></tr>
+        <tr><td>Grand unification (~10<sup>16</sup> GeV)</td><td class="num">~125</td><td>where the couplings nearly meet</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      This is not a paradox and does not mean the constant changes in time; it means that
+      "the charge of the electron" is a scale-dependent bookkeeping device. Still, it does
+      spoil the neatness of the story: the integer 137 is not a property of nature, it is a
+      property of nature <i>measured at low energy by human beings on a rock</i>. The
+      numerology described below generally ignores this.
+    </p>
+
+    <!-- ================= STORIES ================= -->
+    <h2 id="stories">Stories and numerology</h2>
+
+    <p>
+      No accepted derivation of α exists. It is a free parameter of the Standard Model: you
+      measure it, you put it in, and the theory works. This gap has attracted an unusual
+      density of stories, and the stories are part of the constant's cultural life. They are
+      collected here with appropriate scepticism.
+    </p>
+
+    <h3 id="eddington">Eddington's 137</h3>
+    <p>
+      Arthur Stanley Eddington, the astrophysicist who confirmed general relativity and then
+      spent the rest of his life trying to unify physics by pure thought, became convinced
+      that α<sup>−1</sup> was <i>exactly</i> 137. His argument rested on the claim that the
+      number of independent quantities needed to specify the state of the universe was
+      connected to 137 via combinatorial reasoning about the symmetric group — a "proof"
+      delivered with great confidence and no derivable prediction.
+      <sup class="reference"><a href="#ref-5">[5]</a></sup>
+    </p>
+    <p>
+      When measurements drifted upwards — 137.036 and climbing — Eddington is said to have
+      revised his result to 137 + 1/137 ≈ 137.0073, which was still wrong, and to have
+      attributed the discrepancy to experimental error. His contemporaries were not gentle.
+      The episode became the standard cautionary tale in physics: a beautiful number is not
+      evidence of a beautiful theory.
+    </p>
+    <p>
+      Eddington's reputation never fully recovered, though his earlier work remains
+      foundational. The word "Eddingtonian" is occasionally used, unkindly, to describe a
+      numerological argument dressed in tensor notation.
+    </p>
+
+    <h3 id="pauli">Pauli and room 137</h3>
+    <p>
+      Wolfgang Pauli, one of the founders of quantum mechanics and a man famously sceptical of
+      mysticism, died on 15 December 1958 in the Rotkreuz hospital in Zürich. The room number
+      was 137. The coincidence was noted immediately, and Pauli — who had spent decades
+      thinking about α — is reported to have remarked to the attending nurse that this was a
+      sign he would <span class="secret-trigger" id="secret-trigger">not be leaving</span>.
+      <sup class="reference"><a href="#ref-6">[6]</a></sup>
+    </p>
+    <p>
+      The anecdote is repeated in nearly every popular account of the constant. Its details
+      vary between tellings, the number of witnesses is unclear, and at least one biographer
+      treats the reported remark as a story told afterwards rather than a documented utterance.
+      It survives because it is too neat to check, which is precisely the mechanism by which
+      all the stories in this section survive.
+    </p>
+    <p>
+      Pauli also had a well-known effect named after him — the tendency of experimental
+      apparatus to fail in his presence — which is likewise unverifiable and likewise
+      beloved. He would probably have enjoyed the room number. He would certainly have
+      demanded a derivation.
+    </p>
+
+    <h3 id="feynman">Feynman's wall</h3>
+    <p>
+      Richard Feynman, in his 1985 popular lectures on QED, put the situation as plainly as
+      anyone has:
+    </p>
+    <blockquote style="margin:14px 0 14px 24px;padding:10px 18px;border-left:3px solid #c8ccd1;color:#333;font-style:italic">
+      "It's a crazy number. It has been a mystery ever since it was discovered more than fifty
+      years ago, and all good theoretical physicists put this number up on their wall and worry
+      about it. Immediately you would like to know where this number for a coupling comes from:
+      is it related to pi, or perhaps to the base of natural logarithms? Nobody knows. It's one
+      of the greatest damn mysteries of physics: a magic number that comes to us with no
+      understanding by man."
+      <sup class="reference"><a href="#ref-1">[1]</a></sup>
+    </blockquote>
+    <p>
+      The phrase "on their wall" has been taken up as a piece of shared vocabulary among
+      physicists; a number "on the wall" is one that is known, measured, used daily, and
+      completely unexplained. There are not many left — most constants have either been
+      derived or absorbed into definitions by the SI redefinition of 2019. α remains on the
+      wall.
+    </p>
+
+    <h3 id="dirac">Dirac's large numbers</h3>
+    <p>
+      Paul Dirac noticed that the ratio of the electromagnetic to the gravitational force
+      between an electron and a proton is about 10<sup>39</sup>, and that the age of the
+      universe expressed in atomic units is also about 10<sup>39</sup>. He proposed that this
+      coincidence was not a coincidence but a law, and that the gravitational constant must
+      therefore vary with time.<sup class="reference"><a href="#ref-7">[7]</a></sup>
+    </p>
+    <p>
+      The hypothesis is now disfavoured by lunar laser ranging and by the fossil record of the
+      Oklo natural reactor, both of which constrain any variation far below what Dirac needed.
+      But the style of argument — a large dimensionless number, a coincidence, an inference —
+      is the same style that produced every failed explanation of α, and Dirac's prestige made
+      the style respectable for a generation.
+    </p>
+
+    <h3 id="pyramid">The pyramid problem</h3>
+    <p>
+      Because 137 is close to an integer, and because the human eye finds integers where
+      nature has none, α has attracted a persistent fringe literature. The most durable
+      claim is that the Great Pyramid of Giza encodes 137 in the ratio of its height to its
+      base, or in the number of courses of stone, or in the angle of a shaft — the details
+      shift with the author.
+    </p>
+    <p>
+      The general difficulty with such claims is that any structure with a few dozen
+      measurements yields thousands of ratios, and 137 is not a hard number to reach by
+      combination and rounding. The same arithmetic trick recovers the speed of light, the
+      precession of Mercury, and (in one memorable pamphlet) the telephone number of the
+      author's brother-in-law. The claims are listed here for completeness and should not be
+      mistaken for physics.<sup class="reference"><a href="#ref-8">[8]</a></sup>
+    </p>
+
+    <h3 id="other">Other attempts and curiosities</h3>
+    <ul>
+      <li>
+        <b>137 as a sum.</b> Several authors have noted that 137 is prime, that it is the
+        fourth centred 34-gonal number, and that it has a variety of other number-theoretic
+        properties. None of these properties singles out 137, and none has led to a prediction.
+      </li>
+      <li>
+        <b>1/137 in base 2 and base 16.</b> Enthusiasts have searched the binary and
+        hexadecimal expansions of α for meaningful strings. This is the physics equivalent of
+        finding a face in a cloud; with enough digits, every number contains every message.
+      </li>
+      <li>
+        <b>The 137.036 problem.</b> Every numerological scheme must explain not only 137 but
+        the 0.036, and then the 0.000 000 084, and then the next digit. Historically this is
+        where the schemes die: they are calibrated against a value that has since moved.
+      </li>
+      <li>
+        <b>The "it must be an integer" instinct.</b> There is no reason a dimensionless
+        constant of nature should be an integer. The mass ratio of the muon to the electron is
+        206.768; nobody writes articles about 207.
+      </li>
+      <li>
+        <b>Speculative derivations.</b> Grand unified theories, the string-theory landscape
+        and various anthropic arguments constrain α but do not predict it. In the landscape
+        picture, α takes different values in different vacua and we observe 1/137 because
+        complex chemistry — and therefore observers — requires a small coupling.
+      </li>
+    </ul>
+
+    <!-- ================= VARIATION ================= -->
+    <h2 id="variation">Possible variation over time</h2>
+    <p>
+      If α were not constant in time, the entire edifice of the previous section would become
+      even more awkward. Two lines of evidence have been pursued.
+    </p>
+    <p>
+      <b>Quasar absorption spectra.</b> In 2011 a team led by John Webb reported a spatial
+      dipole in the value of α inferred from absorption lines in quasar light, at the level of
+      a few parts in a million over billions of years.<sup class="reference"><a href="#ref-9">[9]</a></sup>
+      The result has been contested repeatedly; independent analyses of larger samples have
+      generally not reproduced it, and systematic errors in the calibration of the
+      spectrographs remain the leading explanation.
+    </p>
+    <p>
+      <b>The Oklo reactor.</b> A natural fission reactor operated in Gabon about 1.8 billion
+      years ago. The isotopic ratios left behind depend on the neutron capture cross-sections
+      of samarium and gadolinium, which depend on α. The measured ratios are consistent with
+      no change at the level of a few parts in 10<sup>17</sup> per year — one of the tightest
+      constraints in all of physics, obtained from a hole in the ground.
+    </p>
+    <p>
+      <b>Atomic clocks.</b> Modern optical clocks comparing different atomic transitions
+      constrain the present-day drift of α to less than 10<sup>−17</sup> per year. So far,
+      nothing.
+    </p>
+
+    <!-- ================= CULTURE ================= -->
+    <h2 id="culture">In popular culture</h2>
+    <p>
+      The number 137 has a small but persistent life outside physics.
+    </p>
+    <ul>
+      <li>
+        The phrase "the fine-structure constant" is a well-worn shorthand in science fiction
+        for "the thing we do not understand"; it appears in this capacity in several novels
+        and at least one film, generally spoken by a character looking at a whiteboard.
+      </li>
+      <li>
+        Feynman's "magic number" remark is among the most-quoted lines in popular science
+        writing, usually with the 0.08542455 replaced by 137 and the caveat removed.
+      </li>
+      <li>
+        The Pauli room-number story circulates widely on physics-department corridors and
+        appears in more biographies than its documentation supports.
+      </li>
+      <li>
+        A number of musicians and artists have titled works "137" after the constant. The
+        connection is usually thematic rather than mathematical.
+      </li>
+    </ul>
+
+    <!-- ================= SEE ALSO ================= -->
+    <h2 id="seealso">See also</h2>
+    <ul>
+      <li><a href="#">Dimensionless physical constant</a></li>
+      <li><a href="#">Coupling constant</a></li>
+      <li><a href="#">Quantum electrodynamics</a></li>
+      <li><a href="#">Anomalous magnetic dipole moment</a></li>
+      <li><a href="#">Lamb shift</a></li>
+      <li><a href="#">Fine-tuned universe</a></li>
+      <li><a href="#">Eddington number</a></li>
+      <li><a href="#">Large numbers hypothesis</a></li>
+      <li><a href="#">Oklo fossil reactor</a></li>
+      <li><a href="#">137 (number)</a></li>
+    </ul>
+
+    <!-- ================= NOTES ================= -->
+    <h2 id="notes">Notes</h2>
+    <ol style="font-size:13px">
+      <li id="note-a">
+        The exact value of α is not known; only its measured value and an uncertainty are
+        known. Statements of the form "α = 1/137" are approximations, sometimes deliberately
+        so.
+      </li>
+      <li id="note-b">
+        The SI redefinition of 2019 fixed the numerical values of <i>e</i>, ħ and <i>c</i>,
+        which means α is now the only one of the four quantities in its definition that is
+        measured rather than defined. Its uncertainty is therefore the uncertainty of the
+        measurement, full stop.
+      </li>
+    </ol>
+
+    <!-- ================= REFERENCES ================= -->
+    <h2 id="references">References</h2>
+    <div class="reflist">
+      <ol>
+        <li id="ref-1">
+          Feynman, R. P. (1985). <i>QED: The Strange Theory of Light and Matter</i>.
+          Princeton University Press. pp. 129–130. <span style="color:#54595d">(Quotation
+          lightly condensed; the number quoted in the original is √α ≈ 0.08542455.)</span>
+        </li>
+        <li id="ref-2">
+          Sommerfeld, A. (1916). "Zur Quantentheorie der Spektrallinien".
+          <i>Annalen der Physik</i> 51: 1–94, 125–167.
+        </li>
+        <li id="ref-3">
+          Morel, L.; Yao, Z.; Cladé, P.; Guellati-Khélifa, S. (2020). "Determination of the
+          fine-structure constant with an accuracy of 81 parts per trillion".
+          <i>Nature</i> 588: 61–65.
+        </li>
+        <li id="ref-4">
+          Tiesinga, E.; Mohr, P. J.; Newell, D. B.; Taylor, B. N. (2021). "CODATA recommended
+          values of the fundamental physical constants: 2018".
+          <i>Reviews of Modern Physics</i> 93: 025010.
+        </li>
+        <li id="ref-5">
+          Eddington, A. S. (1936). <i>Relativity Theory of Protons and Electrons</i>.
+          Cambridge University Press. <span style="color:#54595d">(See also the critical
+          discussion in Kilmister, C. W., <i>Eddington's Search for a Fundamental Theory</i>,
+          1994.)</span>
+        </li>
+        <li id="ref-6">
+          Enz, C. P. (2009). <i>No Time to Be Brief: A Scientific Biography of Wolfgang
+          Pauli</i>. Oxford University Press. <span style="color:#54595d">(The room-number
+          anecdote is reported, with reservations, in the closing chapter.)</span>
+        </li>
+        <li id="ref-7">
+          Dirac, P. A. M. (1937). "The cosmological constants".
+          <i>Nature</i> 139: 323.
+        </li>
+        <li id="ref-8">
+          Uzan, J.-P. (2011). "Varying constants, gravitation and cosmology".
+          <i>Living Reviews in Relativity</i> 14: 2.
+          <span style="color:#54595d">(Contains an appendix cataloguing numerological claims
+          and their failure modes.)</span>
+        </li>
+        <li id="ref-9">
+          Webb, J. K.; King, J. A.; Murphy, M. T.; Barrow, J. D.; Flambaum, V. V. (2011).
+          "Indications of a spatial variation of the fine structure constant".
+          <i>Physical Review Letters</i> 107: 191101.
+        </li>
+        <li id="ref-10">
+          Livio, M.; Hollowell, D.; Weiss, A.; Truran, J. W. (1989). "The anthropic
+          significance of the fine structure constant".
+          <i>Nature</i> 340: 281–284.
+        </li>
+        <li id="ref-11">
+          Rosenband, T. <i>et al.</i> (2008). "Frequency ratio of Al<sup>+</sup> and Hg<sup>+</sup>
+          single-ion optical clocks; metrology at the 17th decimal place".
+          <i>Science</i> 319: 1808–1812.
+        </li>
+      </ol>
+    </div>
+
+    <!-- ================= EXTERNAL LINKS ================= -->
+    <h2 id="links">External links</h2>
+    <ul style="font-size:13.5px">
+      <li>NIST CODATA recommended values of the fundamental physical constants</li>
+      <li>Particle Data Group review: "Quantum Electrochemistry and the Fine-Structure Constant"</li>
+      <li>Notebook of A. Sommerfeld, digitised (Deutsches Museum, Munich)</li>
+      <li>Feynman's QED lectures, audio archive</li>
+    </ul>
+
+    <div class="catlinks">
+      <b>Categories:</b>
+      <a href="#">Physical constants</a> ·
+      <a href="#">Quantum electrodynamics</a> ·
+      <a href="#">Dimensionless numbers</a> ·
+      <a href="#">Atomic physics</a> ·
+      <a href="#">Numerology in science</a> ·
+      <a href="#">137 (number)</a>
+    </div>
+  </main>
+</div>
+
+<footer>
+  This page is a fictional parody written in the visual style of Wikipedia and is not
+  affiliated with the Wikimedia Foundation. Text is available under a
+  <a href="#">Creative Commons Attribution-ShareAlike Licence</a>; the physics is available
+  under the laws of nature, terms and conditions apply.<br><br>
+  This page was last edited on 29 October 2026, at 23:28 (UTC).
+</footer>
+
+<!-- ================= PASSWORD GATE ================= -->
+<div id="pw-overlay" role="dialog" aria-modal="true" aria-labelledby="pw-title">
+  <form id="pw-form" autocomplete="off">
+    <div id="pw-box">
+      <p class="pw-title" id="pw-title">ACCESS RESTRICTED</p>
+      <p class="pw-sub">ROOM 137 // AUTHORISATION REQUIRED</p>
+      <input id="pw-input" type="password" name="pw" inputmode="numeric"
+             maxlength="12" spellcheck="false" autocomplete="off"
+             aria-label="Password">
+      <div id="pw-msg" aria-live="polite"></div>
+    </div>
+  </form>
+</div>
+
+<script>
+(function () {
+  var trigger = document.getElementById('secret-trigger');
+  var overlay = document.getElementById('pw-overlay');
+  var box     = document.getElementById('pw-box');
+  var input   = document.getElementById('pw-input');
+  var msg     = document.getElementById('pw-msg');
+  var form    = document.getElementById('pw-form');
+
+  function open() {
+    overlay.classList.add('open');
+    msg.textContent = '';
+    msg.className = '';
+    input.value = '';
+    setTimeout(function () { input.focus(); }, 20);
+  }
+
+  function close() {
+    overlay.classList.remove('open');
+  }
+
+  trigger.addEventListener('click', function (e) {
+    e.preventDefault();
+    open();
+  });
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value.trim();
+
+    if (v === '137') {
+      msg.textContent = 'ACCESS GRANTED. THE ROOM NUMBER WAS NOT A COINCIDENCE.';
+      msg.className = 'ok';
+    } else {
+      msg.textContent = 'ACCESS DENIED';
+      msg.className = 'err';
+      input.value = '';
+      input.focus();
+      box.classList.remove('shake');
+      void box.offsetWidth;            /* restart animation */
+      box.classList.add('shake');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
