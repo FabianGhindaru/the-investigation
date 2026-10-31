@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What can I cook?</title>
+<style>
+  :root{--red:#e60012;--dred:#8a000b;--black:#0a0a0a;--ink:#141414;--white:#fff;--grey:#b8b8b8;
+    --display:Impact,Haettenschweiler,"Arial Narrow Bold","Arial Black",sans-serif;
+    --body:"Trebuchet MS",system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--white);font-family:var(--body);line-height:1.45;
+    background:
+      radial-gradient(circle at 100% 0,rgba(230,0,18,.35) 0,transparent 45%),
+      repeating-linear-gradient(135deg,#0d0d0d 0 16px,#080808 16px 32px);
+    background-attachment:fixed}
+  .wrap{max-width:900px;margin:0 auto;padding:0 14px 40px}
+
+  /* HERO */
+  .hero{position:relative;background:var(--red);margin:0 -14px;padding:26px 20px 56px;overflow:hidden;
+    clip-path:polygon(0 0,100% 0,100% 80%,6% 100%,0 90%);animation:slide .5s ease-out}
+  .hero::before{content:"";position:absolute;inset:0;opacity:.28;
+    background:radial-gradient(#000 22%,transparent 23%) 0 0/12px 12px;
+    -webkit-mask-image:linear-gradient(100deg,transparent 30%,#000 100%);mask-image:linear-gradient(100deg,transparent 30%,#000 100%)}
+  .hero::after{content:"★";position:absolute;right:-10px;top:-24px;font-size:9rem;color:#000;opacity:.25;transform:rotate(18deg)}
+  h1{position:relative;margin:0;font-family:var(--display);font-style:italic;text-transform:uppercase;
+    font-weight:400;font-size:clamp(2.4rem,10vw,4.4rem);line-height:.95;letter-spacing:.02em;
+    transform:rotate(-3deg);transform-origin:left;text-shadow:4px 4px 0 #000,-2px -2px 0 #000}
+  .sub{position:relative;display:inline-block;margin:14px 0 0;background:#000;color:#fff;padding:5px 16px;
+    transform:skew(-12deg);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem}
+  .sub span{display:inline-block;transform:skew(12deg)}
+
+  /* LABELS */
+  .label{display:inline-block;margin:26px 0 12px;background:#fff;color:#000;font-family:var(--display);
+    font-style:italic;text-transform:uppercase;letter-spacing:.04em;font-size:1.15rem;
+    padding:2px 18px 2px 14px;transform:skew(-12deg);box-shadow:5px 5px 0 var(--red)}
+  .label span{display:inline-block;transform:skew(12deg)}
+  .group{font-family:var(--display);font-style:italic;text-transform:uppercase;color:var(--grey);
+    font-size:.85rem;letter-spacing:.08em;margin:16px 0 8px;border-bottom:2px solid var(--red);display:inline-block;padding-right:18px}
+
+  /* CHIPS */
+  .chips{display:flex;flex-wrap:wrap;gap:10px 8px}
+  .chip{font:inherit;cursor:pointer;color:#fff;background:#000;border:2px solid #fff;padding:7px 14px;
+    transform:skew(-9deg);box-shadow:4px 4px 0 var(--red);transition:transform .12s,box-shadow .12s,background .12s}
+  .chip>span{display:inline-block;transform:skew(9deg);font-weight:700;font-size:.92rem}
+  .chip small{color:var(--grey);font-weight:400;margin-left:5px}
+  .chip:hover{transform:skew(-9deg) translate(-2px,-2px);box-shadow:6px 6px 0 var(--red)}
+  .chip:active{transform:skew(-9deg) translate(2px,2px);box-shadow:1px 1px 0 var(--red)}
+  .chip[aria-pressed="true"]{background:var(--red);border-color:#000;box-shadow:4px 4px 0 #fff}
+  .chip[aria-pressed="true"] small{color:#ffd0d4}
+  .chip[aria-pressed="true"]>span::before{content:"✔ "}
+  .chip:focus-visible,.tab:focus-visible,.btn:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+  /* BUTTONS & FILTERS */
+  .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+  .btn{font:inherit;cursor:pointer;color:#000;background:#fff;border:0;padding:8px 16px;transform:skew(-10deg);
+    font-family:var(--display);font-style:italic;text-transform:uppercase;letter-spacing:.04em;box-shadow:4px 4px 0 var(--red)}
+  .btn>span{display:inline-block;transform:skew(10deg)}
+  .btn:hover{background:var(--red);color:#fff;box-shadow:4px 4px 0 #fff}
+  .btn[aria-pressed="true"]{background:var(--red);color:#fff;box-shadow:4px 4px 0 #fff}
+  .count{margin-left:auto;font-family:var(--display);font-style:italic;color:var(--red);font-size:1.1rem}
+  input[type=search]{flex:1;min-width:160px;font:inherit;color:#fff;background:#000;border:2px solid #fff;
+    border-left:8px solid var(--red);padding:9px 12px}
+  input::placeholder{color:#888}
+
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin:14px 0;position:sticky;top:0;z-index:10;padding:10px 0;
+    background:linear-gradient(#080808 75%,transparent)}
+  .tab{flex:1;font-family:var(--display);font-style:italic;text-transform:uppercase;letter-spacing:.04em;
+    font-size:.95rem;cursor:pointer;color:#fff;background:#000;border:2px solid #fff;padding:10px 4px;
+    transform:skew(-10deg);box-shadow:4px 4px 0 var(--red)}
+  .tab>span{display:inline-block;transform:skew(10deg)}
+  .tab[aria-selected="true"]{background:#fff;color:#000;box-shadow:4px 4px 0 var(--red);border-color:var(--red)}
+
+  /* RECIPE CARDS */
+  details{background:var(--ink);border:3px solid #fff;margin:0 8px 16px 0;box-shadow:7px 7px 0 var(--red);
+    animation:pop .25s ease-out}
+  details[open]{background:#fff;color:#000;border-color:#000;box-shadow:7px 7px 0 var(--red)}
+  summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:12px}
+  summary::-webkit-details-marker{display:none}
+  .emoji{flex:none;width:54px;height:54px;display:grid;place-items:center;font-size:1.9rem;background:var(--red);
+    transform:skew(-10deg);border:2px solid #000;box-shadow:3px 3px 0 #000}
+  .emoji span{transform:skew(10deg)}
+  .title{font-family:var(--display);font-style:italic;text-transform:uppercase;font-size:1.25rem;line-height:1.05;letter-spacing:.02em}
+  .meta{color:var(--grey);font-size:.8rem;margin-top:4px}
+  details[open] .meta{color:#555}
+  .status{margin-left:auto;flex:none;padding:3px 12px;font-family:var(--display);font-style:italic;text-transform:uppercase;
+    font-size:.85rem;transform:skew(-12deg);border:2px solid #000}
+  .ok{background:#fff;color:#000;border-color:#fff}
+  details[open] .ok{background:#000;color:#fff}
+  .miss{background:var(--red);color:#fff;border-color:var(--red)}
+  .body{padding:4px 16px 18px;border-top:4px solid var(--red)}
+  .body h4{font-family:var(--display);font-style:italic;text-transform:uppercase;letter-spacing:.05em;
+    font-size:1rem;margin:16px 0 8px;color:var(--red)}
+  .tag{display:inline-block;margin:3px 5px 3px 0;padding:2px 10px;font-size:.82rem;font-weight:700;
+    background:#000;color:#fff;transform:skew(-8deg)}
+  .tag.no{background:var(--red)}
+  .tag.opt{background:#ddd;color:#333;font-weight:400}
+  ol{padding-left:0;margin:6px 0;counter-reset:s;list-style:none}
+  ol li{counter-increment:s;position:relative;padding:4px 0 8px 44px;min-height:34px}
+  ol li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:30px;display:grid;place-items:center;
+    background:var(--red);color:#fff;font-family:var(--display);font-style:italic;font-size:1.1rem;transform:skew(-10deg)}
+  .tip{margin-top:12px;background:#000;color:#fff;padding:10px 14px;border-left:8px solid var(--red);font-size:.92rem}
+  .tip b{color:var(--red);font-family:var(--display);font-style:italic;text-transform:uppercase;letter-spacing:.05em}
+  .empty{text-align:center;padding:36px 10px;font-family:var(--display);font-style:italic;font-size:1.2rem;
+    color:var(--grey);text-transform:uppercase}
+  footer{color:#888;font-size:.78rem;margin:30px 0 0;border-top:2px solid var(--red);padding-top:12px}
+
+  @keyframes slide{from{transform:translateX(-30px);opacity:0}to{transform:none;opacity:1}}
+  @keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>What can<br>I cook?</h1>
+    <div class="sub"><span>Tap what you have. We'll take care of dinner.</span></div>
+  </header>
+
+  <div class="label"><span>1 · Your ingredients</span></div>
+  <div id="ingredients"></div>
+  <div class="row">
+    <button class="btn" id="basics"><span>+ Oil &amp; salt</span></button>
+    <button class="btn" id="clear"><span>Clear all</span></button>
+    <div class="count" id="selcount"></div>
+  </div>
+
+  <div class="label"><span>2 · Recipes</span></div>
+  <div class="row" style="margin-top:0">
+    <input type="search" id="q" placeholder="Search recipes…" aria-label="Search recipes">
+    <button class="btn" data-f="any"    aria-pressed="true"><span>Any time</span></button>
+    <button class="btn" data-f="fast"   aria-pressed="false"><span>≤ 10 min</span></button>
+    <button class="btn" data-f="nocook" aria-pressed="false"><span>No cooking</span></button>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="ready"><span></span></button>
+    <button class="tab" role="tab" data-tab="almost"><span></span></button>
+    <button class="tab" role="tab" data-tab="all"><span></span></button>
+  </div>
+  <div id="recipes"></div>
+
+  <footer>Protein figures are rough estimates.
+  Cook eggs until the whites are firm. Heat ready-made chicken and sausages until steaming hot. Follow the dates on packaging.</footer>
+</div>
+
+<script>
+const ING = [
+  // Protein
+  {id:"eggs",name:"Eggs",ro:"ouă",emoji:"🥚",group:"Protein"},
+  {id:"tuna",name:"Canned tuna",ro:"ton",emoji:"🐟",group:"Protein"},
+  {id:"chicken",name:"Cooked grilled chicken",ro:"pui grill",emoji:"🍗",group:"Protein"},
+  {id:"ham",name:"Ham",ro:"șuncă",emoji:"🍖",group:"Protein"},
+  {id:"sausages",name:"Frankfurters (pre-cooked)",ro:"crenvurști",emoji:"🌭",group:"Protein"},
+  {id:"yogurt",name:"Greek yogurt",ro:"iaurt grecesc",emoji:"🥛",group:"Protein"},
+  {id:"cottage",name:"Cottage cheese",ro:"brânză cottage",emoji:"🥣",group:"Protein"},
+  {id:"cheese",name:"Cașcaval",ro:"",emoji:"🧀",group:"Protein"},
+  {id:"feta",name:"Feta / telemea",ro:"telemea",emoji:"🧀",group:"Protein"},
+  {id:"pbutter",name:"Peanut butter",ro:"unt de arahide",emoji:"🥜",group:"Protein"},
+  // Carbs
+  {id:"bread",name:"Bread",ro:"pâine",emoji:"🍞",group:"Carbs"},
+  {id:"tortilla",name:"Tortilla wraps",ro:"lipii",emoji:"🫓",group:"Carbs"},
+  {id:"spaghetti",name:"Spaghetti",ro:"paste",emoji:"🍝",group:"Carbs"},
+  {id:"rice",name:"Rice",ro:"orez",emoji:"🍚",group:"Carbs"},
+  {id:"potatoes",name:"Potatoes",ro:"cartofi",emoji:"🥔",group:"Carbs"},
+  {id:"oats",name:"Oat flakes",ro:"fulgi de ovăz",emoji:"🌾",group:"Carbs"},
+  {id:"cornmeal",name:"Cornmeal",ro:"mălai",emoji:"🌽",group:"Carbs"},
+  // Veg & fruit
+  {id:"tomatoes",name:"Tomatoes",ro:"roșii",emoji:"🍅",group:"Vegetables & fruit"},
+  {id:"cucumbers",name:"Cucumbers",ro:"castraveți",emoji:"🥒",group:"Vegetables & fruit"},
+  {id:"bellpep",name:"Bell pepper",ro:"ardei gras",emoji:"🫑",group:"Vegetables & fruit"},
+  {id:"carrots",name:"Carrots",ro:"morcovi",emoji:"🥕",group:"Vegetables & fruit"},
+  {id:"cabbage",name:"Cabbage",ro:"varză",emoji:"🥬",group:"Vegetables & fruit"},
+  {id:"onion",name:"Onion",ro:"ceapă",emoji:"🧅",group:"Vegetables & fruit"},
+  {id:"garlicf",name:"Fresh garlic",ro:"usturoi",emoji:"🧄",group:"Vegetables & fruit"},
+  {id:"canned",name:"Chopped tomatoes (can)",ro:"roșii tăiate",emoji:"🥫",group:"Vegetables & fruit"},
+  {id:"corn",name:"Canned corn",ro:"porumb",emoji:"🌽",group:"Vegetables & fruit"},
+  {id:"banana",name:"Banana",ro:"banane",emoji:"🍌",group:"Vegetables & fruit"},
+  {id:"apple",name:"Apple",ro:"mere",emoji:"🍎",group:"Vegetables & fruit"},
+  {id:"lemon",name:"Lemon",ro:"lămâie",emoji:"🍋",group:"Vegetables & fruit"},
+  // Pantry
+  {id:"oil",name:"Sunflower oil",ro:"ulei",emoji:"🫒",group:"Pantry"},
+  {id:"salt",name:"Salt",ro:"sare",emoji:"🧂",group:"Pantry"},
+  {id:"blackpep",name:"Black pepper",ro:"piper",emoji:"⚫",group:"Pantry"},
+  {id:"milk",name:"Milk",ro:"lapte",emoji:"🥛",group:"Pantry"},
+  {id:"sourcream",name:"Sour cream",ro:"smântână",emoji:"🥄",group:"Pantry"},
+  {id:"paprika",name:"Sweet paprika",ro:"boia dulce",emoji:"🌶️",group:"Pantry"},
+  {id:"oregano",name:"Oregano",ro:"oregano",emoji:"🌿",group:"Pantry"},
+  {id:"garlic",name:"Garlic powder",ro:"usturoi granulat",emoji:"🧄",group:"Pantry"},
+  {id:"vinegar",name:"Vinegar",ro:"oțet",emoji:"🍶",group:"Pantry"},
+  {id:"mustard",name:"Mustard",ro:"muștar",emoji:"🟡",group:"Pantry"},
+  {id:"honey",name:"Honey",ro:"miere",emoji:"🍯",group:"Pantry"},
+  {id:"cinnamon",name:"Cinnamon",ro:"scorțișoară",emoji:"🪵",group:"Pantry"}
+];
+
+// need: required (nested array = "any of these"); opt: extras; nc: no cooking at all
+const R = [
+ // ---------- NO COOKING ----------
+ {name:"Yogurt, oats & banana",emoji:"🥣",time:1,protein:"~25 g",nc:true,
+  need:["yogurt","oats",["banana","apple"]],opt:["cinnamon","honey"],
+  steps:["Put 200 g Greek yogurt in a bowl.","Stir in 40 g oat flakes.","Slice the banana (or apple) on top. Add cinnamon or honey if you have them."],
+  tip:"Wait 5 minutes and the oats get softer."},
+ {name:"Overnight oats",emoji:"🫙",time:2,protein:"~22 g",nc:true,
+  need:["oats","yogurt","milk"],opt:["banana","apple","cinnamon","honey"],
+  steps:["In a jar or container mix 40 g oats, 100 g yogurt and 100 ml milk.","Add sliced banana or apple and stir.","Close the lid and leave in the fridge overnight. Eat cold."],
+  tip:"Make it before bed and breakfast is already done."},
+ {name:"Apple-cinnamon yogurt",emoji:"🍎",time:2,protein:"~18 g",nc:true,
+  need:["yogurt","apple"],opt:["cinnamon","honey","oats","pbutter"],
+  steps:["Dice or slice the apple.","Spoon 200 g yogurt into a bowl and add the apple.","Sprinkle cinnamon and a little honey on top."],
+  tip:"Add a spoon of oats for crunch."},
+ {name:"Peanut butter yogurt bowl",emoji:"🥜",time:2,protein:"~24 g",nc:true,
+  need:["yogurt","pbutter"],opt:["banana","oats","honey"],
+  steps:["Put 200 g yogurt in a bowl.","Stir in 1 tbsp peanut butter until it's mixed.","Top with sliced banana or oats."],
+  tip:"Peanut butter is filling, so 1 tbsp is enough."},
+ {name:"Peanut butter banana toast",emoji:"🍌",time:3,protein:"~10 g",nc:true,
+  need:["bread","pbutter","banana"],opt:["honey","cinnamon"],
+  steps:["Spread peanut butter on 2 slices of bread. (Toast the bread first in the airfryer at 180°C for 2–3 min if you like.)","Slice the banana on top.","Add a little honey or cinnamon."],
+  tip:"A fast breakfast when you're running late."},
+ {name:"Cottage cheese & tomato bowl",emoji:"🍅",time:2,protein:"~20 g",nc:true,
+  need:["cottage","tomatoes"],opt:["cucumbers","bread","salt","blackpep","oregano"],
+  steps:["Spoon 150 g cottage cheese into a bowl.","Chop a tomato (and cucumber) and add it.","Sprinkle a pinch of salt, pepper and oregano. Eat with bread."],
+  tip:"Cottage cheese is salty already, so taste before adding more salt."},
+ {name:"Tuna, tomato & cucumber salad",emoji:"🥗",time:3,protein:"~22 g",nc:true,
+  need:["tuna","tomatoes","cucumbers","oil","salt"],opt:["vinegar","bread","lemon"],
+  steps:["Drain the tuna and put it in a bowl.","Chop 1 tomato and 1 cucumber into chunks and add them.","Add 1 tbsp oil, a splash of vinegar or lemon, and ½ tsp salt. Mix.","Eat with bread."],
+  tip:"No heat and no skills needed."},
+ {name:"Tuna plate",emoji:"🍽️",time:2,protein:"~22 g",nc:true,
+  need:["tuna","bread",["tomatoes","cucumbers"]],opt:["oil","salt"],
+  steps:["Drain the tuna and put it on a plate.","Slice the tomato and/or cucumber next to it.","Add bread, a little oil and a pinch of salt."],
+  tip:"Your emergency dinner when you're too tired to cook."},
+ {name:"Tuna & corn salad",emoji:"🌽",time:3,protein:"~24 g",nc:true,
+  need:["tuna","corn"],opt:["tomatoes","cucumbers","yogurt","oil","salt","lemon"],
+  steps:["Drain the tuna and the corn and put both in a bowl.","Add chopped tomato or cucumber if you have it.","Mix in 2 tbsp yogurt or 1 tbsp oil and a pinch of salt."],
+  tip:"Canned corn is already cooked, so just open and mix."},
+ {name:"Tuna wrap",emoji:"🌯",time:4,protein:"~25 g",nc:true,
+  need:["tortilla","tuna"],opt:["yogurt","cucumbers","tomatoes","salt"],
+  steps:["Drain the tuna and mix it with 2 tbsp yogurt and a pinch of salt.","Spread it on the tortilla and add sliced cucumber or tomato.","Fold in the sides and roll it up."],
+  tip:"Fold the bottom first so nothing falls out."},
+ {name:"Chicken wrap",emoji:"🌯",time:4,protein:"~30 g",nc:true,
+  need:["tortilla","chicken"],opt:["yogurt","tomatoes","cucumbers","cheese"],
+  steps:["Shred or slice about 120 g of the ready-cooked chicken.","Spread 1–2 tbsp yogurt on the tortilla and add chicken, tomato and cucumber.","Roll it up and eat."],
+  tip:"Warm the wrap in the microwave 10 seconds so it folds without cracking."},
+ {name:"Chicken salad",emoji:"🥗",time:4,protein:"~30 g",nc:true,
+  need:["chicken",["tomatoes","cucumbers"]],opt:["oil","vinegar","salt","yogurt","bread","lemon"],
+  steps:["Cut the ready-cooked chicken into bite-sized pieces.","Chop the tomato and/or cucumber and mix with the chicken.","Add 1 tbsp oil, a splash of vinegar or lemon and a pinch of salt."],
+  tip:"Serve with bread or a spoon of yogurt on the side."},
+ {name:"Ham & cheese sandwich",emoji:"🥪",time:3,protein:"~20 g",nc:true,
+  need:["bread","ham","cheese"],opt:["tomatoes","cucumbers","mustard"],
+  steps:["Spread a little mustard on a slice of bread (optional).","Add ham, cheese and slices of tomato or cucumber.","Close with the second slice."],
+  tip:"Airfry it at 180°C for 3 minutes for a hot version."},
+ {name:"Feta, tomato & cucumber salad",emoji:"🥒",time:4,protein:"~14 g",nc:true,
+  need:["tomatoes","cucumbers","feta","oil"],opt:["oregano","onion","bread","vinegar","salt"],
+  steps:["Chop the tomato and cucumber into chunks.","Crumble or cube about 60 g feta over the top.","Drizzle with 1 tbsp oil and sprinkle oregano. Mop up the juices with bread."],
+  tip:"Feta is salty, so you probably don't need extra salt."},
+ {name:"Cabbage salad",emoji:"🥬",time:5,protein:"~2 g",nc:true,
+  need:["cabbage","oil","vinegar","salt"],opt:["carrots"],
+  steps:["Shred 200 g of cabbage thinly with a knife.","Sprinkle with ½ tsp salt and squeeze with your hands for 1 minute.","Add 1 tbsp oil and 1 tbsp vinegar and mix. Add grated carrot if you have it."],
+  tip:"It keeps 3 days in the fridge, and it goes with almost everything."},
+ {name:"Carrot & apple slaw",emoji:"🥕",time:5,protein:"~4 g",nc:true,
+  need:["carrots","apple"],opt:["yogurt","honey","lemon","vinegar"],
+  steps:["Grate the carrot and the apple on the coarse side of a grater.","Mix in 2 tbsp yogurt or a little oil.","Add a drizzle of honey or lemon."],
+  tip:"Sweet, crunchy and a good side for eggs."},
+ {name:"Cucumber-yogurt dip with eggs",emoji:"🥒",time:15,protein:"~28 g",
+  need:["cucumbers","yogurt","eggs","salt"],opt:["garlic","garlicf","bread","lemon"],
+  steps:["Boil 3 eggs for 9 minutes, cool under cold water and peel.","Chop or grate ½ cucumber and mix with 150 g yogurt, a pinch of garlic and a pinch of salt.","Eat the dip with the eggs and bread."],
+  tip:"Works as a snack or a light dinner."},
+ // ---------- EGGS ----------
+ {name:"Fried eggs",emoji:"🍳",time:5,protein:"~18 g",
+  need:["eggs","oil","salt"],opt:["bread","tomatoes","cucumbers"],
+  steps:["Heat 1 tsp oil in a pan on medium heat.","Crack in 2–3 eggs.","Cook 3–4 minutes, until the whites are completely firm.","Add a pinch of salt. Serve with bread and tomato or cucumber."],
+  tip:"Medium heat, never maximum. Too hot burns the bottom."},
+ {name:"Scrambled eggs",emoji:"🥚",time:4,protein:"~18 g",
+  need:["eggs","oil","salt"],opt:["bread","cheese","tomatoes"],
+  steps:["Beat 3 eggs with a pinch of salt.","Heat 1 tsp oil in a pan on medium-low and pour in the eggs.","Gently push them around with a spoon.","Take the pan off the heat while they still look slightly moist. They finish cooking in the hot pan."],
+  tip:"Overcooked scrambled eggs go dry, so stop early."},
+ {name:"Cheese omelette",emoji:"🧀",time:5,protein:"~25 g",
+  need:["eggs","cheese","oil","salt"],opt:["tomatoes","ham"],
+  steps:["Beat 3 eggs with a pinch of salt.","Heat 1 tsp oil in a pan on medium-low and pour in the eggs.","When the edges set (about 2 min), scatter 30 g grated cașcaval over one half.","Fold the other half over and cook 1 more minute."],
+  tip:"Low heat gives a soft, fluffy omelette."},
+ {name:"Bell pepper omelette",emoji:"🫑",time:8,protein:"~19 g",
+  need:["eggs","bellpep","oil","salt"],opt:["onion","cheese","bread"],
+  steps:["Chop half a bell pepper (and a little onion) into small pieces.","Heat 1 tbsp oil on medium and cook the pepper 3 minutes until soft.","Beat 3 eggs with a pinch of salt and pour them over the pepper. Turn the heat to low.","Cook 3 minutes until the top is nearly set, then fold and cook 1 more minute."],
+  tip:"Smaller pieces of pepper cook faster."},
+ {name:"Tomato scrambled eggs",emoji:"🍅",time:8,protein:"~18 g",
+  need:["eggs","tomatoes","oil","salt"],opt:["rice","bread","onion"],
+  steps:["Chop 1–2 tomatoes into small pieces.","Heat 1 tbsp oil on medium. Cook the tomato 3 minutes until it turns soft and saucy.","Beat 3 eggs with a pinch of salt and pour over the tomato.","Stir gently 2–3 minutes until the eggs are set. Serve with rice or bread."],
+  tip:"A classic in lots of countries, and very hard to ruin."},
+ {name:"Boiled eggs",emoji:"🥚",time:12,protein:"~6 g each",
+  need:["eggs"],opt:["salt","bread"],
+  steps:["Put eggs in a pot and cover with cold water.","Bring to a boil, then start a timer for 9 minutes.","Drain and cool under cold water, then peel.","Eat with salt and bread."],
+  tip:"Boil 6 at once. Unpeeled, they keep up to a week in the fridge."},
+ {name:"Mug omelette (microwave)",emoji:"☕",time:2,protein:"~13 g",
+  need:["eggs","milk","salt"],opt:["cheese","ham"],
+  steps:["Beat 2 eggs with a splash of milk and a pinch of salt in a big mug. Add a little cheese or ham if you have it.","Microwave 60 seconds, then stir.","Microwave 30–45 seconds more, until fully set."],
+  tip:"No pan to wash."},
+ {name:"Eggs in tomato",emoji:"🍅",time:12,protein:"~14 g",
+  need:["eggs","canned","onion","oil","paprika","salt"],opt:["bread"],
+  steps:["Chop ½ onion. Heat 1 tbsp oil on medium and cook the onion 3 minutes.","Add 1 can of chopped tomatoes, 1 tsp paprika and ½ tsp salt. Simmer 5 minutes.","Make 4 dips in the sauce with a spoon and crack an egg into each.","Cover and cook 5–6 minutes, until the whites are completely firm.","Serve with bread. Makes 2 portions, and tomorrow's lunch reheats in the microwave."],
+  tip:"No lid? Use a plate."},
+ {name:"Ham & egg toast",emoji:"🍳",time:7,protein:"~22 g",
+  need:["bread","ham","eggs","oil"],opt:["cheese","tomatoes"],
+  steps:["Heat 1 tsp oil in a pan on medium. Fry 2 eggs until the whites are firm (3–4 min).","Warm the ham in the pan for 1 minute.","Put the ham, eggs and cheese or tomato on bread."],
+  tip:"Make it open-faced if you're short on bread."},
+ {name:"French toast (pâine prăjită în ou)",emoji:"🍞",time:10,protein:"~15 g",
+  need:["bread","eggs","milk","oil"],opt:["cinnamon","honey","banana","cheese"],
+  steps:["In a shallow bowl beat 2 eggs with 100 ml milk and a pinch of cinnamon.","Dip 3–4 slices of bread for about 10 seconds per side.","Heat 1 tbsp oil in a pan on medium. Cook each slice 2–3 minutes per side until golden and no wet batter is left.","Serve with honey or banana."],
+  tip:"Old bread works best, so use it up here."},
+ {name:"Egg wrap",emoji:"🌯",time:6,protein:"~20 g",
+  need:["tortilla","eggs","oil"],opt:["cheese","tomatoes","ham","salt"],
+  steps:["Scramble 2–3 eggs in an oiled pan on medium-low with a pinch of salt (see Scrambled eggs).","Put them on a tortilla with cheese, ham or tomato.","Roll it up."],
+  tip:"Wrap it in foil or paper and you can eat it on the go."},
+ {name:"Banana egg pancakes",emoji:"🥞",time:10,protein:"~15 g",
+  need:["banana","eggs","oats","oil"],opt:["yogurt","honey","cinnamon"],
+  steps:["Mash 1 ripe banana with a fork.","Whisk in 2 eggs and 3 tbsp oats.","Heat a little oil in a pan on medium-low and pour small spoonfuls of batter.","Cook about 2 minutes per side. Flip only when the top looks set.","Serve with yogurt."],
+  tip:"Keep them small, since they're easier to flip."},
+ // ---------- CHEESE / BREAD / WRAPS ----------
+ {name:"Cheese quesadilla",emoji:"🫓",time:6,protein:"~15 g",
+  need:["tortilla","cheese"],opt:["ham","tomatoes","chicken","oil"],
+  steps:["Heat a dry pan on medium.","Put a tortilla in the pan and scatter 40 g grated cheese (and ham or chicken) over one half.","Fold the other half over and cook 2 minutes per side until golden and the cheese melts."],
+  tip:"Press down with a spatula so it sticks together."},
+ {name:"Airfryer cheese toast",emoji:"🥪",time:6,protein:"~12 g",
+  need:["bread","cheese"],opt:["tomatoes","ham"],
+  steps:["Put sliced cașcaval (and tomato or ham) on 2 slices of bread.","Airfry at 180°C for 4–5 minutes, until the cheese is melted."],
+  tip:"Watch it in the last minute so it doesn't burn."},
+ {name:"Chicken & cheese toast",emoji:"🍗",time:7,protein:"~30 g",
+  need:["bread","chicken","cheese"],opt:["tomatoes","mustard"],
+  steps:["Slice the ready-cooked chicken thinly and lay it on 2 slices of bread.","Add cheese on top.","Airfry at 180°C for 5 minutes, until the cheese melts and the chicken is hot."],
+  tip:"Add a little mustard for flavor."},
+ // ---------- POTATOES ----------
+ {name:"Potatoes with fried eggs",emoji:"🥔",time:30,protein:"~18 g",
+  need:["potatoes","eggs","oil","salt"],opt:["paprika"],
+  steps:["Cut 400 g potatoes into 1.5 cm cubes (no need to peel).","Toss with 1 tbsp oil, ½ tsp salt and a pinch of paprika.","Airfry at 200°C for 20–25 minutes, shaking halfway, until soft.","Fry 3 eggs in a pan (see Fried eggs) and put them on top."],
+  tip:"Most of the time is waiting, so you can relax while it cooks."},
+ {name:"Loaded microwave potato",emoji:"🥔",time:10,protein:"~12 g",
+  need:["potatoes","cheese"],opt:["tuna","yogurt","sourcream","salt","ham"],
+  steps:["Wash a medium potato and prick it all over with a fork.","Microwave 5 minutes, flip it, then 3–5 more minutes until soft when squeezed (use a cloth, it's hot).","Cut it open and add cheese, plus tuna, ham or a spoon of yogurt.","Microwave 30 seconds more so the cheese melts."],
+  tip:"No oven, no airfryer, no pan."},
+ {name:"Airfryer baked potato",emoji:"🥔",time:45,protein:"~12 g",
+  need:["potatoes","cheese","oil","salt"],opt:["sourcream","yogurt","ham"],
+  steps:["Wash a large potato and prick it all over with a fork. Rub with a little oil and salt.","Airfry at 200°C for 35–40 minutes, flipping halfway, until soft in the middle.","Cut it open, add cheese and put it back for 2 minutes to melt.","Top with sour cream or yogurt."],
+  tip:"Very hands-off: set a timer and forget it."},
+ {name:"Potato wedges with yogurt dip",emoji:"🍟",time:30,protein:"~14 g",
+  need:["potatoes","oil","salt","yogurt"],opt:["paprika","garlic","garlicf","lemon"],
+  steps:["Cut 400 g potatoes into wedges (no need to peel). Toss with 1 tbsp oil, ½ tsp salt and paprika.","Airfry at 200°C for 20–25 minutes, shaking halfway.","Mix 150 g yogurt with a pinch of garlic and salt for the dip."],
+  tip:"Dry the cut potatoes with a towel first for crispier wedges."},
+ {name:"Frankfurters & airfryer potatoes",emoji:"🌭",time:30,protein:"~18 g",
+  need:["sausages","potatoes","oil","salt"],opt:["mustard","cabbage","paprika"],
+  steps:["Cut 400 g potatoes into 1.5 cm cubes. Toss with 1 tbsp oil and ½ tsp salt.","Airfry at 200°C for 15 minutes, shaking once.","Add the frankfurters and cook 6–8 minutes more, until hot all the way through and the potatoes are soft.","Serve with mustard or cabbage salad."],
+  tip:"Frankfurters are pre-cooked, so you're just heating them."},
+ {name:"Frankfurters in bread",emoji:"🌭",time:8,protein:"~15 g",
+  need:["sausages","bread"],opt:["mustard","cheese","tomatoes"],
+  steps:["Airfry the frankfurters at 180°C for 6 minutes, until hot all the way through.","Put them in bread with mustard, cheese or tomato."],
+  tip:"Cut a slit in each to stop them bursting."},
+ {name:"Chicken & airfryer potatoes",emoji:"🍗",time:30,protein:"~35 g",
+  need:["chicken","potatoes","oil","salt"],opt:["paprika","cucumbers","tomatoes"],
+  steps:["Cut 500 g potatoes into 1.5 cm cubes and toss with 1 tbsp oil, ½ tsp salt and a pinch of paprika.","Airfry at 200°C for 20–25 minutes, shaking halfway, until soft.","Reheat the ready-cooked chicken in the microwave about 2 minutes, until hot all the way through."],
+  tip:"The chicken is already cooked, so you never handle raw meat."},
+ // ---------- PASTA ----------
+ {name:"Tuna pasta",emoji:"🍝",time:12,protein:"~28 g",
+  need:["spaghetti","tuna","canned","salt"],opt:["oregano","onion","cheese"],
+  steps:["Boil water with a pinch of salt and cook 100 g spaghetti for 10 minutes. Drain.","In the same pan simmer ½ can of chopped tomatoes with ½ tsp oregano and a pinch of salt for 4 minutes.","Add the pasta and half a can of drained tuna. Stir 1 minute and eat."],
+  tip:"One pan for pasta and sauce, so only one thing to wash."},
+ {name:"Simple tomato pasta",emoji:"🍝",time:12,protein:"~12 g",
+  need:["spaghetti","canned","salt"],opt:["oil","onion","oregano","cheese"],
+  steps:["Boil water with a pinch of salt and cook 100 g spaghetti for 10 minutes. Drain.","In the same pan simmer ½ can of chopped tomatoes with a pinch of salt (plus oil or oregano) for 4 minutes.","Mix in the pasta. Grate cașcaval on top."],
+  tip:"The cheapest meal on the list."},
+ {name:"Ham & cheese pasta",emoji:"🧀",time:12,protein:"~22 g",
+  need:["spaghetti","ham","cheese","salt"],opt:["milk","blackpep","oil"],
+  steps:["Boil water with a pinch of salt and cook 100 g spaghetti for 10 minutes. Drain, keeping 2 tbsp of the pasta water.","Cut the ham into small strips.","Return pasta to the pan on low heat. Add the ham, 40 g grated cheese and the reserved water (or a splash of milk).","Stir 1 minute until the cheese melts. Add pepper."],
+  tip:"Take it off the heat as soon as the cheese melts."},
+ {name:"Garlic & oil pasta",emoji:"🧄",time:12,protein:"~10 g",
+  need:["spaghetti","oil",["garlicf","garlic"],"salt"],opt:["paprika","cheese","blackpep"],
+  steps:["Boil water with a pinch of salt and cook 100 g spaghetti for 10 minutes. Drain, keeping a little pasta water.","Heat 2 tbsp oil in the pan on low. Add chopped garlic (or ½ tsp garlic powder) and cook 30–60 seconds, never browning it.","Add the pasta and a splash of pasta water. Stir 1 minute.","Finish with paprika, pepper or cheese."],
+  tip:"If the garlic turns dark brown it tastes bitter, so keep the heat low."},
+ {name:"Frankfurter tomato pasta",emoji:"🌭",time:15,protein:"~18 g",
+  need:["sausages","spaghetti","canned","salt"],opt:["oregano","onion","cheese"],
+  steps:["Boil water with a pinch of salt and cook 100 g spaghetti for 10 minutes. Drain.","Slice 2 frankfurters into coins. In the same pan heat them 2 minutes with a little oil.","Add ½ can of chopped tomatoes, oregano and a pinch of salt. Simmer 4 minutes.","Mix in the pasta. Top with cheese."],
+  tip:"Pre-cooked sausages mean no raw meat."},
+ // ---------- RICE / MĂMĂLIGĂ / SOUP ----------
+ {name:"Egg fried rice",emoji:"🍚",time:10,protein:"~14 g",
+  need:["rice","eggs","oil","salt"],opt:["corn","ham","onion"],
+  steps:["Cook rice once: 1 mug rice, 2 mugs water, pinch of salt. Boil, cover, lowest heat 12–15 min, switch off and leave covered 5 min.","Keep leftovers in the fridge. Next day, heat 1 tbsp oil and add 1 cup of cold rice. Cook 3 minutes.","Push the rice aside and scramble 2 eggs in the empty space.","Mix everything together with a pinch of salt."],
+  tip:"Day-old rice works better than fresh."},
+ {name:"Tuna rice bowl",emoji:"🍚",time:20,protein:"~25 g",
+  need:["rice","tuna",["tomatoes","cucumbers"],"salt"],opt:["oil","corn","lemon"],
+  steps:["Cook the rice: 1 mug rice, 2 mugs water, pinch of salt. Boil, cover, lowest heat 12–15 min, switch off and leave covered 5 min.","Put rice in a bowl and top with drained tuna.","Add chopped tomato and/or cucumber, a pinch of salt and a little oil."],
+  tip:"Cook extra rice for egg fried rice tomorrow."},
+ {name:"Chicken & rice bowl",emoji:"🍗",time:20,protein:"~35 g",
+  need:["chicken","rice",["tomatoes","cucumbers"],"salt"],opt:["yogurt","paprika","oil"],
+  steps:["Cook the rice: 1 mug rice, 2 mugs water, pinch of salt. Boil, cover, lowest heat 12–15 min, switch off and leave covered 5 min.","Reheat the ready-cooked chicken in the microwave 2 minutes until steaming hot.","Put rice in a bowl, top with the chicken, chopped tomato or cucumber, and a spoon of yogurt."],
+  tip:"Makes a great lunch box."},
+ {name:"Cheesy ham rice",emoji:"🧀",time:20,protein:"~20 g",
+  need:["rice","cheese","ham","salt"],opt:["oil","tomatoes","blackpep"],
+  steps:["Cook the rice: 1 mug rice, 2 mugs water, pinch of salt. Boil, cover, lowest heat 12–15 min, switch off and leave covered 5 min.","Cut the ham into small pieces.","Stir ham and 40 g grated cheese into the hot rice until it melts."],
+  tip:"Comfort food that takes almost no effort."},
+ {name:"Mămăligă with cheese & sour cream",emoji:"🌽",time:20,protein:"~14 g",
+  need:["cornmeal","cheese","sourcream","salt"],opt:["feta","eggs"],
+  steps:["Boil 3 mugs of water with ½ tsp salt in a deep pan.","Lower the heat. Pour in 1 mug of cornmeal in a thin stream with one hand while stirring non-stop with the other (this prevents lumps).","Keep stirring 10–15 minutes until it's thick and pulls away from the sides. It spits, so stand back and use a long spoon.","Serve topped with grated cheese (or crumbled feta) and sour cream. Makes 2–3 portions."],
+  tip:"Romanian comfort food. Keep the heat low and it's easy."},
+ {name:"Mămăligă with fried egg",emoji:"🍳",time:25,protein:"~16 g",
+  need:["cornmeal","eggs","oil","salt"],opt:["cheese","sourcream","feta"],
+  steps:["Make mămăligă: boil 3 mugs of water with ½ tsp salt, lower heat, stream in 1 mug of cornmeal while stirring, then stir 10–15 min until thick.","Fry 2 eggs in an oiled pan until the whites are firm (3–4 min).","Put eggs on top of the mămăligă. Add cheese or sour cream."],
+  tip:"Leftover mămăligă can be sliced and fried the next day."},
+ {name:"Simple tomato soup",emoji:"🍲",time:15,protein:"~5 g",
+  need:["canned","onion","oil","salt"],opt:["bread","cheese","sourcream","oregano"],
+  steps:["Chop ½ onion. Heat 1 tbsp oil on medium and cook the onion 3 minutes.","Add 1 can of chopped tomatoes, 250 ml water, ½ tsp salt and a pinch of oregano.","Simmer 8 minutes. Stir in a spoon of sour cream if you like.","Eat with bread and grated cheese on top."],
+  tip:"Dunk toasted cheese bread in it."},
+ {name:"Egg salad sandwich",emoji:"🥪",time:12,protein:"~20 g",
+  need:["eggs","yogurt","bread","salt"],opt:["tomatoes","mustard","cucumbers"],
+  steps:["Boil 3 eggs for 9 minutes, cool and peel them.","Mash them with a fork and mix with 2 tbsp yogurt and a pinch of salt.","Spread on bread and add tomato slices."],
+  tip:"Make extra, and it keeps a day in the fridge."},
+ {name:"Baked apple (microwave)",emoji:"🍎",time:5,protein:"~1 g",nc:false,
+  need:["apple","cinnamon"],opt:["honey","yogurt","oats"],
+  steps:["Cut the apple into chunks and put it in a bowl.","Sprinkle with cinnamon (and honey if you have it).","Microwave 3–4 minutes until soft. Top with yogurt."],
+  tip:"A warm dessert in 5 minutes."},
+ {name:"Microwave oatmeal",emoji:"🥣",time:3,protein:"~9 g",
+  need:["oats","milk"],opt:["banana","apple","cinnamon","honey","pbutter"],
+  steps:["Put 40 g oats and 200 ml milk in a big bowl. It bubbles up, so use a big one.","Microwave 2 minutes, stirring halfway.","Add sliced banana or apple, cinnamon, honey or a spoon of peanut butter."],
+  tip:"Add a spoon of yogurt on top for more protein."}
+];
+
+const byId = Object.fromEntries(ING.map(i=>[i.id,i]));
+const KEY = "recipe-finder-selection";
+let sel = new Set();
+try { sel = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch(e){}
+let tab = "ready", filter = "any", query = "";
+const opened = new Set();
+
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...sel])); } catch(e){} };
+const has = r => Array.isArray(r) ? r.some(x => sel.has(x)) : sel.has(r);
+const label = r => Array.isArray(r) ? r.map(x=>byId[x].name).join(" or ") : byId[r].name;
+
+function renderIngredients(){
+  const groups = [...new Set(ING.map(i=>i.group))];
+  document.getElementById("ingredients").innerHTML = groups.map(g =>
+    `<div class="group">${g}</div><div class="chips">` +
+    ING.filter(i=>i.group===g).map(i =>
+      `<button class="chip" data-id="${i.id}" aria-pressed="${sel.has(i.id)}"><span>${i.emoji} ${i.name}${i.ro?`<small>${i.ro}</small>`:""}</span></button>`
+    ).join("") + `</div>`
+  ).join("");
+  document.getElementById("selcount").textContent = sel.size ? sel.size + " selected" : "";
+}
+
+function renderRecipes(){
+  const pass = r => (filter==="any" || (filter==="fast" && r.time<=10) || (filter==="nocook" && r.nc))
+                 && (!query || r.name.toLowerCase().includes(query));
+  const scored = R.map((r,i) => ({r,i, missing: r.need.filter(n => !has(n))})).filter(x => pass(x.r))
+                  .sort((a,b)=> a.missing.length - b.missing.length || a.r.time - b.r.time);
+  const ready  = scored.filter(x => x.missing.length === 0);
+  const almost = scored.filter(x => x.missing.length > 0 && x.missing.length <= 2);
+  const tabs = {ready:["Ready",ready], almost:["Almost",almost], all:["All",scored]};
+  document.querySelectorAll(".tab").forEach(b => {
+    b.firstChild.textContent = `${tabs[b.dataset.tab][0]} (${tabs[b.dataset.tab][1].length})`;
+    b.setAttribute("aria-selected", b.dataset.tab === tab);
+  });
+  const list = tabs[tab][1];
+  const box = document.getElementById("recipes");
+  if(!list.length){
+    box.innerHTML = `<div class="empty">${sel.size===0 && tab!=="all"
+      ? "Tap the ingredients you have above"
+      : tab==="ready" ? "Nothing fully matches yet. Check “Almost”"
+      : "Nothing here"}</div>`;
+    return;
+  }
+  box.innerHTML = list.map(({r,i,missing}) => {
+    const status = missing.length === 0
+      ? `<span class="status ok">Ready!</span>`
+      : `<span class="status miss">Missing ${missing.length}</span>`;
+    const need = r.need.map(n => `<span class="tag ${has(n)?"":"no"}">${has(n)?"✔":"✘"} ${label(n)}</span>`).join("");
+    const opt = r.opt.length ? `<h4>Nice to have</h4>` + r.opt.map(o => `<span class="tag opt">${byId[o].name}</span>`).join("") : "";
+    return `<details data-i="${i}" ${opened.has(i)?"open":""}>
+      <summary><span class="emoji"><span>${r.emoji}</span></span>
+        <div><div class="title">${r.name}</div>
+        <div class="meta">⏱ ${r.time} min · 💪 ${r.protein}${r.nc?" · ❄ no cooking":""}</div></div>${status}</summary>
+      <div class="body">
+        <h4>Ingredients</h4>${need}${opt}
+        <h4>How to make it</h4><ol>${r.steps.map(s=>`<li>${s}</li>`).join("")}</ol>
+        <div class="tip"><b>Tip:</b> ${r.tip}</div>
+      </div></details>`;
+  }).join("");
+}
+
+function renderAll(){ renderIngredients(); renderRecipes(); }
+
+document.getElementById("ingredients").addEventListener("click", e => {
+  const c = e.target.closest(".chip"); if(!c) return;
+  const id = c.dataset.id;
+  sel.has(id) ? sel.delete(id) : sel.add(id);
+  save(); renderAll();
+});
+document.querySelector(".tabs").addEventListener("click", e => {
+  const t = e.target.closest(".tab"); if(!t) return;
+  tab = t.dataset.tab; renderRecipes();
+});
+document.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.f;
+  document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderRecipes();
+}));
+document.getElementById("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderRecipes(); });
+document.getElementById("recipes").addEventListener("toggle", e => {
+  const d = e.target; if(d.tagName !== "DETAILS") return;
+  const i = +d.dataset.i; d.open ? opened.add(i) : opened.delete(i);
+}, true);
+document.getElementById("basics").onclick = () => { sel.add("oil"); sel.add("salt"); save(); renderAll(); };
+document.getElementById("clear").onclick  = () => { sel.clear(); save(); renderAll(); };
+
+renderAll();
+</script>
+</body>
+</html>
